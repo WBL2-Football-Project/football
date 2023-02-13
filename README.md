@@ -14,5 +14,3 @@
 ## Project Set-up
 
 1. Install all required libraries being used in the project by running `pip install -r requirements.txt`
-
-This is a test
