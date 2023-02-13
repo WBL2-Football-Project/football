@@ -9,6 +9,8 @@
 
 * When uploading changes to the project use `git commit -a -m "Change Notes"` then `git push` to publish changes to the repo.
 
+* When adding a new file first use `git add <file-name>`
+
 * For pushing to a new branch first use `git checkout <branch-name>` to switch branch or `git checkout -b <branch-name>` to create a new branch. Then use `git push origin <branch-name>` to push changes to specific branch.
 
 ## Project Set-up
