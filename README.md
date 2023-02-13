@@ -11,6 +11,10 @@
 
 * For pushing to a new branch first use `git checkout <branch-name>` to switch branch or `git checkout -b <branch-name>` to create a new branch. Then use `git push origin <branch-name>` to push changes to specific branch.
 
+## Project Set-up
+
+1. Ensure that you have the most recent version of all libraries being used in the project by running `pip install -r requirements.txt`
+
 ## Outline of Project
 
 The application supports football tournaments, allowing the referee to define the teams participating in the tournament, enter live statistics of the games and present the results to other users in real time. 
