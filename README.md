@@ -12,6 +12,7 @@
 * For pushing to a new branch first use `git checkout <branch-name>` to switch branch or `git checkout -b <branch-name>` to create a new branch. Then use `git push origin <branch-name>` to push changes to specific branch.
 
 ## Outline of Project
+
 The application supports football tournaments, allowing the referee to define the teams participating in the tournament, enter live statistics of the games and present the results to other users in real time. 
 
 The application only supports one tournament at a time. Once the tournament is over (all matches have been played), the referee can reset all data and enter definitions for a new tournament. 
