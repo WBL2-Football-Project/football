@@ -13,7 +13,7 @@
 
 ## Project Set-up
 
-1. Ensure that you have the most recent version of all libraries being used in the project by running `pip install -r requirements.txt`
+1. Install all required libraries being used in the project by running `pip install -r requirements.txt`
 
 ## Outline of Project
 
