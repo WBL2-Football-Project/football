@@ -1,4 +1,3 @@
-tk
 pyinstaller
 customtkinter
 pytest
