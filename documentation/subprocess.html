@@ -1,0 +1,622 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module subprocess</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>subprocess</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cprogram%20files%5Cwindowsapps%5Cpythonsoftwarefoundation.python.3.10_3.10.2800.0_x64__qbz5n2kfra8p0%5Clib%5Csubprocess.py">c:\program files\windowsapps\pythonsoftwarefoundation.python.3.10_3.10.2800.0_x64__qbz5n2kfra8p0\lib\subprocess.py</a><br><a href="https://docs.python.org/3.10/library/subprocess.html">Module Reference</a></font></td></tr></table>
+    <p><tt>Subprocesses&nbsp;with&nbsp;accessible&nbsp;I/O&nbsp;streams<br>
+&nbsp;<br>
+This&nbsp;module&nbsp;allows&nbsp;you&nbsp;to&nbsp;spawn&nbsp;processes,&nbsp;connect&nbsp;to&nbsp;their<br>
+input/output/error&nbsp;pipes,&nbsp;and&nbsp;obtain&nbsp;their&nbsp;return&nbsp;codes.<br>
+&nbsp;<br>
+For&nbsp;a&nbsp;complete&nbsp;description&nbsp;of&nbsp;this&nbsp;module&nbsp;see&nbsp;the&nbsp;Python&nbsp;documentation.<br>
+&nbsp;<br>
+Main&nbsp;API<br>
+========<br>
+<a href="#-run">run</a>(...):&nbsp;Runs&nbsp;a&nbsp;command,&nbsp;waits&nbsp;for&nbsp;it&nbsp;to&nbsp;complete,&nbsp;then&nbsp;returns&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#CompletedProcess">CompletedProcess</a>&nbsp;instance.<br>
+<a href="#Popen">Popen</a>(...):&nbsp;A&nbsp;class&nbsp;for&nbsp;flexibly&nbsp;executing&nbsp;a&nbsp;command&nbsp;in&nbsp;a&nbsp;new&nbsp;process<br>
+&nbsp;<br>
+Constants<br>
+---------<br>
+DEVNULL:&nbsp;Special&nbsp;value&nbsp;that&nbsp;indicates&nbsp;that&nbsp;os.devnull&nbsp;should&nbsp;be&nbsp;used<br>
+PIPE:&nbsp;&nbsp;&nbsp;&nbsp;Special&nbsp;value&nbsp;that&nbsp;indicates&nbsp;a&nbsp;pipe&nbsp;should&nbsp;be&nbsp;created<br>
+STDOUT:&nbsp;&nbsp;Special&nbsp;value&nbsp;that&nbsp;indicates&nbsp;that&nbsp;stderr&nbsp;should&nbsp;go&nbsp;to&nbsp;stdout<br>
+&nbsp;<br>
+&nbsp;<br>
+Older&nbsp;API<br>
+=========<br>
+<a href="#-call">call</a>(...):&nbsp;Runs&nbsp;a&nbsp;command,&nbsp;waits&nbsp;for&nbsp;it&nbsp;to&nbsp;complete,&nbsp;then&nbsp;returns<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;return&nbsp;code.<br>
+<a href="#-check_call">check_call</a>(...):&nbsp;Same&nbsp;as&nbsp;<a href="#-call">call</a>()&nbsp;but&nbsp;raises&nbsp;<a href="#CalledProcessError">CalledProcessError</a>()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;return&nbsp;code&nbsp;is&nbsp;not&nbsp;0<br>
+<a href="#-check_output">check_output</a>(...):&nbsp;Same&nbsp;as&nbsp;<a href="#-check_call">check_call</a>()&nbsp;but&nbsp;returns&nbsp;the&nbsp;contents&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;stdout&nbsp;instead&nbsp;of&nbsp;a&nbsp;return&nbsp;code<br>
+<a href="#-getoutput">getoutput</a>(...):&nbsp;Runs&nbsp;a&nbsp;command&nbsp;in&nbsp;the&nbsp;shell,&nbsp;waits&nbsp;for&nbsp;it&nbsp;to&nbsp;complete,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;returns&nbsp;the&nbsp;output<br>
+<a href="#-getstatusoutput">getstatusoutput</a>(...):&nbsp;Runs&nbsp;a&nbsp;command&nbsp;in&nbsp;the&nbsp;shell,&nbsp;waits&nbsp;for&nbsp;it&nbsp;to&nbsp;complete,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;returns&nbsp;a&nbsp;(exitcode,&nbsp;output)&nbsp;tuple</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="_winapi.html">_winapi</a><br>
+<a href="builtins.html">builtins</a><br>
+<a href="contextlib.html">contextlib</a><br>
+<a href="errno.html">errno</a><br>
+</td><td width="25%" valign=top><a href="io.html">io</a><br>
+<a href="msvcrt.html">msvcrt</a><br>
+<a href="os.html">os</a><br>
+<a href="signal.html">signal</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+<a href="threading.html">threading</a><br>
+<a href="time.html">time</a><br>
+<a href="types.html">types</a><br>
+</td><td width="25%" valign=top><a href="warnings.html">warnings</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#Exception">builtins.Exception</a>(<a href="builtins.html#BaseException">builtins.BaseException</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="subprocess.html#SubprocessError">SubprocessError</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="subprocess.html#CalledProcessError">CalledProcessError</a>
+</font></dt><dt><font face="helvetica, arial"><a href="subprocess.html#TimeoutExpired">TimeoutExpired</a>
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="subprocess.html#CompletedProcess">CompletedProcess</a>
+</font></dt><dt><font face="helvetica, arial"><a href="subprocess.html#Popen">Popen</a>
+</font></dt><dt><font face="helvetica, arial"><a href="subprocess.html#STARTUPINFO">STARTUPINFO</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="CalledProcessError">class <strong>CalledProcessError</strong></a>(<a href="subprocess.html#SubprocessError">SubprocessError</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#CalledProcessError">CalledProcessError</a>(returncode,&nbsp;cmd,&nbsp;output=None,&nbsp;stderr=None)<br>
+&nbsp;<br>
+Raised&nbsp;when&nbsp;<a href="#-run">run</a>()&nbsp;is&nbsp;called&nbsp;with&nbsp;check=True&nbsp;and&nbsp;the&nbsp;process<br>
+returns&nbsp;a&nbsp;non-zero&nbsp;exit&nbsp;status.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;cmd,&nbsp;returncode,&nbsp;stdout,&nbsp;stderr,&nbsp;output<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="subprocess.html#CalledProcessError">CalledProcessError</a></dd>
+<dd><a href="subprocess.html#SubprocessError">SubprocessError</a></dd>
+<dd><a href="builtins.html#Exception">builtins.Exception</a></dd>
+<dd><a href="builtins.html#BaseException">builtins.BaseException</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="CalledProcessError-__init__"><strong>__init__</strong></a>(self, returncode, cmd, output=None, stderr=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="CalledProcessError-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>stdout</strong></dt>
+<dd><tt>Alias&nbsp;for&nbsp;output&nbsp;attribute,&nbsp;to&nbsp;match&nbsp;stderr</tt></dd>
+</dl>
+<hr>
+Data descriptors inherited from <a href="subprocess.html#SubprocessError">SubprocessError</a>:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Static methods inherited from <a href="builtins.html#Exception">builtins.Exception</a>:<br>
+<dl><dt><a name="CalledProcessError-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><a name="CalledProcessError-__delattr__"><strong>__delattr__</strong></a>(self, name, /)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="CalledProcessError-__getattribute__"><strong>__getattribute__</strong></a>(self, name, /)</dt><dd><tt>Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="CalledProcessError-__reduce__"><strong>__reduce__</strong></a>(...)</dt><dd><tt>Helper&nbsp;for&nbsp;pickle.</tt></dd></dl>
+
+<dl><dt><a name="CalledProcessError-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="CalledProcessError-__setattr__"><strong>__setattr__</strong></a>(self, name, value, /)</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<dl><dt><a name="CalledProcessError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="CalledProcessError-with_traceback"><strong>with_traceback</strong></a>(...)</dt><dd><tt><a href="builtins.html#Exception">Exception</a>.<a href="#CalledProcessError-with_traceback">with_traceback</a>(tb)&nbsp;--<br>
+set&nbsp;self.<strong>__traceback__</strong>&nbsp;to&nbsp;tb&nbsp;and&nbsp;return&nbsp;self.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><strong>__cause__</strong></dt>
+<dd><tt>exception&nbsp;cause</tt></dd>
+</dl>
+<dl><dt><strong>__context__</strong></dt>
+<dd><tt>exception&nbsp;context</tt></dd>
+</dl>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__suppress_context__</strong></dt>
+</dl>
+<dl><dt><strong>__traceback__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="CompletedProcess">class <strong>CompletedProcess</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#CompletedProcess">CompletedProcess</a>(args,&nbsp;returncode,&nbsp;stdout=None,&nbsp;stderr=None)<br>
+&nbsp;<br>
+A&nbsp;process&nbsp;that&nbsp;has&nbsp;finished&nbsp;running.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;returned&nbsp;by&nbsp;<a href="#-run">run</a>().<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;args:&nbsp;The&nbsp;list&nbsp;or&nbsp;str&nbsp;args&nbsp;passed&nbsp;to&nbsp;<a href="#-run">run</a>().<br>
+&nbsp;&nbsp;returncode:&nbsp;The&nbsp;exit&nbsp;code&nbsp;of&nbsp;the&nbsp;process,&nbsp;negative&nbsp;for&nbsp;signals.<br>
+&nbsp;&nbsp;stdout:&nbsp;The&nbsp;standard&nbsp;output&nbsp;(None&nbsp;if&nbsp;not&nbsp;captured).<br>
+&nbsp;&nbsp;stderr:&nbsp;The&nbsp;standard&nbsp;error&nbsp;(None&nbsp;if&nbsp;not&nbsp;captured).<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="CompletedProcess-__init__"><strong>__init__</strong></a>(self, args, returncode, stdout=None, stderr=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="CompletedProcess-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="CompletedProcess-check_returncode"><strong>check_returncode</strong></a>(self)</dt><dd><tt>Raise&nbsp;<a href="#CalledProcessError">CalledProcessError</a>&nbsp;if&nbsp;the&nbsp;exit&nbsp;code&nbsp;is&nbsp;non-zero.</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="CompletedProcess-__class_getitem__"><strong>__class_getitem__</strong></a> = GenericAlias(...)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Represent&nbsp;a&nbsp;<a href="https://www.python.org/dev/peps/pep-0585/">PEP&nbsp;585</a>&nbsp;generic&nbsp;type<br>
+&nbsp;<br>
+E.g.&nbsp;for&nbsp;t&nbsp;=&nbsp;list[int],&nbsp;t.__origin__&nbsp;is&nbsp;list&nbsp;and&nbsp;t.__args__&nbsp;is&nbsp;(int,).</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Popen">class <strong>Popen</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Popen">Popen</a>(args,&nbsp;bufsize=-1,&nbsp;executable=None,&nbsp;stdin=None,&nbsp;stdout=None,&nbsp;stderr=None,&nbsp;preexec_fn=None,&nbsp;close_fds=True,&nbsp;shell=False,&nbsp;cwd=None,&nbsp;env=None,&nbsp;universal_newlines=None,&nbsp;startupinfo=None,&nbsp;creationflags=0,&nbsp;restore_signals=True,&nbsp;start_new_session=False,&nbsp;pass_fds=(),&nbsp;*,&nbsp;user=None,&nbsp;group=None,&nbsp;extra_groups=None,&nbsp;encoding=None,&nbsp;errors=None,&nbsp;text=None,&nbsp;umask=-1,&nbsp;pipesize=-1)<br>
+&nbsp;<br>
+Execute&nbsp;a&nbsp;child&nbsp;program&nbsp;in&nbsp;a&nbsp;new&nbsp;process.<br>
+&nbsp;<br>
+For&nbsp;a&nbsp;complete&nbsp;description&nbsp;of&nbsp;the&nbsp;arguments&nbsp;see&nbsp;the&nbsp;Python&nbsp;documentation.<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;args:&nbsp;A&nbsp;string,&nbsp;or&nbsp;a&nbsp;sequence&nbsp;of&nbsp;program&nbsp;arguments.<br>
+&nbsp;<br>
+&nbsp;&nbsp;bufsize:&nbsp;supplied&nbsp;as&nbsp;the&nbsp;buffering&nbsp;argument&nbsp;to&nbsp;the&nbsp;open()&nbsp;function&nbsp;when<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creating&nbsp;the&nbsp;stdin/stdout/stderr&nbsp;pipe&nbsp;file&nbsp;objects<br>
+&nbsp;<br>
+&nbsp;&nbsp;executable:&nbsp;A&nbsp;replacement&nbsp;program&nbsp;to&nbsp;execute.<br>
+&nbsp;<br>
+&nbsp;&nbsp;stdin,&nbsp;stdout&nbsp;and&nbsp;stderr:&nbsp;These&nbsp;specify&nbsp;the&nbsp;executed&nbsp;programs'&nbsp;standard<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input,&nbsp;standard&nbsp;output&nbsp;and&nbsp;standard&nbsp;error&nbsp;file&nbsp;handles,&nbsp;respectively.<br>
+&nbsp;<br>
+&nbsp;&nbsp;preexec_fn:&nbsp;(POSIX&nbsp;only)&nbsp;An&nbsp;<a href="builtins.html#object">object</a>&nbsp;to&nbsp;be&nbsp;called&nbsp;in&nbsp;the&nbsp;child&nbsp;process<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;just&nbsp;before&nbsp;the&nbsp;child&nbsp;is&nbsp;executed.<br>
+&nbsp;<br>
+&nbsp;&nbsp;close_fds:&nbsp;Controls&nbsp;closing&nbsp;or&nbsp;inheriting&nbsp;of&nbsp;file&nbsp;descriptors.<br>
+&nbsp;<br>
+&nbsp;&nbsp;shell:&nbsp;If&nbsp;true,&nbsp;the&nbsp;command&nbsp;will&nbsp;be&nbsp;executed&nbsp;through&nbsp;the&nbsp;shell.<br>
+&nbsp;<br>
+&nbsp;&nbsp;cwd:&nbsp;Sets&nbsp;the&nbsp;current&nbsp;directory&nbsp;before&nbsp;the&nbsp;child&nbsp;is&nbsp;executed.<br>
+&nbsp;<br>
+&nbsp;&nbsp;env:&nbsp;Defines&nbsp;the&nbsp;environment&nbsp;variables&nbsp;for&nbsp;the&nbsp;new&nbsp;process.<br>
+&nbsp;<br>
+&nbsp;&nbsp;text:&nbsp;If&nbsp;true,&nbsp;decode&nbsp;stdin,&nbsp;stdout&nbsp;and&nbsp;stderr&nbsp;using&nbsp;the&nbsp;given&nbsp;encoding<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(if&nbsp;set)&nbsp;or&nbsp;the&nbsp;system&nbsp;default&nbsp;otherwise.<br>
+&nbsp;<br>
+&nbsp;&nbsp;universal_newlines:&nbsp;Alias&nbsp;of&nbsp;text,&nbsp;provided&nbsp;for&nbsp;backwards&nbsp;compatibility.<br>
+&nbsp;<br>
+&nbsp;&nbsp;startupinfo&nbsp;and&nbsp;creationflags&nbsp;(Windows&nbsp;only)<br>
+&nbsp;<br>
+&nbsp;&nbsp;restore_signals&nbsp;(POSIX&nbsp;only)<br>
+&nbsp;<br>
+&nbsp;&nbsp;start_new_session&nbsp;(POSIX&nbsp;only)<br>
+&nbsp;<br>
+&nbsp;&nbsp;group&nbsp;(POSIX&nbsp;only)<br>
+&nbsp;<br>
+&nbsp;&nbsp;extra_groups&nbsp;(POSIX&nbsp;only)<br>
+&nbsp;<br>
+&nbsp;&nbsp;user&nbsp;(POSIX&nbsp;only)<br>
+&nbsp;<br>
+&nbsp;&nbsp;umask&nbsp;(POSIX&nbsp;only)<br>
+&nbsp;<br>
+&nbsp;&nbsp;pass_fds&nbsp;(POSIX&nbsp;only)<br>
+&nbsp;<br>
+&nbsp;&nbsp;encoding&nbsp;and&nbsp;errors:&nbsp;Text&nbsp;mode&nbsp;encoding&nbsp;and&nbsp;error&nbsp;handling&nbsp;to&nbsp;use&nbsp;for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file&nbsp;objects&nbsp;stdin,&nbsp;stdout&nbsp;and&nbsp;stderr.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;stdin,&nbsp;stdout,&nbsp;stderr,&nbsp;pid,&nbsp;returncode<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Popen-__del__"><strong>__del__</strong></a>(self, _maxsize=9223372036854775807, _warn=&lt;built-in function warn&gt;)</dt></dl>
+
+<dl><dt><a name="Popen-__enter__"><strong>__enter__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Popen-__exit__"><strong>__exit__</strong></a>(self, exc_type, value, traceback)</dt></dl>
+
+<dl><dt><a name="Popen-__init__"><strong>__init__</strong></a>(self, args, bufsize=-1, executable=None, stdin=None, stdout=None, stderr=None, preexec_fn=None, close_fds=True, shell=False, cwd=None, env=None, universal_newlines=None, startupinfo=None, creationflags=0, restore_signals=True, start_new_session=False, pass_fds=(), *, user=None, group=None, extra_groups=None, encoding=None, errors=None, text=None, umask=-1, pipesize=-1)</dt><dd><tt>Create&nbsp;new&nbsp;<a href="#Popen">Popen</a>&nbsp;instance.</tt></dd></dl>
+
+<dl><dt><a name="Popen-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="Popen-communicate"><strong>communicate</strong></a>(self, input=None, timeout=None)</dt><dd><tt>Interact&nbsp;with&nbsp;process:&nbsp;Send&nbsp;data&nbsp;to&nbsp;stdin&nbsp;and&nbsp;close&nbsp;it.<br>
+Read&nbsp;data&nbsp;from&nbsp;stdout&nbsp;and&nbsp;stderr,&nbsp;until&nbsp;end-of-file&nbsp;is<br>
+reached.&nbsp;&nbsp;Wait&nbsp;for&nbsp;process&nbsp;to&nbsp;terminate.<br>
+&nbsp;<br>
+The&nbsp;optional&nbsp;"input"&nbsp;argument&nbsp;should&nbsp;be&nbsp;data&nbsp;to&nbsp;be&nbsp;sent&nbsp;to&nbsp;the<br>
+child&nbsp;process,&nbsp;or&nbsp;None,&nbsp;if&nbsp;no&nbsp;data&nbsp;should&nbsp;be&nbsp;sent&nbsp;to&nbsp;the&nbsp;child.<br>
+<a href="#Popen-communicate">communicate</a>()&nbsp;returns&nbsp;a&nbsp;tuple&nbsp;(stdout,&nbsp;stderr).<br>
+&nbsp;<br>
+By&nbsp;default,&nbsp;all&nbsp;communication&nbsp;is&nbsp;in&nbsp;bytes,&nbsp;and&nbsp;therefore&nbsp;any<br>
+"input"&nbsp;should&nbsp;be&nbsp;bytes,&nbsp;and&nbsp;the&nbsp;(stdout,&nbsp;stderr)&nbsp;will&nbsp;be&nbsp;bytes.<br>
+If&nbsp;in&nbsp;text&nbsp;mode&nbsp;(indicated&nbsp;by&nbsp;self.<strong>text_mode</strong>),&nbsp;any&nbsp;"input"&nbsp;should<br>
+be&nbsp;a&nbsp;string,&nbsp;and&nbsp;(stdout,&nbsp;stderr)&nbsp;will&nbsp;be&nbsp;strings&nbsp;decoded<br>
+according&nbsp;to&nbsp;locale&nbsp;encoding,&nbsp;or&nbsp;by&nbsp;"encoding"&nbsp;if&nbsp;set.&nbsp;Text&nbsp;mode<br>
+is&nbsp;triggered&nbsp;by&nbsp;setting&nbsp;any&nbsp;of&nbsp;text,&nbsp;encoding,&nbsp;errors&nbsp;or<br>
+universal_newlines.</tt></dd></dl>
+
+<dl><dt><a name="Popen-kill"><strong>kill</strong></a> = <a href="#Popen-terminate">terminate</a>(self)</dt></dl>
+
+<dl><dt><a name="Popen-poll"><strong>poll</strong></a>(self)</dt><dd><tt>Check&nbsp;if&nbsp;child&nbsp;process&nbsp;has&nbsp;terminated.&nbsp;Set&nbsp;and&nbsp;return&nbsp;returncode<br>
+attribute.</tt></dd></dl>
+
+<dl><dt><a name="Popen-send_signal"><strong>send_signal</strong></a>(self, sig)</dt><dd><tt>Send&nbsp;a&nbsp;signal&nbsp;to&nbsp;the&nbsp;process.</tt></dd></dl>
+
+<dl><dt><a name="Popen-terminate"><strong>terminate</strong></a>(self)</dt><dd><tt>Terminates&nbsp;the&nbsp;process.</tt></dd></dl>
+
+<dl><dt><a name="Popen-wait"><strong>wait</strong></a>(self, timeout=None)</dt><dd><tt>Wait&nbsp;for&nbsp;child&nbsp;process&nbsp;to&nbsp;terminate;&nbsp;returns&nbsp;self.<strong>returncode</strong>.</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="Popen-__class_getitem__"><strong>__class_getitem__</strong></a> = GenericAlias(...)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Represent&nbsp;a&nbsp;<a href="https://www.python.org/dev/peps/pep-0585/">PEP&nbsp;585</a>&nbsp;generic&nbsp;type<br>
+&nbsp;<br>
+E.g.&nbsp;for&nbsp;t&nbsp;=&nbsp;list[int],&nbsp;t.__origin__&nbsp;is&nbsp;list&nbsp;and&nbsp;t.__args__&nbsp;is&nbsp;(int,).</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>universal_newlines</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="STARTUPINFO">class <strong>STARTUPINFO</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#STARTUPINFO">STARTUPINFO</a>(*,&nbsp;dwFlags=0,&nbsp;hStdInput=None,&nbsp;hStdOutput=None,&nbsp;hStdError=None,&nbsp;wShowWindow=0,&nbsp;lpAttributeList=None)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="STARTUPINFO-__init__"><strong>__init__</strong></a>(self, *, dwFlags=0, hStdInput=None, hStdOutput=None, hStdError=None, wShowWindow=0, lpAttributeList=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="STARTUPINFO-copy"><strong>copy</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SubprocessError">class <strong>SubprocessError</strong></a>(<a href="builtins.html#Exception">builtins.Exception</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>#&nbsp;<a href="builtins.html#Exception">Exception</a>&nbsp;classes&nbsp;used&nbsp;by&nbsp;this&nbsp;module.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="subprocess.html#SubprocessError">SubprocessError</a></dd>
+<dd><a href="builtins.html#Exception">builtins.Exception</a></dd>
+<dd><a href="builtins.html#BaseException">builtins.BaseException</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="builtins.html#Exception">builtins.Exception</a>:<br>
+<dl><dt><a name="SubprocessError-__init__"><strong>__init__</strong></a>(self, /, *args, **kwargs)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Static methods inherited from <a href="builtins.html#Exception">builtins.Exception</a>:<br>
+<dl><dt><a name="SubprocessError-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><a name="SubprocessError-__delattr__"><strong>__delattr__</strong></a>(self, name, /)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="SubprocessError-__getattribute__"><strong>__getattribute__</strong></a>(self, name, /)</dt><dd><tt>Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="SubprocessError-__reduce__"><strong>__reduce__</strong></a>(...)</dt><dd><tt>Helper&nbsp;for&nbsp;pickle.</tt></dd></dl>
+
+<dl><dt><a name="SubprocessError-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="SubprocessError-__setattr__"><strong>__setattr__</strong></a>(self, name, value, /)</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<dl><dt><a name="SubprocessError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="SubprocessError-__str__"><strong>__str__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="SubprocessError-with_traceback"><strong>with_traceback</strong></a>(...)</dt><dd><tt><a href="builtins.html#Exception">Exception</a>.<a href="#SubprocessError-with_traceback">with_traceback</a>(tb)&nbsp;--<br>
+set&nbsp;self.<strong>__traceback__</strong>&nbsp;to&nbsp;tb&nbsp;and&nbsp;return&nbsp;self.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><strong>__cause__</strong></dt>
+<dd><tt>exception&nbsp;cause</tt></dd>
+</dl>
+<dl><dt><strong>__context__</strong></dt>
+<dd><tt>exception&nbsp;context</tt></dd>
+</dl>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__suppress_context__</strong></dt>
+</dl>
+<dl><dt><strong>__traceback__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TimeoutExpired">class <strong>TimeoutExpired</strong></a>(<a href="subprocess.html#SubprocessError">SubprocessError</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#TimeoutExpired">TimeoutExpired</a>(cmd,&nbsp;timeout,&nbsp;output=None,&nbsp;stderr=None)<br>
+&nbsp;<br>
+This&nbsp;exception&nbsp;is&nbsp;raised&nbsp;when&nbsp;the&nbsp;timeout&nbsp;expires&nbsp;while&nbsp;waiting&nbsp;for&nbsp;a<br>
+child&nbsp;process.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cmd,&nbsp;output,&nbsp;stdout,&nbsp;stderr,&nbsp;timeout<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="subprocess.html#TimeoutExpired">TimeoutExpired</a></dd>
+<dd><a href="subprocess.html#SubprocessError">SubprocessError</a></dd>
+<dd><a href="builtins.html#Exception">builtins.Exception</a></dd>
+<dd><a href="builtins.html#BaseException">builtins.BaseException</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="TimeoutExpired-__init__"><strong>__init__</strong></a>(self, cmd, timeout, output=None, stderr=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="TimeoutExpired-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>stdout</strong></dt>
+</dl>
+<hr>
+Data descriptors inherited from <a href="subprocess.html#SubprocessError">SubprocessError</a>:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Static methods inherited from <a href="builtins.html#Exception">builtins.Exception</a>:<br>
+<dl><dt><a name="TimeoutExpired-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><a name="TimeoutExpired-__delattr__"><strong>__delattr__</strong></a>(self, name, /)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="TimeoutExpired-__getattribute__"><strong>__getattribute__</strong></a>(self, name, /)</dt><dd><tt>Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="TimeoutExpired-__reduce__"><strong>__reduce__</strong></a>(...)</dt><dd><tt>Helper&nbsp;for&nbsp;pickle.</tt></dd></dl>
+
+<dl><dt><a name="TimeoutExpired-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="TimeoutExpired-__setattr__"><strong>__setattr__</strong></a>(self, name, value, /)</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<dl><dt><a name="TimeoutExpired-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="TimeoutExpired-with_traceback"><strong>with_traceback</strong></a>(...)</dt><dd><tt><a href="builtins.html#Exception">Exception</a>.<a href="#TimeoutExpired-with_traceback">with_traceback</a>(tb)&nbsp;--<br>
+set&nbsp;self.<strong>__traceback__</strong>&nbsp;to&nbsp;tb&nbsp;and&nbsp;return&nbsp;self.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><strong>__cause__</strong></dt>
+<dd><tt>exception&nbsp;cause</tt></dd>
+</dl>
+<dl><dt><strong>__context__</strong></dt>
+<dd><tt>exception&nbsp;context</tt></dd>
+</dl>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__suppress_context__</strong></dt>
+</dl>
+<dl><dt><strong>__traceback__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-call"><strong>call</strong></a>(*popenargs, timeout=None, **kwargs)</dt><dd><tt>Run&nbsp;command&nbsp;with&nbsp;arguments.&nbsp;&nbsp;Wait&nbsp;for&nbsp;command&nbsp;to&nbsp;complete&nbsp;or<br>
+timeout,&nbsp;then&nbsp;return&nbsp;the&nbsp;returncode&nbsp;attribute.<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are&nbsp;the&nbsp;same&nbsp;as&nbsp;for&nbsp;the&nbsp;<a href="#Popen">Popen</a>&nbsp;constructor.&nbsp;&nbsp;Example:<br>
+&nbsp;<br>
+retcode&nbsp;=&nbsp;<a href="#-call">call</a>(["ls",&nbsp;"-l"])</tt></dd></dl>
+ <dl><dt><a name="-check_call"><strong>check_call</strong></a>(*popenargs, **kwargs)</dt><dd><tt>Run&nbsp;command&nbsp;with&nbsp;arguments.&nbsp;&nbsp;Wait&nbsp;for&nbsp;command&nbsp;to&nbsp;complete.&nbsp;&nbsp;If<br>
+the&nbsp;exit&nbsp;code&nbsp;was&nbsp;zero&nbsp;then&nbsp;return,&nbsp;otherwise&nbsp;raise<br>
+<a href="#CalledProcessError">CalledProcessError</a>.&nbsp;&nbsp;The&nbsp;<a href="#CalledProcessError">CalledProcessError</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;will&nbsp;have&nbsp;the<br>
+return&nbsp;code&nbsp;in&nbsp;the&nbsp;returncode&nbsp;attribute.<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are&nbsp;the&nbsp;same&nbsp;as&nbsp;for&nbsp;the&nbsp;call&nbsp;function.&nbsp;&nbsp;Example:<br>
+&nbsp;<br>
+<a href="#-check_call">check_call</a>(["ls",&nbsp;"-l"])</tt></dd></dl>
+ <dl><dt><a name="-check_output"><strong>check_output</strong></a>(*popenargs, timeout=None, **kwargs)</dt><dd><tt>Run&nbsp;command&nbsp;with&nbsp;arguments&nbsp;and&nbsp;return&nbsp;its&nbsp;output.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;exit&nbsp;code&nbsp;was&nbsp;non-zero&nbsp;it&nbsp;raises&nbsp;a&nbsp;<a href="#CalledProcessError">CalledProcessError</a>.&nbsp;&nbsp;The<br>
+<a href="#CalledProcessError">CalledProcessError</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;will&nbsp;have&nbsp;the&nbsp;return&nbsp;code&nbsp;in&nbsp;the&nbsp;returncode<br>
+attribute&nbsp;and&nbsp;output&nbsp;in&nbsp;the&nbsp;output&nbsp;attribute.<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are&nbsp;the&nbsp;same&nbsp;as&nbsp;for&nbsp;the&nbsp;<a href="#Popen">Popen</a>&nbsp;constructor.&nbsp;&nbsp;Example:<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;<a href="#-check_output">check_output</a>(["ls",&nbsp;"-l",&nbsp;"/dev/null"])<br>
+b'crw-rw-rw-&nbsp;1&nbsp;root&nbsp;root&nbsp;1,&nbsp;3&nbsp;Oct&nbsp;18&nbsp;&nbsp;2007&nbsp;/dev/null\n'<br>
+&nbsp;<br>
+The&nbsp;stdout&nbsp;argument&nbsp;is&nbsp;not&nbsp;allowed&nbsp;as&nbsp;it&nbsp;is&nbsp;used&nbsp;internally.<br>
+To&nbsp;capture&nbsp;standard&nbsp;error&nbsp;in&nbsp;the&nbsp;result,&nbsp;use&nbsp;stderr=STDOUT.<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;<a href="#-check_output">check_output</a>(["/bin/sh",&nbsp;"-c",<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ls&nbsp;-l&nbsp;non_existent_file&nbsp;;&nbsp;exit&nbsp;0"],<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stderr=STDOUT)<br>
+b'ls:&nbsp;non_existent_file:&nbsp;No&nbsp;such&nbsp;file&nbsp;or&nbsp;directory\n'<br>
+&nbsp;<br>
+There&nbsp;is&nbsp;an&nbsp;additional&nbsp;optional&nbsp;argument,&nbsp;"input",&nbsp;allowing&nbsp;you&nbsp;to<br>
+pass&nbsp;a&nbsp;string&nbsp;to&nbsp;the&nbsp;subprocess's&nbsp;stdin.&nbsp;&nbsp;If&nbsp;you&nbsp;use&nbsp;this&nbsp;argument<br>
+you&nbsp;may&nbsp;not&nbsp;also&nbsp;use&nbsp;the&nbsp;<a href="#Popen">Popen</a>&nbsp;constructor's&nbsp;"stdin"&nbsp;argument,&nbsp;as<br>
+it&nbsp;too&nbsp;will&nbsp;be&nbsp;used&nbsp;internally.&nbsp;&nbsp;Example:<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;<a href="#-check_output">check_output</a>(["sed",&nbsp;"-e",&nbsp;"s/foo/bar/"],<br>
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input=b"when&nbsp;in&nbsp;the&nbsp;course&nbsp;of&nbsp;fooman&nbsp;events\n")<br>
+b'when&nbsp;in&nbsp;the&nbsp;course&nbsp;of&nbsp;barman&nbsp;events\n'<br>
+&nbsp;<br>
+By&nbsp;default,&nbsp;all&nbsp;communication&nbsp;is&nbsp;in&nbsp;bytes,&nbsp;and&nbsp;therefore&nbsp;any&nbsp;"input"<br>
+should&nbsp;be&nbsp;bytes,&nbsp;and&nbsp;the&nbsp;return&nbsp;value&nbsp;will&nbsp;be&nbsp;bytes.&nbsp;&nbsp;If&nbsp;in&nbsp;text&nbsp;mode,<br>
+any&nbsp;"input"&nbsp;should&nbsp;be&nbsp;a&nbsp;string,&nbsp;and&nbsp;the&nbsp;return&nbsp;value&nbsp;will&nbsp;be&nbsp;a&nbsp;string<br>
+decoded&nbsp;according&nbsp;to&nbsp;locale&nbsp;encoding,&nbsp;or&nbsp;by&nbsp;"encoding"&nbsp;if&nbsp;set.&nbsp;Text&nbsp;mode<br>
+is&nbsp;triggered&nbsp;by&nbsp;setting&nbsp;any&nbsp;of&nbsp;text,&nbsp;encoding,&nbsp;errors&nbsp;or&nbsp;universal_newlines.</tt></dd></dl>
+ <dl><dt><a name="-getoutput"><strong>getoutput</strong></a>(cmd)</dt><dd><tt>Return&nbsp;output&nbsp;(stdout&nbsp;or&nbsp;stderr)&nbsp;of&nbsp;executing&nbsp;cmd&nbsp;in&nbsp;a&nbsp;shell.<br>
+&nbsp;<br>
+Like&nbsp;<a href="#-getstatusoutput">getstatusoutput</a>(),&nbsp;except&nbsp;the&nbsp;exit&nbsp;status&nbsp;is&nbsp;ignored&nbsp;and&nbsp;the&nbsp;return<br>
+value&nbsp;is&nbsp;a&nbsp;string&nbsp;containing&nbsp;the&nbsp;command's&nbsp;output.&nbsp;&nbsp;Example:<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;import&nbsp;subprocess<br>
+&gt;&gt;&gt;&nbsp;subprocess.<a href="#-getoutput">getoutput</a>('ls&nbsp;/bin/ls')<br>
+'/bin/ls'</tt></dd></dl>
+ <dl><dt><a name="-getstatusoutput"><strong>getstatusoutput</strong></a>(cmd)</dt><dd><tt>Return&nbsp;(exitcode,&nbsp;output)&nbsp;of&nbsp;executing&nbsp;cmd&nbsp;in&nbsp;a&nbsp;shell.<br>
+&nbsp;<br>
+Execute&nbsp;the&nbsp;string&nbsp;'cmd'&nbsp;in&nbsp;a&nbsp;shell&nbsp;with&nbsp;'check_output'&nbsp;and<br>
+return&nbsp;a&nbsp;2-tuple&nbsp;(status,&nbsp;output).&nbsp;The&nbsp;locale&nbsp;encoding&nbsp;is&nbsp;used<br>
+to&nbsp;decode&nbsp;the&nbsp;output&nbsp;and&nbsp;process&nbsp;newlines.<br>
+&nbsp;<br>
+A&nbsp;trailing&nbsp;newline&nbsp;is&nbsp;stripped&nbsp;from&nbsp;the&nbsp;output.<br>
+The&nbsp;exit&nbsp;status&nbsp;for&nbsp;the&nbsp;command&nbsp;can&nbsp;be&nbsp;interpreted<br>
+according&nbsp;to&nbsp;the&nbsp;rules&nbsp;for&nbsp;the&nbsp;function&nbsp;'wait'.&nbsp;Example:<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;import&nbsp;subprocess<br>
+&gt;&gt;&gt;&nbsp;subprocess.<a href="#-getstatusoutput">getstatusoutput</a>('ls&nbsp;/bin/ls')<br>
+(0,&nbsp;'/bin/ls')<br>
+&gt;&gt;&gt;&nbsp;subprocess.<a href="#-getstatusoutput">getstatusoutput</a>('cat&nbsp;/bin/junk')<br>
+(1,&nbsp;'cat:&nbsp;/bin/junk:&nbsp;No&nbsp;such&nbsp;file&nbsp;or&nbsp;directory')<br>
+&gt;&gt;&gt;&nbsp;subprocess.<a href="#-getstatusoutput">getstatusoutput</a>('/bin/junk')<br>
+(127,&nbsp;'sh:&nbsp;/bin/junk:&nbsp;not&nbsp;found')<br>
+&gt;&gt;&gt;&nbsp;subprocess.<a href="#-getstatusoutput">getstatusoutput</a>('/bin/kill&nbsp;$$')<br>
+(-15,&nbsp;'')</tt></dd></dl>
+ <dl><dt><a name="-run"><strong>run</strong></a>(*popenargs, input=None, capture_output=False, timeout=None, check=False, **kwargs)</dt><dd><tt>Run&nbsp;command&nbsp;with&nbsp;arguments&nbsp;and&nbsp;return&nbsp;a&nbsp;<a href="#CompletedProcess">CompletedProcess</a>&nbsp;instance.<br>
+&nbsp;<br>
+The&nbsp;returned&nbsp;instance&nbsp;will&nbsp;have&nbsp;attributes&nbsp;args,&nbsp;returncode,&nbsp;stdout&nbsp;and<br>
+stderr.&nbsp;By&nbsp;default,&nbsp;stdout&nbsp;and&nbsp;stderr&nbsp;are&nbsp;not&nbsp;captured,&nbsp;and&nbsp;those&nbsp;attributes<br>
+will&nbsp;be&nbsp;None.&nbsp;Pass&nbsp;stdout=PIPE&nbsp;and/or&nbsp;stderr=PIPE&nbsp;in&nbsp;order&nbsp;to&nbsp;capture&nbsp;them,<br>
+or&nbsp;pass&nbsp;capture_output=True&nbsp;to&nbsp;capture&nbsp;both.<br>
+&nbsp;<br>
+If&nbsp;check&nbsp;is&nbsp;True&nbsp;and&nbsp;the&nbsp;exit&nbsp;code&nbsp;was&nbsp;non-zero,&nbsp;it&nbsp;raises&nbsp;a<br>
+<a href="#CalledProcessError">CalledProcessError</a>.&nbsp;The&nbsp;<a href="#CalledProcessError">CalledProcessError</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;will&nbsp;have&nbsp;the&nbsp;return&nbsp;code<br>
+in&nbsp;the&nbsp;returncode&nbsp;attribute,&nbsp;and&nbsp;output&nbsp;&amp;&nbsp;stderr&nbsp;attributes&nbsp;if&nbsp;those&nbsp;streams<br>
+were&nbsp;captured.<br>
+&nbsp;<br>
+If&nbsp;timeout&nbsp;is&nbsp;given,&nbsp;and&nbsp;the&nbsp;process&nbsp;takes&nbsp;too&nbsp;long,&nbsp;a&nbsp;<a href="#TimeoutExpired">TimeoutExpired</a><br>
+exception&nbsp;will&nbsp;be&nbsp;raised.<br>
+&nbsp;<br>
+There&nbsp;is&nbsp;an&nbsp;optional&nbsp;argument&nbsp;"input",&nbsp;allowing&nbsp;you&nbsp;to<br>
+pass&nbsp;bytes&nbsp;or&nbsp;a&nbsp;string&nbsp;to&nbsp;the&nbsp;subprocess's&nbsp;stdin.&nbsp;&nbsp;If&nbsp;you&nbsp;use&nbsp;this&nbsp;argument<br>
+you&nbsp;may&nbsp;not&nbsp;also&nbsp;use&nbsp;the&nbsp;<a href="#Popen">Popen</a>&nbsp;constructor's&nbsp;"stdin"&nbsp;argument,&nbsp;as<br>
+it&nbsp;will&nbsp;be&nbsp;used&nbsp;internally.<br>
+&nbsp;<br>
+By&nbsp;default,&nbsp;all&nbsp;communication&nbsp;is&nbsp;in&nbsp;bytes,&nbsp;and&nbsp;therefore&nbsp;any&nbsp;"input"&nbsp;should<br>
+be&nbsp;bytes,&nbsp;and&nbsp;the&nbsp;stdout&nbsp;and&nbsp;stderr&nbsp;will&nbsp;be&nbsp;bytes.&nbsp;If&nbsp;in&nbsp;text&nbsp;mode,&nbsp;any<br>
+"input"&nbsp;should&nbsp;be&nbsp;a&nbsp;string,&nbsp;and&nbsp;stdout&nbsp;and&nbsp;stderr&nbsp;will&nbsp;be&nbsp;strings&nbsp;decoded<br>
+according&nbsp;to&nbsp;locale&nbsp;encoding,&nbsp;or&nbsp;by&nbsp;"encoding"&nbsp;if&nbsp;set.&nbsp;Text&nbsp;mode&nbsp;is<br>
+triggered&nbsp;by&nbsp;setting&nbsp;any&nbsp;of&nbsp;text,&nbsp;encoding,&nbsp;errors&nbsp;or&nbsp;universal_newlines.<br>
+&nbsp;<br>
+The&nbsp;other&nbsp;arguments&nbsp;are&nbsp;the&nbsp;same&nbsp;as&nbsp;for&nbsp;the&nbsp;<a href="#Popen">Popen</a>&nbsp;constructor.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>ABOVE_NORMAL_PRIORITY_CLASS</strong> = 32768<br>
+<strong>BELOW_NORMAL_PRIORITY_CLASS</strong> = 16384<br>
+<strong>CREATE_BREAKAWAY_FROM_JOB</strong> = 16777216<br>
+<strong>CREATE_DEFAULT_ERROR_MODE</strong> = 67108864<br>
+<strong>CREATE_NEW_CONSOLE</strong> = 16<br>
+<strong>CREATE_NEW_PROCESS_GROUP</strong> = 512<br>
+<strong>CREATE_NO_WINDOW</strong> = 134217728<br>
+<strong>DETACHED_PROCESS</strong> = 8<br>
+<strong>DEVNULL</strong> = -3<br>
+<strong>HIGH_PRIORITY_CLASS</strong> = 128<br>
+<strong>IDLE_PRIORITY_CLASS</strong> = 64<br>
+<strong>NORMAL_PRIORITY_CLASS</strong> = 32<br>
+<strong>PIPE</strong> = -1<br>
+<strong>REALTIME_PRIORITY_CLASS</strong> = 256<br>
+<strong>STARTF_USESHOWWINDOW</strong> = 1<br>
+<strong>STARTF_USESTDHANDLES</strong> = 256<br>
+<strong>STDOUT</strong> = -2<br>
+<strong>STD_ERROR_HANDLE</strong> = 4294967284<br>
+<strong>STD_INPUT_HANDLE</strong> = 4294967286<br>
+<strong>STD_OUTPUT_HANDLE</strong> = 4294967285<br>
+<strong>SW_HIDE</strong> = 0<br>
+<strong>__all__</strong> = ['Popen', 'PIPE', 'STDOUT', 'call', 'check_call', 'getstatusoutput', 'getoutput', 'check_output', 'run', 'CalledProcessError', 'DEVNULL', 'SubprocessError', 'TimeoutExpired', 'CompletedProcess', 'CREATE_NEW_CONSOLE', 'CREATE_NEW_PROCESS_GROUP', 'STD_INPUT_HANDLE', 'STD_OUTPUT_HANDLE', 'STD_ERROR_HANDLE', 'SW_HIDE', ...]</td></tr></table>
+</body></html>
