@@ -1,6 +1,6 @@
 # Football Tournament Tracker
 
-## Github Setup
+## Github Set-up
 **These instructions apply to `git bash`**
 
 * Clone repo into local directory using `git clone https://github.com/WBL2-Football-Project/football`
