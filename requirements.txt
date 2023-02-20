@@ -1,4 +1,0 @@
-tk
-pyinstaller
-customtkinter
-pytest
