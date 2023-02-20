@@ -23,7 +23,7 @@
 2. How to add tests to the program.
 
 If you have simple program like:
-```
+```python
 # pytest - test and presentation how to use
 #
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
 To define test we need to add code like below:
 
-```
+```python
 from unittest import TestCase
 
 class SquaresTesting(TestCase):
@@ -62,7 +62,7 @@ which expects any used resources defined (e.g.Square)
 
 Finally entire source code looks like below:
 
-```
+```python
 # pytest - test and presentation how to use
 #
 
@@ -102,3 +102,32 @@ which presents the following results:
 
 4. Summary
 With OOP approach, we likely add separate test object for every class created. Every test object defines as many particular tests as needed to check everything related. Before combining new branch into the main source, we need to have all the necessary tests defined and completed to avoid risk of disordering the other works.
+
+## VSCODE integration for debugging and pytesting .py files
+
+1. We've done debugging and testing configuration with definitions shown below:
+
+```json
+{
+	"configurations": [
+		{
+			"name": "Python: Current File",
+			"type": "python",
+			"request": "launch",
+			"program": "${file}",
+			"console": "integratedTerminal",
+			"justMyCode": true
+		},
+		{
+			"name": "Python: Current File Tests",
+			"type": "python",
+			"request": "launch",
+			"module": "pytest",
+			"console": "integratedTerminal",
+			"justMyCode": true
+		}
+	]
+}
+```
+
+2. To use it editing the particular source file, click 'debug' button on left side then choose one of the debuggin option from 'Run and debug' on top and click the related play button or hit Cmd/Ctrl+D shortcut.
