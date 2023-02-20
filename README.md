@@ -131,3 +131,18 @@ With OOP approach, we likely add separate test object for every class created. E
 ```
 
 2. To use it editing the particular source file, click 'debug' button on left side then choose one of the debuggin option from 'Run and debug' on top and click the related play button or hit Cmd/Ctrl+D shortcut.
+
+## src - source code directory
+
+1. src/main.py is the application starting point
+2. python src/main.py --help give us the help how to run it:
+
+![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/tests/launch-help.jpg "launch-help")
+
+3. python src/main.py --console give us console start of the application without any gui
+
+![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/tests/launch-console.jpg "launch-console")
+
+4. python src/main.py # without any parameters start the gui version of application if possible (tkinter is installed)
+
+![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/tests/launch-gui.jpg "launch-gui")
