@@ -97,4 +97,6 @@ if __name__ == '__main__':
 3. We can start the program test by: 
 `python -m pytest pytest_test_and_presentation.py`
 which presents the following results:
+
 ![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/tests/pytest-presentation-results.jpg "presentation tests results")
+
