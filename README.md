@@ -100,3 +100,5 @@ which presents the following results:
 
 ![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/tests/pytest-presentation-results.jpg "presentation tests results")
 
+4. Summary
+With OOP approach, we likely add separate test object for every class created. Every test object defines as many particular tests as needed to check everything related. Before combining new branch into the main source, we need to have all the necessary tests defined and completed to avoid risk of disordering the other works.
