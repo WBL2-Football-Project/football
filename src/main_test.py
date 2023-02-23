@@ -62,5 +62,3 @@ def testingpydoc(num1,num2):
 # 		root.mainloop()	
 # 	else:
 # 		print("Welcome to football\n")
-
-print(testingpydoc.__doc__)
