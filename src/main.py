@@ -1,8 +1,5 @@
-# nested modules
 import sys
-# import re
-# import pickle
-# import os
+from model import *
 
 if __name__ == '__main__':
 	# checking if TkInter is enable in environment
