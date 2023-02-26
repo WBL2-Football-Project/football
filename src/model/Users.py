@@ -1,5 +1,6 @@
+"""PyDoc test
+"""
 from StateMachine import *
-
 class Users:
     """Manages users accounts."""
     
