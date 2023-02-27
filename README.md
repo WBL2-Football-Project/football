@@ -146,3 +146,9 @@ With OOP approach, we likely add separate test object for every class created. E
 4. python src/main.py # without any parameters start the gui version of application if possible (tkinter is installed)
 
 ![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/tests/launch-gui.jpg "launch-gui")
+
+## To generate documentation you need to run the command:
+
+```bash
+python3 pydoc_process.py
+```
