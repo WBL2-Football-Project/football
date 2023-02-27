@@ -23,7 +23,7 @@ class UIAbstractInterface:
             widgetDefinitionObj (WidgetDefinition): _description_
 
         Raises:
-            ExceptionUIAbstractInterface: _description_
+            ExceptionUIAbstractInterface: no createNewDialog method defined
         """
         raise ExceptionUIAbstractInterface("no createNewDialog method defined")
 

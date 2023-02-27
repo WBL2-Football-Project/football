@@ -23,7 +23,7 @@ class Schedule:
         self.isGroupPhase = None
 
     def checkIfTournamentBegan(self):
-        """Check if the tournament is started by calling StateMachine.checkIsScheduled() and return True.
+        """Check if the tournament is started by calling @StateMachine.checkIsGroupScheduled() and return True.
         """
         pass
 

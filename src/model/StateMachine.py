@@ -15,20 +15,43 @@ class StateMachine:
     """This class keep the current state of the application instance, e.g. holding instances for: is schedule generated or current user account rights."""
 
     def __init__(self):
-        self.scheduleGenerated = False
+        self.groupScheduleGenerated = False
+        self.groupPhaseCompleted = False
+        self.playoffScheduleGenerated = False
         self.accountRights:AccountRights = AccountRights.NotLoggedIn
 
-    def checkIsScheduled(self):
-        """Returns True if the games schedules is generated."""
+    def checkIsGroupScheduled(self):
+        """Returns True if the games group phase schedules is generated."""
         return self.scheduleGenerated
+    
+    def checkIsGroupPhaseCompleted(self):
+        """Returns True if the games group phase schedules is completed."""
+        return self.groupPhaseCompleted
 
-    def setIsScheduled(self,isScheduled:bool):
-        """Sets the isScheduled flag of the application
+    def setIsGroupScheduled(self,isGroupScheduled:bool):
+        """Sets the isGroupScheduled flag of the application
 
         Args:
-            isScheduled (bool): the games callendar is scheduled
+            isGroupScheduled (bool): the games group phase callendar is scheduled
         """
-        self.scheduleGenerated = isScheduled
+        self.scheduleGenerated = isGroupScheduled
+
+    def checkIsPlayoffScheduled(self):
+        """Returns True if the games playoff schedules is generated."""
+        return self.scheduleGenerated
+
+    def setIsPlayoffScheduled(self,isPlayoffScheduled:bool):
+        """Sets the isPlayoffScheduled flag of the application
+
+        Args:
+            isPlayoffScheduled (bool): the games playoff phase callendar is scheduled
+
+        Exceptions:
+
+        """
+        if not self.setIsGroupScheduled:
+            raise ExceptionStateMachine("you don't have a group phase callendar yet, generate it first")
+        self.scheduleGenerated = isPlayoffScheduled
 
     def setAccountRights(self, accountRights:AccountRights):
         """Sets the accountRights flag of the application, which usually should be set after a user is logged in.
