@@ -68,7 +68,8 @@ def pydoc_test():
         with div(id='Documentation'):
             html_file_list = ul()
             for file_name, file_path in file_list.items():
-                html_file_list+= li(a(file_name,href=file_path))
+                html_file_list+= li(a (file_name,href=file_path,rel="external"))
+                print(file_path)
 
     try:
         index_file = open('index.html','w')
