@@ -12,6 +12,8 @@ if __name__ == '__main__':
 		Gui=True
 	except ImportError:
 		Gui=False
+	"""Testing PyDoc functionality 2.0
+	"""
 
 	# analysing launch parameters (console mode run for auto tests)
 	if len(sys.argv) >= 2:
