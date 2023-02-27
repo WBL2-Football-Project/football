@@ -2,6 +2,7 @@ from abc import abstractmethod
 from typing import Optional,Callable,Any,List
 from enum import Enum
 from WidgetDefinition import *
+from Serialisable import *
 
 # exception related to DBAbstractInterface class
 class ExceptionUIAbstractInterface(Exception):
@@ -22,12 +23,21 @@ class UIAbstractInterface:
             widgetDefinitionObj (WidgetDefinition): _description_
 
         Raises:
-            ExceptionUIAbstractInterface: _description_
+            ExceptionUIAbstractInterface: no createNewDialog method defined
         """
         raise ExceptionUIAbstractInterface("no createNewDialog method defined")
 
     @abstractmethod
-    def chooseRecordFromList(self, table, filterFunc:Callable[[Any],List[Any]]):
+    def chooseRecordFromList(self, table:Serialisable, filterFunc:Optional[Callable[[Any],List[Any]]]=None):
+        """Create a window with the list of records from chosen table and let the user select one of them.
+
+        Args:
+            table (Serialisable): the class object inherited from the Serialisable class, representing the data in the table in the application database
+            filterFunc (Callable[[Any],List[Any]],Optional): _description_
+
+        Raises:
+            ExceptionUIAbstractInterface: _description_
+        """
         raise ExceptionUIAbstractInterface("no chooseRecordFromList method defined")
 
     @abstractmethod
