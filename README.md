@@ -1,5 +1,10 @@
 # Football Tournament Tracker
 
+## Documentation
+
+* Please find all documentation at this [link](https://htmlpreview.github.io/?https://raw.githubusercontent.com/WBL2-Football-Project/football/main/documentation/__init__.html).
+
+
 ## Github Set-up
 **These instructions apply to `git bash`**
 
