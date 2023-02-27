@@ -1,6 +1,8 @@
 import subprocess
 import os
 import shutil
+import dominate
+from dominate.tags import *
 
 mainpath = os.getcwd()
 count = 0
@@ -48,6 +50,34 @@ def pydoc_move():
                     exit(-1)
     print("\nFiles documented - ",count,sep="")
 
+def pydoc_test():
+    file_list = {}
+    
+    os.chdir('documentation')
+    for html_file in os.listdir("."):
+        if html_file.endswith(".html"):
+            html_file_new = "https://htmlpreview.github.io/?https://raw.githubusercontent.com/WBL2-Football-Project/football/main/documentation/"+html_file
+            file_list.update({html_file: html_file_new})
+
+    html_code = dominate.document(title='WBL2-Football-Project/football documentation')  
+
+    with html_code:
+        with div(id='Title'):
+            h1("WBL2-Football-Project/football documentation")
+
+        with div(id='Documentation'):
+            html_file_list = ul()
+            for file_name, file_path in file_list.items():
+                html_file_list+= li(a(file_name,href=file_path))
+
+    try:
+        index_file = open('index.html','w')
+        index_file.write(str(html_code))
+        index_file.close()
+    except:
+        print("Something went wrong with the index.html file.")
+
 if __name__ == "__main__":
     pydoc_output()
     pydoc_move()
+    pydoc_test()
