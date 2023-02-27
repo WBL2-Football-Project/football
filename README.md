@@ -2,7 +2,7 @@
 
 ## Documentation
 
-* Please find all documentation at this [link](https://htmlpreview.github.io/?https://raw.githubusercontent.com/WBL2-Football-Project/football/main/documentation/index.html).
+* Please find all documentation at this <a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/WBL2-Football-Project/football/main/documentation/index.html" target="_blank">link!</a>
 
 
 ## Github Set-up
