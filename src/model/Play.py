@@ -1,6 +1,7 @@
 from typing import List
 from Teams import *
 from Schedule import *
+from unittest import TestCase
 
 class Play:
     """Manages sinle play between two teams statistic data object."""
@@ -83,3 +84,6 @@ class Play:
         """
         pass
 
+class PlayTesting(TestCase):
+    def test_surface(self):
+        pass
