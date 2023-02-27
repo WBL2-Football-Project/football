@@ -56,7 +56,7 @@ def pydoc_test():
     os.chdir('documentation')
     for html_file in os.listdir("."):
         if html_file.endswith(".html"):
-            html_file_new = "https://htmlpreview.github.io/?https://raw.githubusercontent.com/WBL2-Football-Project/football/main/documentation/"+html_file
+            html_file_new = "https://raw.githubusercontent.com/WBL2-Football-Project/football/main/documentation/"+html_file
             file_list.update({html_file: html_file_new})
 
     html_code = dominate.document(title='WBL2-Football-Project/football documentation')  
