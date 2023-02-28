@@ -2,3 +2,5 @@ tk
 pyinstaller
 customtkinter
 pytest
+pydoc
+dominate
