@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module model.Users</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="model.html"><font color="#ffffff">model</font></a>.Users</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/luki/clients/uws/year_2/term2/wbl2/football/src/model/Users.py">/Users/luki/clients/uws/year_2/term2/wbl2/football/src/model/Users.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="model.Users.html#Users">Users</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Users">class <strong>Users</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Manages&nbsp;users&nbsp;accounts.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Users-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Fields<br>
+login&nbsp;(str)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user&nbsp;login<br>
+password&nbsp;(str)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user&nbsp;password<br>
+rights&nbsp;(AccountRights)&nbsp;&nbsp;&nbsp;user&nbsp;rights&nbsp;type</tt></dd></dl>
+
+<dl><dt><a name="Users-checkNewUserData"><strong>checkNewUserData</strong></a>(self, login, password)</dt><dd><tt>Check&nbsp;if&nbsp;new&nbsp;account&nbsp;with&nbsp;user&nbsp;rights&nbsp;is&nbsp;possible&nbsp;(in&nbsp;relation&nbsp;to&nbsp;accounts&nbsp;existed&nbsp;in&nbsp;the&nbsp;current&nbsp;database).<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;login&nbsp;(str):&nbsp;user&nbsp;login<br>
+&nbsp;&nbsp;&nbsp;&nbsp;password&nbsp;(str):&nbsp;user&nbsp;password<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;login&nbsp;and&nbsp;password&nbsp;are&nbsp;valid&nbsp;(still&nbsp;are&nbsp;free&nbsp;to&nbsp;use),&nbsp;False&nbsp;otherwise</tt></dd></dl>
+
+<dl><dt><a name="Users-checkNewUserDataReferee"><strong>checkNewUserDataReferee</strong></a>(self, login, password, rights: AccountRights.AccountRights)</dt><dd><tt>Check&nbsp;if&nbsp;new&nbsp;account&nbsp;with&nbsp;user&nbsp;or&nbsp;referee&nbsp;rights&nbsp;is&nbsp;possible&nbsp;(in&nbsp;relation&nbsp;to&nbsp;accounts&nbsp;existed&nbsp;in&nbsp;the&nbsp;current&nbsp;database).<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;login&nbsp;(str):&nbsp;user&nbsp;login<br>
+&nbsp;&nbsp;&nbsp;&nbsp;password&nbsp;(str):&nbsp;user&nbsp;password<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rights&nbsp;(AccountRights):&nbsp;account&nbsp;rights<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;login&nbsp;and&nbsp;password&nbsp;are&nbsp;valid&nbsp;(still&nbsp;are&nbsp;free&nbsp;to&nbsp;use),&nbsp;False&nbsp;otherwise</tt></dd></dl>
+
+<dl><dt><a name="Users-checkRightsChange"><strong>checkRightsChange</strong></a>(self, ID, login, password, rights)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;change&nbsp;of&nbsp;new&nbsp;data&nbsp;provided&nbsp;by&nbsp;user&nbsp;for&nbsp;the&nbsp;account&nbsp;record&nbsp;ID&nbsp;is&nbsp;possible&nbsp;and&nbsp;could&nbsp;be&nbsp;accepted.<br>
+(Descreesing&nbsp;the&nbsp;rights&nbsp;into&nbsp;the&nbsp;user&nbsp;type&nbsp;rights&nbsp;for&nbsp;last&nbsp;existing&nbsp;account&nbsp;is&nbsp;impossible,&nbsp;same&nbsp;for&nbsp;changing&nbsp;the&nbsp;login&nbsp;to&nbsp;equal&nbsp;to&nbsp;the&nbsp;other&nbsp;which&nbsp;also&nbsp;exists&nbsp;in&nbsp;the&nbsp;database)<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;(int):&nbsp;account&nbsp;record&nbsp;ID<br>
+&nbsp;&nbsp;&nbsp;&nbsp;login&nbsp;(str):&nbsp;login&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;password&nbsp;(str):&nbsp;password&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rights&nbsp;(AccountRights):&nbsp;account&nbsp;rights</tt></dd></dl>
+
+<dl><dt><a name="Users-getNewAccountDataUser"><strong>getNewAccountDataUser</strong></a>(self)</dt><dd><tt>Generates&nbsp;UI&nbsp;dialog&nbsp;window&nbsp;for&nbsp;input&nbsp;login&nbsp;and&nbsp;password&nbsp;for&nbsp;user&nbsp;type&nbsp;rights&nbsp;only.<br>
+Then&nbsp;checks&nbsp;if&nbsp;the&nbsp;data&nbsp;provided&nbsp;is&nbsp;valid&nbsp;and&nbsp;new&nbsp;account&nbsp;is&nbsp;possible&nbsp;to&nbsp;create.<br>
+Then&nbsp;creates&nbsp;the&nbsp;new&nbsp;account&nbsp;in&nbsp;the&nbsp;database.</tt></dd></dl>
+
+<dl><dt><a name="Users-getNewAcountDataReferee"><strong>getNewAcountDataReferee</strong></a>(self)</dt><dd><tt>Generates&nbsp;UI&nbsp;dialog&nbsp;window&nbsp;for&nbsp;input&nbsp;login,&nbsp;password&nbsp;and&nbsp;rights&nbsp;type.<br>
+Then&nbsp;checks&nbsp;if&nbsp;the&nbsp;data&nbsp;provided&nbsp;is&nbsp;valid&nbsp;and&nbsp;new&nbsp;account&nbsp;is&nbsp;possible&nbsp;to&nbsp;create.<br>
+Then&nbsp;creates&nbsp;the&nbsp;new&nbsp;account&nbsp;in&nbsp;the&nbsp;database.</tt></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="Users-changeUserRights"><strong>changeUserRights</strong></a>()</dt><dd><tt>Generates&nbsp;UI&nbsp;dialogs&nbsp;for&nbsp;changing&nbsp;user&nbsp;rights.<br>
+&nbsp;<br>
+-&nbsp;creates&nbsp;the&nbsp;new&nbsp;dialog&nbsp;windows&nbsp;for&nbsp;input&nbsp;user&nbsp;data:&nbsp;ID,&nbsp;login&nbsp;(search&nbsp;database&nbsp;filter,&nbsp;user&nbsp;can&nbsp;leave&nbsp;it&nbsp;blank&nbsp;to&nbsp;see&nbsp;all&nbsp;the&nbsp;records)<br>
+-&nbsp;get&nbsp;list&nbsp;of&nbsp;records&nbsp;from&nbsp;database&nbsp;(refer&nbsp;to&nbsp;DBAbstractInterface&nbsp;get&nbsp;list&nbsp;of&nbsp;records),&nbsp;show&nbsp;error&nbsp;message&nbsp;if&nbsp;empty&nbsp;and&nbsp;finish&nbsp;the&nbsp;procedure<br>
+-&nbsp;let&nbsp;the&nbsp;user&nbsp;choose&nbsp;from&nbsp;the&nbsp;list&nbsp;of&nbsp;records&nbsp;(refer&nbsp;to&nbsp;UIAbstractInterface&nbsp;-&nbsp;choose&nbsp;record&nbsp;from&nbsp;list)<br>
+-&nbsp;for&nbsp;every&nbsp;record&nbsp;chosen&nbsp;to&nbsp;edit,&nbsp;create&nbsp;new&nbsp;dialog&nbsp;window&nbsp;for&nbsp;getting&nbsp;new&nbsp;'rights'<br>
+-&nbsp;check&nbsp;the&nbsp;new&nbsp;value&nbsp;of&nbsp;the&nbsp;rights&nbsp;(refer&nbsp;to&nbsp;<a href="#Users">Users</a>&nbsp;check&nbsp;rights&nbsp;change)&nbsp;and&nbsp;show&nbsp;error&nbsp;message&nbsp;if&nbsp;it's&nbsp;forbidden&nbsp;then&nbsp;exit<br>
+-&nbsp;save&nbsp;the&nbsp;new&nbsp;value&nbsp;of&nbsp;the&nbsp;rights&nbsp;to&nbsp;the&nbsp;database&nbsp;(refer&nbsp;to&nbsp;DBAbstractInterface&nbsp;update&nbsp;data&nbsp;in&nbsp;db)<br>
+-&nbsp;show&nbsp;the&nbsp;confirmation&nbsp;message&nbsp;to&nbsp;user&nbsp;and&nbsp;go&nbsp;back&nbsp;to&nbsp;the&nbsp;list&nbsp;of&nbsp;users&nbsp;to&nbsp;let&nbsp;the&nbsp;user&nbsp;choose&nbsp;another&nbsp;one&nbsp;or&nbsp;exit</tt></dd></dl>
+
+<dl><dt><a name="Users-logintoapp"><strong>logintoapp</strong></a>()</dt><dd><tt>Generates&nbsp;UI&nbsp;dialogs&nbsp;for&nbsp;input&nbsp;the&nbsp;login&nbsp;and&nbsp;password&nbsp;data&nbsp;from&nbsp;the&nbsp;user&nbsp;to&nbsp;check&nbsp;the&nbsp;rights&nbsp;with&nbsp;the&nbsp;database.<br>
+&nbsp;<br>
+-&nbsp;create&nbsp;new&nbsp;dialog&nbsp;window&nbsp;for&nbsp;getting:&nbsp;login,&nbsp;password&nbsp;(refer&nbsp;to&nbsp;UIAbstractInterface&nbsp;create&nbsp;new&nbsp;dialog)<br>
+-&nbsp;get&nbsp;rights&nbsp;from&nbsp;database&nbsp;(refer&nbsp;to&nbsp;DBAbstractInterface&nbsp;get&nbsp;rights&nbsp;from&nbsp;db)&nbsp;and&nbsp;show&nbsp;error&nbsp;message&nbsp;if&nbsp;access&nbsp;isn't&nbsp;granted&nbsp;then&nbsp;go&nbsp;back&nbsp;to&nbsp;login&nbsp;dialog<br>
+-&nbsp;update&nbsp;the&nbsp;login&nbsp;status&nbsp;(refer&nbsp;to&nbsp;SystemController&nbsp;loginStatus)<br>
+-&nbsp;start&nbsp;the&nbsp;application&nbsp;main&nbsp;screen&nbsp;with&nbsp;features&nbsp;access&nbsp;depending&nbsp;on&nbsp;the&nbsp;account&nbsp;rights</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

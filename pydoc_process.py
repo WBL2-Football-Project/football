@@ -34,7 +34,7 @@ def pydoc_output():
         dirname = os.path.relpath(directory)
         os.chdir(dirname)
         #print("\nCWD: ",dirname,sep="")
-        subprocess.run(["python3","-m","pydoc","-w",".\\"])
+        subprocess.run(["python3","-m","pydoc","-w","./"])
 
 def pydoc_move():
     destinationpath = 'documentation/'  
