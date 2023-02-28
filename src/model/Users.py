@@ -1,4 +1,4 @@
-from StateMachine import *
+from AccountRights import *
 
 class Users:
     """Manages users accounts."""
@@ -52,7 +52,7 @@ class Users:
         """
         pass
 
-    def checkRightChange(self, ID, login, password, rights):
+    def checkRightsChange(self, ID, login, password, rights):
         """Check if the change of new data provided by user for the account record ID is possible and could be accepted.
         (Descreesing the rights into the user type rights for last existing account is impossible, same for changing the login to equal to the other which also exists in the database)
 
@@ -64,3 +64,27 @@ class Users:
         """
         pass
 
+    @staticmethod
+    def changeUserRights():
+        """Generates UI dialogs for changing user rights.
+
+        - creates the new dialog windows for input user data: ID, login (search database filter, user can leave it blank to see all the records)
+        - get list of records from database (refer to DBAbstractInterface get list of records), show error message if empty and finish the procedure
+        - let the user choose from the list of records (refer to UIAbstractInterface - choose record from list)
+        - for every record chosen to edit, create new dialog window for getting new 'rights'
+        - check the new value of the rights (refer to Users check rights change) and show error message if it's forbidden then exit
+        - save the new value of the rights to the database (refer to DBAbstractInterface update data in db)
+        - show the confirmation message to user and go back to the list of users to let the user choose another one or exit
+        """
+        pass
+    
+    @staticmethod
+    def logintoapp():
+        """Generates UI dialogs for input the login and password data from the user to check the rights with the database.
+        
+        - create new dialog window for getting: login, password (refer to UIAbstractInterface create new dialog)
+        - get rights from database (refer to DBAbstractInterface get rights from db) and show error message if access isn't granted then go back to login dialog
+        - update the login status (refer to SystemController loginStatus)
+        - start the application main screen with features access depending on the account rights
+        """
+        pass

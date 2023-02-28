@@ -1,8 +1,12 @@
-from enum import Enum
+from TimeOfDay import *
 
-class TimeOfDay(Enum):
-    Morning='morning'
-    Afternoon='Afternoon'
+# TODO:
+# showmatchorderplayofftree
+# #recordgamesdata
+# calculateplayoffphaseschedule
+# #calculategroupphaseschedule
+# #checkifequal16
+# #checkiftournamentbegan
 
 class Schedule:
     """Manages the schedule of the tournament plays."""
@@ -21,6 +25,35 @@ class Schedule:
         self.timeOfDay = None
         self.isPlayCompleted = None
         self.isGroupPhase = None
+
+    def calculateGroupPhaseSchedule(self):
+        """Calculate group phase schedule. This method can be called only with referee rights account.
+        To calculate group phase schedule use the 'Calculate Group Phase Schedule' sequence diagram.
+        When done correctly, in database should be group records and every group phase games schedule saved.
+        When done correctly, the proper StateMachine record should be updated by calling StateMachine.setIsGroupsScheduled().
+
+        References: 
+            Group
+            Schedule
+            StateMachine
+            Schedule.calculateGroupPhaseSchedule()
+        """
+        pass
+
+    def calculatePlayoffPhaseSchedule(self):
+        """Calculate playoff phase schedule only if the group phase is already calculated. 
+        This method can be called only with referee rights account.
+        To calculate playoff phase schedule use the 'Calculate Playoff Phase Schedule' sequence diagram.
+        When done correctly, in the database should be every playoff game scheduled with NULL team1/2 ID's 
+        but with virtual team1/2 completed for future games with unknown yes compatitors.
+        When done correctly, the proper StateMachine record should be updated by calling StateMachine.setIsPlayoffScheduled().
+
+        References: 
+            StateMachine
+            Schedule
+            Schedule.calculateGroupPhaseSchedule()
+        """
+        pass
 
     def checkIfTournamentBegan(self):
         """Check if the tournament is started by calling @StateMachine.checkIsGroupScheduled() and return True.
@@ -41,4 +74,16 @@ class Schedule:
     @staticmethod
     def showMatchOrderGroupsStatus():
         """Creates a window with list of current games statistics for tournament group stage."""
+        pass
+
+    @staticmethod
+    def calculateplayoffphaseschedule():
+        """Manages of the generation of the schedule for entire playoff stage of the tournament.
+        - check is playoff scheduled and show the error message if it is, then end the procedure
+        - create a dialog yes no to let the user confirm the calculation have to be done
+        - generate playoff phase play schedule (coresponding method from Play class)
+        - use the list of schedules returned for sarialise it into the database (using add data to db from DBAbstractInterface class)
+        - set is playoff scheduled (corresponding method from StateMachine class)
+        - show confirmation message to use, everything's done (show info message from UIAbstractInterface class)
+        """
         pass

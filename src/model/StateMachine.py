@@ -1,15 +1,9 @@
-from enum import Enum
+from AccountRights import *
 
 # exception related to AccountRights class
 class ExceptionStateMachine(Exception):
     def __init__(self, message='StateMachine Exception'):
         super().__init__(f"ERROR(StateMachine): {message}")
-
-class AccountRights(Enum):
-    """Enum defining the types of account rights"""
-    NotLoggedIn='Not Logged In'
-    UserRights='User Rights'
-    RefereeRights='Referee Rights'
 
 class StateMachine:
     """This class keep the current state of the application instance, e.g. holding instances for: is schedule generated or current user account rights."""
@@ -19,6 +13,10 @@ class StateMachine:
         self.groupPhaseCompleted = False
         self.playoffScheduleGenerated = False
         self.accountRights:AccountRights = AccountRights.NotLoggedIn
+
+    def setGroupPhaseCompleted(self):
+        """Set into database the groupPhaseCompleted to True, which means that tournament group phase is completed and the playoff phase is beginning."""
+        pass
 
     def checkIsGroupScheduled(self):
         """Returns True if the games group phase schedules is generated."""

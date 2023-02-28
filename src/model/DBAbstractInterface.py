@@ -1,12 +1,12 @@
 from abc import abstractmethod
-from StateMachine import AccountRights
+from AccountRights import *
 from typing import Callable,Any,List
+from Serialisable import *
 
 # exception related to DBAbstractInterface class
 class ExceptionDBAbstractInterface(Exception):
     def __init__(self, message='DBAbstractInterface Exception'):
         super().__init__(f"ERROR(DBAbstractInterface): {message}")
-
 
 class DBAbstractInterface:
     """Interface class with abstract method. Need to be implemented by the actual DB writing class which defines all the abstract methods
@@ -26,19 +26,6 @@ class DBAbstractInterface:
             ExceptionDBAbstractInterface: exception when method has no implementation in final DB implementation class
         """
         raise ExceptionDBAbstractInterface("no addDataToDb method defined")
-
-    @abstractmethod
-    def deleteDataFromDb(self, table, ID): 
-        """Delete object from the database.
-
-        Args:
-            table (class type): class type definition
-            ID (int): unique identification of the object in the database
-
-        Raises:
-            ExceptionDBAbstractInterface: exception when method has no implementation in final DB implementation class
-        """
-        raise ExceptionDBAbstractInterface("no deleteDataFromDb method defined")
 
     @abstractmethod
     def updateDataInDb(self, table, data, ID): 
@@ -112,3 +99,11 @@ class DBAbstractInterface:
             ExceptionDBAbstractInterface: _description_
         """
         raise ExceptionDBAbstractInterface("no getListOfRecords method defined")
+
+    @abstractmethod
+    def getMaxIdFromTable(self, table:Serialisable):
+        """Returns the maximum ID numer found in the specific table in the database.
+        Returns:
+            current maximum ID (int): current maximum ID from the specified table
+        """
+        raise ExceptionDBAbstractInterface("no getMaxIdFromTable method defined")
