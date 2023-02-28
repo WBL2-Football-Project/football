@@ -4,6 +4,8 @@
 
 * Please find all documentation at this <a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/WBL2-Football-Project/football/main/documentation/index.html" target="_blank">link!</a>
 
+* UML model <a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/WBL2-Football-Project/football/main/uml/index.html" target="_blank">link!</a>
+
 
 ## Github Set-up
 **These instructions apply to `git bash`**
