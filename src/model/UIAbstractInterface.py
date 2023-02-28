@@ -17,6 +17,18 @@ class UIAbstractInterface:
     Raises:
         ExceptionUIAbstractInterface: no <method-name> method defined
     """
+
+    def __init__(self, implementationClassObj):
+        """Initialisation of the UIAbstractInterface.
+        
+        Fields:
+            implementationClassObj (UIAbstractInterface) : implementation class object instance access
+        
+        Args:
+            implementationClassObj (UIAbstractInterface): reference to to implementation class (dependency injection pattern)
+        """
+        self.implementationClassObj = implementationClassObj
+
     @abstractmethod
     def createNewDialog(self, widgetDefinitionObj:WidgetDefinition):
         """Prepare creation of a new dialog window on screen, saving widgetDefinitionObj.

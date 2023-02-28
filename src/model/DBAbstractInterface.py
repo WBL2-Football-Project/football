@@ -14,6 +14,17 @@ class DBAbstractInterface:
         ExceptionDBAbstractInterface: no <method-name> method defined
     """
 
+    def __init__(self, implementationClassObj):
+        """Initialisation of the DBAbstractInterface.
+        
+        Fields:
+            implementationClassObj (DBAbstractInterface) : implementation class object instance access
+        
+        Args:
+            implementationClassObj (DBAbstractInterface): reference to to implementation class (dependency injection pattern)
+        """
+        self.implementationClassObj = implementationClassObj
+
     @abstractmethod
     def addDataToDb(self, table, data): 
         """Add new object to the database.
