@@ -1,4 +1,7 @@
 from UIAbstractInterface import UIAbstractInterface
+from UIHelperInterface import *
 
 class UITkinterGUI(UIAbstractInterface):
-    pass
+    def __init__(self,helper:UIHelperInterface):
+        self.helper = helper
+        UIAbstractInterface.__init__(self,self)

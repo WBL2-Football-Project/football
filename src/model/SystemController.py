@@ -13,7 +13,7 @@ class SystemController(StateMachine):
     """Main system controller for the application definition. The application instance could start after this controller will be initiated.
     """
     
-    def __init__(self, DBImplementationObj:DBAbstractInterface, UIImplementationObj:UIAbstractInterface):
+    def __init__(self, dbImplementationObj:DBAbstractInterface, uiImplementationObj:UIAbstractInterface):
         """System controller initialisation method with dependency injection convention.
         To successfully create this controller you need to pass two implementation classes, one for DB and the other for UI purposes.
         Every calls to DB or UI have to be made through self.dbImplementationObj and self.uiImplementationObj instances.
@@ -28,15 +28,27 @@ class SystemController(StateMachine):
             loginStatus (LoginStatus) : login status object which keeps the current login status and user permissions to the application and database
         """
         super()
-        if not isinstance(DBImplementationObj,DBAbstractInterface):
+        if not isinstance(dbImplementationObj,DBAbstractInterface):
             raise ExceptionSystemController("DbImplementationObj must be a DBAbstractInterface")
-        if not isinstance(UIImplementationObj,UIAbstractInterface):
+        if not isinstance(uiImplementationObj,UIAbstractInterface):
             raise ExceptionSystemController("UIAbstractInterface must be a UIAbstractInterface")
 
-        self.dbImplementationObj = DBImplementationObj
-        self.uiImplementationObj = UIImplementationObj
+        self.dbImplementationObj = dbImplementationObj
+        self.uiImplementationObj = uiImplementationObj
         self.loginStatus:LoginStatus = LoginStatus() # default login status (no user identification and no rights to the application and database)
 
+        # starting the main loop of the application independently of the type of user interface chosen (gui/console)
+        self.uiHelper().setSystemController(self)
+        self.uiHelper().startApplicationLoop()
+
+    def uiHelper(self):
+        """Return the helper object used to create the UI interface implementation
+
+        Returns:
+            UIHelperInterface: the helper object used to create the UI interface implementation
+        """
+        return self.uiImplementationObj.implementationClassObj.helper.implementationObj
+    
     def registerAccount(self):
         """User of referee register account. For empty database tables firsty created account is always with highest referee rights."""
         pass

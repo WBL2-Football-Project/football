@@ -23,7 +23,8 @@ from GroupWithGamesScheduled import *
 from SchedulesWithPlay import *
 from TimeOfDay import *
 from AccountRights import *
+from UIHelperInterface import *
 
 __all__ = ["Users","UnitTests","UIAbstractInterface","DBAbstractInterface","Teams","Schedule","StateMachine",
 	"SystemController","LoginStatus","Play","DBPickleFile","UITkinterGUI","UIConsole","WidgetDefinition","AccountRights","LayoutTypesEnum",
-    "Serialisable","Widget","GroupWithGamesScheduled","SchedulesWithPlay","TimeOfDay"]
+    "Serialisable","Widget","GroupWithGamesScheduled","SchedulesWithPlay","TimeOfDay","UIHelperInterface"]
