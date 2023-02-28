@@ -18,8 +18,8 @@ class Play:
             team1YellowCards (int) : yellow cards played by team1 in the game
             team2YellowCards (int) : yellow cards played by team2 in the game
             isPlayCompleted (bool) : indicates if the play is finished, False - still on
-            virtualTeam1 (int) : indicates virtual ID indicating proper team1 ID at the revelant tournament stage
-            virtualTeam2 (int) : indicates virtual ID indicating proper team2 ID at the revelant tournament stage
+            revelantScheduleIDForTeam1 (int) : after the play is completed, the winner team1ID should be set in the coresponing future schedule ID object
+            revelantScheduleIDForTeam2 (int) : after the play is completed, the winner team2ID should be set in the coresponing future schedule ID object
         """
         self.playID = None
         self.team1ID = None
@@ -31,26 +31,26 @@ class Play:
         self.team1YellowCards = None
         self.team2YellowCards = None
         self.isPlayCompleted = None
-        self.virtualTeam1 = None
-        self.virtualTeam2 = None
+        self.revelantScheduleIDForTeam1 = None
+        self.revelantScheduleIDForTeam2 = None
 
-    def generateRandomPlaySchedule(self):
+    def generateRandomGroupPhasePlaySchedule(self):
         """Generates a random play schedule for entire tournament after is checked if expected amount of teams is defined.
         Method uses helpers: generateRandomTeamsList(), prepareGroupPhaseData(), preparePlayoffPhaseData().
         Call saveRelativeScheculeRecords() when the tournament schedule is calculated.
         Sets StateMachine.setIsScheduled() after full schedule is saved."""
         pass
 
-    def generateRandomTeamsList(self):
+    def _generateRandomTeamsList(self):
         """Generates a randomly sorted list of all teams for further schedule computation."""
         pass
 
-    def prepareGroupPhaseData(self,randomTeamsList:List[Teams]):
+    def _prepareGroupPhaseData(self,randomTeamsList:List[Teams]):
         """Generates a breakdown of the teams into 4 groups of 3 teams each.
         """
         pass
 
-    def preparePlayoffPhaseData(self,randomTeamsList:List[Teams],groupsTeamsDistribution:List):
+    def _preparePlayoffPhaseData(self,randomTeamsList:List[Teams],groupsTeamsDistribution:List):
         """Generates a breakdown of the teams for quarter-final (4 plays of 2 teams each), semi-final (2 plays of 2 teams each), 3rdPlace-final (1 play of 2 teams) and final (1 play of 2 teams).
         """
         pass
@@ -60,7 +60,7 @@ class Play:
         The coresponding to every scheduled game Play objects records are saved into the database as well."""
         pass
 
-    def actualiseMatchData(self, playID, team1GoalsScored, team2GoalsScored, team1GoalsMissed, team2GoalsMissed, team1YellowCards, team2YellowCards, isPlayCompleted=False):
+    def actualiseOneGameData(self, playID, team1GoalsScored, team2GoalsScored, team1GoalsMissed, team2GoalsMissed, team1YellowCards, team2YellowCards, isPlayCompleted=False):
         """Actualise the current results of the game (during and after the play is completed)
 
         Args:
@@ -83,6 +83,29 @@ class Play:
             listOfRecords (List[Schedule]): list of Schedule records containing corresponding Play records
         """
         pass
+
+    @staticmethod
+    def generateplayoffphaseplayschedule():
+        """Generates new list of the schedule objects for every games in the playoff phase after the group phase is completed.
+
+        - get 2 best teams from every of group
+        - get the max ID used currently in the database of Schedule table using DBAbstractInterface.getMaxIdFromTable()
+        - prepare 4 schedule object (with unique schedule ID's) for quarter-final tree of games, match the winner from 
+            one group always with the 2nd place team from the other random group
+        - prepare 2 schedule object (with unique schedule ID's) for the semi-final tree of games, match the winner teams from quarter-final
+        - prepare 2 schedule object (with unique schedule ID's) for the final tree of games, match the looser teams for the 3rd place final 
+            and the winner teams for the 1st place final
+        
+        Importat notice: 
+            Quarter-final and semi-final tree of games expect us to set the fields: revelantScheduleIDForTeam1 and revelantScheduleIDForTeam2,
+            which indicate the scheduleID primary key fields in the next level of tree of games. We don't know at this moment who will be the
+            winner in every play scheduled. That's why when the specific playoff game will be completed, the ID of the winner team should be
+            set into the corresponding schedule object referenced by revelantScheduleIDForTeam1 and revelantScheduleIDForTeam2. After this
+            setup, the next future schedule with be fullfiled by the actually team ID's wheres before those fields have to be setted up to None.
+
+        Returns:
+            List[Schedule] : list of Schedule objects
+        """
 
 class PlayTesting(TestCase):
     def test_surface(self):

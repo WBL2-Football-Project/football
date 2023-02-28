@@ -1,3 +1,5 @@
+from DBAbstractInterface import *
+
 class Teams:
     """Manages the teams data structure."""
     def __init__(self):
@@ -24,10 +26,15 @@ class Teams:
         pass
 
     @staticmethod
-    def getNewData():
+    def getNewTeamData():
         """Generate a new team creation data window then check the data by checkData and finally save the new record to the database.
-        ( static method to call by Team.getNewData() )
+        ( static method to call by Team.getNewTeamData() )
         """
+        pass
+
+    @staticmethod
+    def addNewTeam(teamData):
+        """Create the new Team record after checking the teamData and save the new object to the database using DbAbstractInterface."""
         pass
 
     @staticmethod
@@ -48,3 +55,7 @@ class Teams:
         """
         pass
 
+    @staticmethod
+    def getTeamsCount():
+        """Get the current number of teams record saved in the database"""
+        pass

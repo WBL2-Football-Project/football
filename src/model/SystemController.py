@@ -1,6 +1,8 @@
+from typing import Optional
 from DBAbstractInterface import *
 from UIAbstractInterface import *
 from StateMachine import *
+from LoginStatus import *
 
 # exception related to SystemController class
 class ExceptionSystemController(Exception):
@@ -19,6 +21,11 @@ class SystemController(StateMachine):
         including: is user logged in, what kind of rights is granted and is entire schedule of plays generated. The rest of called actions should
         use this information as a source of current application state. Some of actions would change the StateMachine, e.g. loginToApp() or 
         refereeCalculateSchedule() methods.
+
+        Fields:
+            dbImplementationObj (DBAbstractInterface) : ready to use object for managing database, which is the implementation class for DBAbstractInterface
+            uiImplementationObj (UIAbstractInterface) : ready to use object for managing user interface, which is the implementation class for UIAbstractInterface
+            loginStatus (LoginStatus) : login status object which keeps the current login status and user permissions to the application and database
         """
         super()
         if not isinstance(DBImplementationObj,DBAbstractInterface):
@@ -28,12 +35,13 @@ class SystemController(StateMachine):
 
         self.dbImplementationObj = DBImplementationObj
         self.uiImplementationObj = UIImplementationObj
+        self.loginStatus:LoginStatus = LoginStatus() # default login status (no user identification and no rights to the application and database)
 
     def registerAccount(self):
         """User of referee register account. For empty database tables firsty created account is always with highest referee rights."""
         pass
 
-    def refereeDefineTeam(self):
+    def defineTeam(self):
         """Define team. This method can be called only with referee rights account."""
         pass
 
@@ -41,13 +49,37 @@ class SystemController(StateMachine):
         """Edit team data. This method can be called only with referee rights account."""
         pass
 
-    def refereeCalculateSchedule(self):
-        """Calculate schedule. This method can be called only with referee rights account."""
+    def calculateGroupPhaseSchedule(self):
+        """Calculate group phase schedule. This method can be called only with referee rights account.
+        To calculate group phase schedule use the 'Calculate Group Phase Schedule' sequence diagram.
+        When done correctly, in the database should be group records and every group phase games schedule saved.
+        Controller is transfering this call to @Schedule.calculateGroupPhaseSchedule()
+
+        References: 
+            Group
+            Schedule
+            Schedule.calculateGroupPhaseSchedule()
+        """
         pass
 
-    def refereeRecordGamesData(self):
+    def calculatePlayoffPhaseSchedule(self):
+        """Calculate playoff phase schedule only if the group phase is already calculated. 
+        This method can be called only with referee rights account.
+        To calculate playoff phase schedule use the 'Calculate Playoff Phase Schedule' sequence diagram.
+        When done correctly, in the database should be every playoff game scheduled with NULL team1/2 ID's 
+        but with virtual team1/2 completed for future games with unknown yes compatitors.
+        Controller is transfering this call to @Schedule.calculatePlayoffPhaseSchedule()
+
+        References: 
+            Schedule
+            Schedule.calculateGroupPhaseSchedule()
+        """
+        pass
+
+    def recordGamesData(self):
         """Record games data. This method can be called only with referee rights account.
         Referee is updating the data of the game while there'are any changes like goals or yellow cards.
+        Follow the 'Record games data' sequence diagram.
         """
         pass
 
@@ -68,4 +100,12 @@ class SystemController(StateMachine):
 
     def showMatchOrderPlayOffTree(self):
         """User or referee both can watch the current play-off-tree status of teams."""
+        pass
+
+    def teamsAmountLessThen16(self):
+        """Return True if the saved number of teams in the database is less then 16"""
+        pass
+
+    def changeUserRights(self):
+        """Change the rights for specific users. This call should be transferred to the User.changeUserRights method"""
         pass
