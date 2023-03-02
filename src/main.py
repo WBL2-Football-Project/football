@@ -38,7 +38,7 @@ if __name__ == '__main__':
 	if Gui: # tkinter UI
 
 		# load proper AppControlInterface implementation
-		from AppGui import AppGui
+		from ui.tkinter.AppGui import AppGui
 
 		# starting the SystemController for the application ( dependency injection pattern ) - everything else is managed inside the SystemController object instance
 		SystemController(DBPickleFile('football.db'),AppGui())
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 	else: # console UI
 
 		# load proper AppControlInterface implementation
-		from AppConsole import AppConsole
+		from ui.console.AppConsole import AppConsole
 
 		# starting the SystemController for the application ( dependency injection pattern ) - everything else is managed inside the SystemController object instance
 		SystemController(DBPickleFile('football.db'),AppConsole())

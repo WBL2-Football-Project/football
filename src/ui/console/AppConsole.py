@@ -1,28 +1,36 @@
-from abc import abstractmethod
-from typing import Optional,Callable,Any,List
-from enum import Enum
+import os
+import sys
+from typing import Optional,List,Any,Callable
 import inspect
-from WidgetDefinition import *
-from Serialisable import *
-from GroupWithGamesScheduled import *
-from SchedulesWithPlay import *
-from Teams import Teams
-from Users import Users
-from Play import Play
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+from model import *
 
-# exception related to DBAbstractInterface class
-class ExceptionUIAbstractInterface(Exception):
-    def __init__(self, message='UIAbstractInterface Exception'):
-        super().__init__(f"ERROR(UIAbstractInterface): {message}")
+# starting console UI helper class
+class AppConsole(AppControlInterface):
+    def __init__(self):
+        self.systemController:Optional[SystemController]=None
+        self._exitApp=False # true if we want to exit from the main loop
 
-class UIAbstractInterface:
-    """Interface class with abstract methods. Need to be implemented by the actual UI managing class which defines all the abstract methods.
+        # e.g. root window title and dimension
+        print("\nFootball Tournament Tracker")
+        print("---------------------------")
 
-    Raises:
-        ExceptionUIAbstractInterface: no <method-name> method defined
-    """
+    def startApplicationLoop(self):
+        while not self._exitApp:
+            print("** SAMPLE CODE ** Welcome, please enter your account details below (login,password).")
+            print("LOGIN (hit ENTER on empty field = register new user account | Cmd/Ctrl+C = exit app):")
+            login=input()
+            if login=="":
+                # registering new user account
+                print("TODO: registering new user account")
+            else:
+                # continue working with the program
+                print("TODO: input password and proceed with check login and rights")
+                
+    def setSystemController(self, systemController):
+        self.systemController = systemController
 
-    @abstractmethod
+    # UIAbstractInterface implementation
     def dialogForNewTeam(dataObj:Teams) -> bool:
         """Create dialog window with controls for input new data fields matching the dataObj class instance fields.
         Eventually the dialog set all required dataObj fields (sent by references) with the user specified values 
@@ -37,9 +45,8 @@ class UIAbstractInterface:
         Raises:
             ExceptionUIAbstractInterface: no dialogForNewTeam method defined
         """
-        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
+        pass
 
-    @abstractmethod
     def dialogForEditTeam(dataObj:Teams) -> bool:
         """Create dialog window with controls for input edit data fields matching the dataObj class instance fields.
         Eventually the dialog set all required dataObj fields (sent by references) with the user specified values 
@@ -53,9 +60,8 @@ class UIAbstractInterface:
         Raises:
             ExceptionUIAbstractInterface: no dialogForEditTeam method defined
         """
-        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
+        pass
 
-    @abstractmethod
     def refereeDialogForNewUser(dataObj:Users) -> bool:
         """Create dialog window with controls for input new data fields matching the dataObj class instance fields.
         Eventually the dialog set all required dataObj fields (sent by references) with the user specified values 
@@ -71,9 +77,8 @@ class UIAbstractInterface:
         Raises:
             ExceptionUIAbstractInterface: no refereeDialogForNewUser method defined
         """
-        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
+        pass
 
-    @abstractmethod
     def dialogForNewUser(dataObj:Users) -> bool:
         """Create dialog window with controls for input new data fields matching the dataObj class instance fields.
         Eventually the dialog set all required dataObj fields (sent by references) with the user specified values 
@@ -88,9 +93,8 @@ class UIAbstractInterface:
         Raises:
             ExceptionUIAbstractInterface: no dialogForNewUser method defined
         """
-        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
+        pass
 
-    @abstractmethod
     def refereeDialogForUserRights(dataObj:Users) -> bool:
         """Create dialog window with controls for input new data fields matching the dataObj class instance fields.
         Eventually the dialog set all required dataObj fields (sent by references) with the user specified values 
@@ -105,9 +109,8 @@ class UIAbstractInterface:
         Raises:
             ExceptionUIAbstractInterface: no refereeDialogForUserRights method defined
         """
-        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
+        pass
 
-    @abstractmethod
     def dialogForEditPlay(dataObj:Play) -> bool:
         """Create dialog window with controls for input new data fields matching the dataObj class instance fields.
         Eventually the dialog set all required dataObj fields (sent by references) with the user specified values 
@@ -127,9 +130,8 @@ class UIAbstractInterface:
         Raises:
             ExceptionUIAbstractInterface: no dialogForEditPlay method defined
         """
-        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
+        pass
 
-    @abstractmethod
     def dialogForAppLoginOrRegister(dataObj:Play) -> bool:
         """Create dialog window with controls for input new data fields matching the dataObj class instance fields.
         Eventually the dialog set all required dataObj fields (sent by references) with the user specified values 
@@ -147,9 +149,8 @@ class UIAbstractInterface:
         Raises:
             ExceptionUIAbstractInterface: no dialogForAppLoginOrRegister method defined
         """
-        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
-        
-    @abstractmethod
+        pass
+
     def chooseRecordFromList(self, table:Serialisable, filterFunc:Optional[Callable[[Any],List[Any]]]=None):
         """Create a window with the list of records from chosen table and let the user select one of them.
 
@@ -160,15 +161,13 @@ class UIAbstractInterface:
         Raises:
             ExceptionUIAbstractInterface: _description_
         """
-        raise ExceptionUIAbstractInterface("no chooseRecordFromList method defined")
+        pass
 
-    @abstractmethod
     def inputDataFromUser(self):
         """Hand out the control of window UI and all created widgets to user for waiting for they answer.
         """
-        raise ExceptionUIAbstractInterface("no inputDataFromUser method defined")
+        pass
 
-    @abstractmethod
     def showInfoMessage(self, title, message):
         """Showing new modal window on screen designed for information message.
 
@@ -177,9 +176,8 @@ class UIAbstractInterface:
             message (str): message text
 
         """
-        raise ExceptionUIAbstractInterface("no showInfoMessage method defined")
+        pass
 
-    @abstractmethod
     def showErrorMessage(self, title, message):
         """Showing new modal window on screen designed for error message.
 
@@ -188,9 +186,8 @@ class UIAbstractInterface:
             message (str): message text
 
         """
-        raise ExceptionUIAbstractInterface("no showErrorMessage method defined")
+        pass
 
-    @abstractmethod
     def createDialogYesNo(self, title, question): 
         """Showing new modal window on screen designed for asking the user for one of the answers: Yes or No.
         User have to choose one option to close the window.
@@ -200,12 +197,10 @@ class UIAbstractInterface:
             message (str): message text
 
         """
-        raise ExceptionUIAbstractInterface("no createDialogYesNo method defined")
+        pass
 
-    @abstractmethod
     def displayStatisticsForGroupAndItsGamesScheduled(self,dataStruct:List[GroupWithGamesScheduled]):
-        raise ExceptionUIAbstractInterface("no displayStatisticsForGroupAndItsGamesScheduled method defined")
+        pass
 
-    @abstractmethod
     def displayStatisticsForPlayoffScheduledGames(self,dataStruct:List[SchedulesWithPlay]):
-        raise ExceptionUIAbstractInterface("no displayStatisticsForPlayoffScheduledGames method defined")
+        pass
