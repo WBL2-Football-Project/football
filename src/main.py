@@ -1,5 +1,5 @@
 import sys
-from typing import Optional
+from typing import Optional,List,Any,Callable
 from model import *
 
 if __name__ == '__main__':
@@ -37,58 +37,16 @@ if __name__ == '__main__':
 	# checking start parameters - turning ON/OFF GUI
 	if Gui: # tkinter UI
 
-		# starting tkinter helper class
-		class TkHelper(UIHelperInterface,tk.Tk):
-			def __init__(self):
-				UIHelperInterface.__init__(self,self)
-				tk.Tk.__init__(self) # initialisation of the Tk library
-
-				self.systemController:Optional[SystemController]=None
-
-				# e.g. root window title and dimension
-				self.title("Football Tournament Tracker")
-
-				# e.g. or - set geometry (width x height)
-				self.geometry('800x600')
-
-			def startApplicationLoop(self):
-				# Execute Tkinter window
-				self.mainloop()
-
-			def setSystemController(self, systemController):
-				self.systemController = systemController
+		# load proper AppControlInterface implementation
+		from AppGui import AppGui
 
 		# starting the SystemController for the application ( dependency injection pattern ) - everything else is managed inside the SystemController object instance
-		SystemController(DBPickleFile('football.db'),UITkinterGUI(TkHelper()))
+		SystemController(DBPickleFile('football.db'),AppGui())
 
 	else: # console UI
 
-		# starting console UI helper class
-		class ConsoleHelper(UIHelperInterface):
-			def __init__(self):
-				UIHelperInterface.__init__(self,self)
-
-				self.systemController:Optional[SystemController]=None
-				self._exitApp=False # true if we want to exit from the main loop
-
-				# e.g. root window title and dimension
-				print("\nFootball Tournament Tracker")
-				print("---------------------------")
-
-			def startApplicationLoop(self):
-				while not self._exitApp:
-					print("** SAMPLE CODE ** Welcome, please enter your account details below (login,password).")
-					print("LOGIN (hit ENTER on empty field = register new user account | Cmd/Ctrl+C = exit app):")
-					login=input()
-					if login=="":
-						# registering new user account
-						print("TODO: registering new user account")
-					else:
-						# continue working with the program
-						print("TODO: input password and proceed with check login and rights")
-						
-			def setSystemController(self, systemController):
-				self.systemController = systemController
+		# load proper AppControlInterface implementation
+		from AppConsole import AppConsole
 
 		# starting the SystemController for the application ( dependency injection pattern ) - everything else is managed inside the SystemController object instance
-		SystemController(DBPickleFile('football.db'),UIConsole(ConsoleHelper()))
+		SystemController(DBPickleFile('football.db'),AppConsole())

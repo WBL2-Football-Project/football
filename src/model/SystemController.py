@@ -3,6 +3,7 @@ from DBAbstractInterface import *
 from UIAbstractInterface import *
 from StateMachine import *
 from LoginStatus import *
+from AppControlInterface import *
 
 # exception related to SystemController class
 class ExceptionSystemController(Exception):
@@ -13,7 +14,7 @@ class SystemController(StateMachine):
     """Main system controller for the application definition. The application instance could start after this controller will be initiated.
     """
     
-    def __init__(self, dbImplementationObj:DBAbstractInterface, uiImplementationObj:UIAbstractInterface):
+    def __init__(self, dbControl:DBAbstractInterface, appControl:AppControlInterface):
         """System controller initialisation method with dependency injection convention.
         To successfully create this controller you need to pass two implementation classes, one for DB and the other for UI purposes.
         Every calls to DB or UI have to be made through self.dbImplementationObj and self.uiImplementationObj instances.
@@ -24,30 +25,38 @@ class SystemController(StateMachine):
 
         Fields:
             dbImplementationObj (DBAbstractInterface) : ready to use object for managing database, which is the implementation class for DBAbstractInterface
-            uiImplementationObj (UIAbstractInterface) : ready to use object for managing user interface, which is the implementation class for UIAbstractInterface
+            appControl (UIAbstractInterface,APPAbstractInterface) : ready to use object for managing user interface, which is the implementation class for (UIAbstractInterface,APPAbstractInterface)
             loginStatus (LoginStatus) : login status object which keeps the current login status and user permissions to the application and database
         """
         super()
-        if not isinstance(dbImplementationObj,DBAbstractInterface):
-            raise ExceptionSystemController("DbImplementationObj must be a DBAbstractInterface")
-        if not isinstance(uiImplementationObj,UIAbstractInterface):
-            raise ExceptionSystemController("UIAbstractInterface must be a UIAbstractInterface")
+        if not isinstance(dbControl,DBAbstractInterface):
+            raise ExceptionSystemController("dbControl must be a DBAbstractInterface implementation")
+        if not isinstance(appControl,AppControlInterface):
+            raise ExceptionSystemController("appControl must be a AppControl implementation")
 
-        self.dbImplementationObj = dbImplementationObj
-        self.uiImplementationObj = uiImplementationObj
+        self.dbControl = dbControl
+        self.appControl = appControl
         self.loginStatus:LoginStatus = LoginStatus() # default login status (no user identification and no rights to the application and database)
 
         # starting the main loop of the application independently of the type of user interface chosen (gui/console)
-        self.uiHelper().setSystemController(self)
-        self.uiHelper().startApplicationLoop()
+        self.getApp().setSystemController(self)
+        self.getApp().startApplicationLoop()
 
-    def uiHelper(self):
-        """Return the helper object used to create the UI interface implementation
+    def getApp(self) -> AppControlInterface:
+        """Return the AppControl implementation for UIAbstractInterface and AppAbstractInterface
 
         Returns:
-            UIHelperInterface: the helper object used to create the UI interface implementation
+            AppControlInterface: the helper object used to create the UI interface implementation
         """
-        return self.uiImplementationObj.implementationClassObj.helper.implementationObj
+        return self.appControl
+    
+    def getDb(self) -> DBAbstractInterface:
+        """Return the implementation for DBAbstractInterface
+
+        Returns:
+            DBAbstractInterface: the helper object used to create the UI interface implementation
+        """
+        return self.dbControl
     
     def registerAccount(self):
         """User of referee register account. For empty database tables firsty created account is always with highest referee rights."""
