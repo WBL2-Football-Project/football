@@ -1,6 +1,7 @@
 from AccountRights import *
+from Serialisable import Serialisable
 
-class Users:
+class Users(Serialisable):
     """Manages users accounts."""
     
     def __init__(self):
@@ -9,9 +10,9 @@ class Users:
             password (str)           user password
             rights (AccountRights)   user rights type   
         """
-        self.login = None
-        self.password = None
-        self.rights = None
+        self.login:str = ""
+        self.password:str = ""
+        self.rights:AccountRights = AccountRights.NotLoggedIn
 
     def checkNewUserData(self, login, password):
         """Check if new account with user rights is possible (in relation to accounts existed in the current database).

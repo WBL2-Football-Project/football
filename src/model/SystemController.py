@@ -1,3 +1,4 @@
+import inspect
 from typing import Optional
 from DBAbstractInterface import *
 from UIAbstractInterface import *
@@ -37,6 +38,7 @@ class SystemController(StateMachine):
         self.dbControl = dbControl
         self.appControl = appControl
         self.loginStatus:LoginStatus = LoginStatus() # default login status (no user identification and no rights to the application and database)
+        self.loginStatus.setRightsChangedEventHandler(self.appControl.refreshMainWindowView)
 
         # starting the main loop of the application independently of the type of user interface chosen (gui/console)
         self.getApp().setSystemController(self)
@@ -59,16 +61,47 @@ class SystemController(StateMachine):
         return self.dbControl
     
     def registerAccount(self):
-        """User of referee register account. For empty database tables firsty created account is always with highest referee rights."""
-        pass
+        """User of referee register account. For empty database tables firsty created account is always with highest referee rights.
+        
+        - if not logged in, call user register account
+            - if empty database - save the first account with referee rights
+        - elif logged in rights are referee
+            - call referee register account
+        - elif logged in rights are user
+            - call user register account
+        
+        """
+
+        _changes=False
+        _user=Users() # empty users instance for holding the data
+        # if self.loginStatus.rights == AccountRights.NotLoggedIn:
+        #     _changes=self.getApp().dialogForNewUser(_user,self.getApp().getMainFrame())
+        #     if self.getDb().getCountOfRecordsInTable(Users)==0:
+        #            _user.rights = AccountRights.RefereeRights
+        #     # TODO: save the user
+
+        # elif self.loginStatus.rights == AccountRights.UserRights:
+        #     _changes=self.getApp().dialogForNewUser(_user,self.getApp().getMainFrame())
+        #     # TODO: save the user
+
+        # elif self.loginStatus.rights == AccountRights.RefereeRights:
+        #     _changes=self.getApp().refereeDialogForNewUser(_user,self.getApp().getMainFrame())
+        #     # TODO: save the user
+
+        # else:
+        #     raise ExceptionUIAbstractInterface(f"unknown current rights of an account")
+        _changes=self.getApp().refereeDialogForNewUser(_user,self.getApp().getMainFrame()) # temporary for test UI
+
+        if _changes:
+            self.loginStatus.loginStatus(_user.login,self.getDb().getRightsFromDb(_user.login,_user.password))
 
     def defineTeam(self):
         """Define team. This method can be called only with referee rights account."""
-        pass
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     def refereeEditTeamData(self):
         """Edit team data. This method can be called only with referee rights account."""
-        pass
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     def calculateGroupPhaseSchedule(self):
         """Calculate group phase schedule. This method can be called only with referee rights account.
@@ -81,7 +114,7 @@ class SystemController(StateMachine):
             Schedule
             Schedule.calculateGroupPhaseSchedule()
         """
-        pass
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     def calculatePlayoffPhaseSchedule(self):
         """Calculate playoff phase schedule only if the group phase is already calculated. 
@@ -95,38 +128,50 @@ class SystemController(StateMachine):
             Schedule
             Schedule.calculateGroupPhaseSchedule()
         """
-        pass
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     def recordGamesData(self):
         """Record games data. This method can be called only with referee rights account.
         Referee is updating the data of the game while there'are any changes like goals or yellow cards.
         Follow the 'Record games data' sequence diagram.
         """
-        pass
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     def refereeResetApplicationData(self):
         """Reset application data. This method can be called only with referee rights account.
         After this operation is completed, the database is completely cleared and the application works again like during the first run.
         """
-        pass
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
-    def loginToApp(self):
+    def loginToApp(self,embed:bool=False):
         """Classic login/password authentication. After the data are taken, the application have to check with database if access should be granted.
-        Additionally, the application keep the rights level for the account (user or referee rights account)"""
-        pass
+        Additionally, the application keep the rights level for the account (user or referee rights account)
+        
+        - create new dialog window for getting: login, password (refer to UIAbstractInterface create new dialog)
+        - get rights from database (refer to DBAbstractInterface get rights from db) and show error message if access isn't granted then go back to login dialog
+        - update the login status (refer to SystemController loginStatus)
+        - start the application main screen with features access depending on the account rights
+        """
+        
+        _user=Users() # empty users instance for holding the data
+        if not embed:
+            if self.getApp().dialogForNewUser(_user,self.getApp().getMainFrame()):
+                self.loginStatus.loginStatus(_user.login,self.getDb().getRightsFromDb(_user.login,_user.password))
+        else:
+            self.getApp().dialogForNewUser(_user)        
 
     def showMatchOrderGroupsStatus(self):
         """User or referee both can watch the current groups status of teams."""
-        pass
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     def showMatchOrderPlayOffTree(self):
         """User or referee both can watch the current play-off-tree status of teams."""
-        pass
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     def teamsAmountLessThen16(self):
         """Return True if the saved number of teams in the database is less then 16"""
-        pass
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     def changeUserRights(self):
         """Change the rights for specific users. This call should be transferred to the User.changeUserRights method"""
-        pass
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")

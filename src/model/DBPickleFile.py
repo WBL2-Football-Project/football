@@ -51,6 +51,7 @@ class DBPickleFile(DBAbstractInterface):
             DBAbstractInterface.getRightsFromDb()
         """
         pass # TODO: to implement
+        return AccountRights.RefereeRights # TODO: temporary testing code only - implement it
         return AccountRights.NotLoggedIn
 
     def getListOfRecords(self, table, filterFunc: Callable[[List[Any]],List[Any]]) -> List[Any]: 

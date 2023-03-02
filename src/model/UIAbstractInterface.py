@@ -9,6 +9,7 @@ from SchedulesWithPlay import *
 from Teams import Teams
 from Users import Users
 from Play import Play
+from AccountRights import AccountRights
 
 # exception related to DBAbstractInterface class
 class ExceptionUIAbstractInterface(Exception):
@@ -21,6 +22,20 @@ class UIAbstractInterface:
     Raises:
         ExceptionUIAbstractInterface: no <method-name> method defined
     """
+
+    @abstractmethod
+    def refreshMainWindowView(self,login:str,rights:AccountRights):
+        """The rights changed event handler which is called every time when current account rights of the user are changed to rebuild the UI interface."""
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
+
+    @abstractmethod
+    def getMainFrame(self):
+        """Return the tkinter main window frame reference.
+
+        Raises:
+            ExceptionUIAbstractInterface: no getMainFrame method defined
+        """
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     @abstractmethod
     def dialogForNewTeam(dataObj:Teams) -> bool:
@@ -56,7 +71,7 @@ class UIAbstractInterface:
         raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     @abstractmethod
-    def refereeDialogForNewUser(dataObj:Users) -> bool:
+    def refereeDialogForNewUser(self,dataObj:Users,parentFrame:Any) -> bool:
         """Create dialog window with controls for input new data fields matching the dataObj class instance fields.
         Eventually the dialog set all required dataObj fields (sent by references) with the user specified values 
         and return True if the dialog is confirmed or False otherwise.
@@ -74,7 +89,7 @@ class UIAbstractInterface:
         raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     @abstractmethod
-    def dialogForNewUser(dataObj:Users) -> bool:
+    def dialogForNewUser(self,dataObj:Users,parentFrame:Optional[Any]=None) -> bool:
         """Create dialog window with controls for input new data fields matching the dataObj class instance fields.
         Eventually the dialog set all required dataObj fields (sent by references) with the user specified values 
         and return True if the dialog is confirmed or False otherwise.
@@ -84,6 +99,7 @@ class UIAbstractInterface:
 
         Args:
             dataObj (Users): Users class instance
+            parentFrame (Any): if given a parent frame is used for embed every needed widgets in there, it not - new modal window is created for controls
 
         Raises:
             ExceptionUIAbstractInterface: no dialogForNewUser method defined
@@ -91,7 +107,7 @@ class UIAbstractInterface:
         raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined")
 
     @abstractmethod
-    def refereeDialogForUserRights(dataObj:Users) -> bool:
+    def refereeDialogForUserRights(self,dataObj:Users) -> bool:
         """Create dialog window with controls for input new data fields matching the dataObj class instance fields.
         Eventually the dialog set all required dataObj fields (sent by references) with the user specified values 
         and return True if the dialog is confirmed or False otherwise.
@@ -163,12 +179,6 @@ class UIAbstractInterface:
         raise ExceptionUIAbstractInterface("no chooseRecordFromList method defined")
 
     @abstractmethod
-    def inputDataFromUser(self):
-        """Hand out the control of window UI and all created widgets to user for waiting for they answer.
-        """
-        raise ExceptionUIAbstractInterface("no inputDataFromUser method defined")
-
-    @abstractmethod
     def showInfoMessage(self, title, message):
         """Showing new modal window on screen designed for information message.
 
@@ -191,7 +201,7 @@ class UIAbstractInterface:
         raise ExceptionUIAbstractInterface("no showErrorMessage method defined")
 
     @abstractmethod
-    def createDialogYesNo(self, title, question): 
+    def createDialogYesNo(self, title, question) -> bool: 
         """Showing new modal window on screen designed for asking the user for one of the answers: Yes or No.
         User have to choose one option to close the window.
 

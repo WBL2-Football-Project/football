@@ -86,7 +86,7 @@ class DBAbstractInterface:
         raise ExceptionDBAbstractInterface("no truncateTable method defined")
 
     @abstractmethod
-    def getRightsFromDb(self, login, password) -> AccountRights:
+    def getRightsFromDb(self, login:str, password:str) -> AccountRights:
         """Checks if login/password pair exists in the database and return the apropiete account rights which is one of values from AccountRights enum class.
 
         Args:
