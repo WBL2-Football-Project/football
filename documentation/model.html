@@ -77,7 +77,12 @@
 </font></dt></dl>
 </dd>
 <dt><font face="helvetica, arial"><a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>
-</font></dt><dt><font face="helvetica, arial"><a href="StateMachine.html#StateMachine">StateMachine.StateMachine</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="Users.html#Users">Users.Users</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="StateMachine.html#StateMachine">StateMachine.StateMachine</a>
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="SystemController.html#SystemController">SystemController.SystemController</a>
@@ -85,7 +90,6 @@
 </dd>
 <dt><font face="helvetica, arial"><a href="Teams.html#Teams">Teams.Teams</a>
 </font></dt><dt><font face="helvetica, arial"><a href="UIAbstractInterface.html#UIAbstractInterface">UIAbstractInterface.UIAbstractInterface</a>
-</font></dt><dt><font face="helvetica, arial"><a href="Users.html#Users">Users.Users</a>
 </font></dt><dt><font face="helvetica, arial"><a href="Widget.html#Widget">Widget.Widget</a>
 </font></dt><dt><font face="helvetica, arial"><a href="WidgetDefinition.html#WidgetDefinition">WidgetDefinition.WidgetDefinition</a>
 </font></dt></dl>
@@ -203,7 +207,7 @@ Args:<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;_description_</tt></dd></dl>
 
-<dl><dt><a name="AppControlInterface-createDialogYesNo"><strong>createDialogYesNo</strong></a>(self, title, question)</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;asking&nbsp;the&nbsp;user&nbsp;for&nbsp;one&nbsp;of&nbsp;the&nbsp;answers:&nbsp;Yes&nbsp;or&nbsp;No.<br>
+<dl><dt><a name="AppControlInterface-createDialogYesNo"><strong>createDialogYesNo</strong></a>(self, title, question) -&gt; bool</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;asking&nbsp;the&nbsp;user&nbsp;for&nbsp;one&nbsp;of&nbsp;the&nbsp;answers:&nbsp;Yes&nbsp;or&nbsp;No.<br>
 User&nbsp;have&nbsp;to&nbsp;choose&nbsp;one&nbsp;option&nbsp;to&nbsp;close&nbsp;the&nbsp;window.<br>
 &nbsp;<br>
 Args:<br>
@@ -269,7 +273,7 @@ Args:<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;dialogForNewTeam&nbsp;method&nbsp;defined</tt></dd></dl>
 
-<dl><dt><a name="AppControlInterface-dialogForNewUser"><strong>dialogForNewUser</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+<dl><dt><a name="AppControlInterface-dialogForNewUser"><strong>dialogForNewUser</strong></a>(self, dataObj: Users.Users, parentFrame: Optional[Any] = None) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
 Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
 and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
 &nbsp;<br>
@@ -278,6 +282,7 @@ and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nb
 &nbsp;<br>
 Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;dataObj&nbsp;(<a href="#Users">Users</a>):&nbsp;<a href="#Users">Users</a>&nbsp;class&nbsp;instance<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parentFrame&nbsp;(Any):&nbsp;if&nbsp;given&nbsp;a&nbsp;parent&nbsp;frame&nbsp;is&nbsp;used&nbsp;for&nbsp;embed&nbsp;every&nbsp;needed&nbsp;widgets&nbsp;in&nbsp;there,&nbsp;it&nbsp;not&nbsp;-&nbsp;new&nbsp;modal&nbsp;window&nbsp;is&nbsp;created&nbsp;for&nbsp;controls<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;dialogForNewUser&nbsp;method&nbsp;defined</tt></dd></dl>
@@ -286,9 +291,12 @@ Raises:<br>
 
 <dl><dt><a name="AppControlInterface-displayStatisticsForPlayoffScheduledGames"><strong>displayStatisticsForPlayoffScheduledGames</strong></a>(self, dataStruct: List[SchedulesWithPlay.SchedulesWithPlay])</dt></dl>
 
-<dl><dt><a name="AppControlInterface-inputDataFromUser"><strong>inputDataFromUser</strong></a>(self)</dt><dd><tt>Hand&nbsp;out&nbsp;the&nbsp;control&nbsp;of&nbsp;window&nbsp;UI&nbsp;and&nbsp;all&nbsp;created&nbsp;widgets&nbsp;to&nbsp;user&nbsp;for&nbsp;waiting&nbsp;for&nbsp;they&nbsp;answer.</tt></dd></dl>
+<dl><dt><a name="AppControlInterface-getMainFrame"><strong>getMainFrame</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;tkinter&nbsp;main&nbsp;window&nbsp;frame&nbsp;reference.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;getMainFrame&nbsp;method&nbsp;defined</tt></dd></dl>
 
-<dl><dt><a name="AppControlInterface-refereeDialogForNewUser"><strong>refereeDialogForNewUser</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+<dl><dt><a name="AppControlInterface-refereeDialogForNewUser"><strong>refereeDialogForNewUser</strong></a>(self, dataObj: Users.Users, parentFrame: Any) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
 Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
 and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
 &nbsp;<br>
@@ -302,7 +310,7 @@ Args:<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;refereeDialogForNewUser&nbsp;method&nbsp;defined</tt></dd></dl>
 
-<dl><dt><a name="AppControlInterface-refereeDialogForUserRights"><strong>refereeDialogForUserRights</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+<dl><dt><a name="AppControlInterface-refereeDialogForUserRights"><strong>refereeDialogForUserRights</strong></a>(self, dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
 Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
 and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
 &nbsp;<br>
@@ -314,6 +322,8 @@ Args:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;refereeDialogForUserRights&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="AppControlInterface-refreshMainWindowView"><strong>refreshMainWindowView</strong></a>(self, login: str, rights: AccountRights.AccountRights)</dt><dd><tt>The&nbsp;rights&nbsp;changed&nbsp;event&nbsp;handler&nbsp;which&nbsp;is&nbsp;called&nbsp;every&nbsp;time&nbsp;when&nbsp;current&nbsp;account&nbsp;rights&nbsp;of&nbsp;the&nbsp;user&nbsp;are&nbsp;changed&nbsp;to&nbsp;rebuild&nbsp;the&nbsp;UI&nbsp;interface.</tt></dd></dl>
 
 <dl><dt><a name="AppControlInterface-showErrorMessage"><strong>showErrorMessage</strong></a>(self, title, message)</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;error&nbsp;message.<br>
 &nbsp;<br>
@@ -379,7 +389,7 @@ Raises:<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;current&nbsp;maximum&nbsp;ID&nbsp;(int):&nbsp;current&nbsp;maximum&nbsp;ID&nbsp;from&nbsp;the&nbsp;specified&nbsp;table</tt></dd></dl>
 
-<dl><dt><a name="DBAbstractInterface-getRightsFromDb"><strong>getRightsFromDb</strong></a>(self, login, password) -&gt; AccountRights.AccountRights</dt><dd><tt>Checks&nbsp;if&nbsp;login/password&nbsp;pair&nbsp;exists&nbsp;in&nbsp;the&nbsp;database&nbsp;and&nbsp;return&nbsp;the&nbsp;apropiete&nbsp;account&nbsp;rights&nbsp;which&nbsp;is&nbsp;one&nbsp;of&nbsp;values&nbsp;from&nbsp;<a href="#AccountRights">AccountRights</a>&nbsp;enum&nbsp;class.<br>
+<dl><dt><a name="DBAbstractInterface-getRightsFromDb"><strong>getRightsFromDb</strong></a>(self, login: str, password: str) -&gt; AccountRights.AccountRights</dt><dd><tt>Checks&nbsp;if&nbsp;login/password&nbsp;pair&nbsp;exists&nbsp;in&nbsp;the&nbsp;database&nbsp;and&nbsp;return&nbsp;the&nbsp;apropiete&nbsp;account&nbsp;rights&nbsp;which&nbsp;is&nbsp;one&nbsp;of&nbsp;values&nbsp;from&nbsp;<a href="#AccountRights">AccountRights</a>&nbsp;enum&nbsp;class.<br>
 &nbsp;<br>
 Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;login&nbsp;(string):&nbsp;user&nbsp;login&nbsp;string<br>
@@ -628,13 +638,22 @@ Login&nbsp;status&nbsp;<a href="builtins.html#object">object</a>&nbsp;to&nbsp;ho
 <dl><dt><a name="LoginStatus-__init__"><strong>__init__</strong></a>(self, login: Optional[str] = None, rights: AccountRights.AccountRights = &lt;AccountRights.NotLoggedIn: 'Not Logged In'&gt;)</dt><dd><tt>Fields:<br>
 &nbsp;<br>
 login&nbsp;(str,&nbsp;optional):&nbsp;The&nbsp;login&nbsp;identifier<br>
-rights&nbsp;(<a href="#AccountRights">AccountRights</a>):&nbsp;The&nbsp;rights&nbsp;level&nbsp;to&nbsp;the&nbsp;application&nbsp;and&nbsp;database</tt></dd></dl>
+rights&nbsp;(<a href="#AccountRights">AccountRights</a>):&nbsp;The&nbsp;rights&nbsp;level&nbsp;to&nbsp;the&nbsp;application&nbsp;and&nbsp;database<br>
+eventHandler&nbsp;(Callable[[str,<a href="#AccountRights">AccountRights</a>],None]):&nbsp;The&nbsp;rights&nbsp;changed&nbsp;event&nbsp;handler&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(common&nbsp;event&nbsp;handler&nbsp;should&nbsp;leads&nbsp;to&nbsp;UI&nbsp;class&nbsp;implementation&nbsp;and&nbsp;is&nbsp;set&nbsp;automatically<br>
+&nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;the&nbsp;<a href="#SystemController">SystemController</a>&nbsp;class)<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;login&nbsp;(str,&nbsp;optional):&nbsp;The&nbsp;login&nbsp;identifier<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rights&nbsp;(<a href="#AccountRights">AccountRights</a>):&nbsp;The&nbsp;rights&nbsp;level&nbsp;to&nbsp;the&nbsp;application&nbsp;and&nbsp;database</tt></dd></dl>
 
 <dl><dt><a name="LoginStatus-loginStatus"><strong>loginStatus</strong></a>(self, login: str, rights: AccountRights.AccountRights)</dt><dd><tt>Registering&nbsp;the&nbsp;new&nbsp;login&nbsp;and&nbsp;rights&nbsp;status.<br>
 &nbsp;<br>
 Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;login&nbsp;(str):&nbsp;login&nbsp;identifier<br>
 &nbsp;&nbsp;&nbsp;&nbsp;rights&nbsp;(<a href="#AccountRights">AccountRights</a>):&nbsp;rights&nbsp;level&nbsp;to&nbsp;the&nbsp;application&nbsp;and&nbsp;database</tt></dd></dl>
+
+<dl><dt><a name="LoginStatus-setRightsChangedEventHandler"><strong>setRightsChangedEventHandler</strong></a>(self, eventHandler: Callable[[str, AccountRights.AccountRights], NoneType])</dt></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -1007,8 +1026,13 @@ Returns:<br>
 Returns:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#DBAbstractInterface">DBAbstractInterface</a>:&nbsp;the&nbsp;helper&nbsp;<a href="builtins.html#object">object</a>&nbsp;used&nbsp;to&nbsp;create&nbsp;the&nbsp;UI&nbsp;interface&nbsp;implementation</tt></dd></dl>
 
-<dl><dt><a name="SystemController-loginToApp"><strong>loginToApp</strong></a>(self)</dt><dd><tt>Classic&nbsp;login/password&nbsp;authentication.&nbsp;After&nbsp;the&nbsp;data&nbsp;are&nbsp;taken,&nbsp;the&nbsp;application&nbsp;have&nbsp;to&nbsp;check&nbsp;with&nbsp;database&nbsp;if&nbsp;access&nbsp;should&nbsp;be&nbsp;granted.<br>
-Additionally,&nbsp;the&nbsp;application&nbsp;keep&nbsp;the&nbsp;rights&nbsp;level&nbsp;for&nbsp;the&nbsp;account&nbsp;(user&nbsp;or&nbsp;referee&nbsp;rights&nbsp;account)</tt></dd></dl>
+<dl><dt><a name="SystemController-loginToApp"><strong>loginToApp</strong></a>(self, embed: bool = False)</dt><dd><tt>Classic&nbsp;login/password&nbsp;authentication.&nbsp;After&nbsp;the&nbsp;data&nbsp;are&nbsp;taken,&nbsp;the&nbsp;application&nbsp;have&nbsp;to&nbsp;check&nbsp;with&nbsp;database&nbsp;if&nbsp;access&nbsp;should&nbsp;be&nbsp;granted.<br>
+Additionally,&nbsp;the&nbsp;application&nbsp;keep&nbsp;the&nbsp;rights&nbsp;level&nbsp;for&nbsp;the&nbsp;account&nbsp;(user&nbsp;or&nbsp;referee&nbsp;rights&nbsp;account)<br>
+&nbsp;<br>
+-&nbsp;create&nbsp;new&nbsp;dialog&nbsp;window&nbsp;for&nbsp;getting:&nbsp;login,&nbsp;password&nbsp;(refer&nbsp;to&nbsp;<a href="#UIAbstractInterface">UIAbstractInterface</a>&nbsp;create&nbsp;new&nbsp;dialog)<br>
+-&nbsp;get&nbsp;rights&nbsp;from&nbsp;database&nbsp;(refer&nbsp;to&nbsp;<a href="#DBAbstractInterface">DBAbstractInterface</a>&nbsp;get&nbsp;rights&nbsp;from&nbsp;db)&nbsp;and&nbsp;show&nbsp;error&nbsp;message&nbsp;if&nbsp;access&nbsp;isn't&nbsp;granted&nbsp;then&nbsp;go&nbsp;back&nbsp;to&nbsp;login&nbsp;dialog<br>
+-&nbsp;update&nbsp;the&nbsp;login&nbsp;status&nbsp;(refer&nbsp;to&nbsp;<a href="#SystemController">SystemController</a>&nbsp;loginStatus)<br>
+-&nbsp;start&nbsp;the&nbsp;application&nbsp;main&nbsp;screen&nbsp;with&nbsp;features&nbsp;access&nbsp;depending&nbsp;on&nbsp;the&nbsp;account&nbsp;rights</tt></dd></dl>
 
 <dl><dt><a name="SystemController-recordGamesData"><strong>recordGamesData</strong></a>(self)</dt><dd><tt>Record&nbsp;games&nbsp;data.&nbsp;This&nbsp;method&nbsp;can&nbsp;be&nbsp;called&nbsp;only&nbsp;with&nbsp;referee&nbsp;rights&nbsp;account.<br>
 Referee&nbsp;is&nbsp;updating&nbsp;the&nbsp;data&nbsp;of&nbsp;the&nbsp;game&nbsp;while&nbsp;there'are&nbsp;any&nbsp;changes&nbsp;like&nbsp;goals&nbsp;or&nbsp;yellow&nbsp;cards.<br>
@@ -1019,7 +1043,14 @@ Follow&nbsp;the&nbsp;'Record&nbsp;games&nbsp;data'&nbsp;sequence&nbsp;diagram.</
 <dl><dt><a name="SystemController-refereeResetApplicationData"><strong>refereeResetApplicationData</strong></a>(self)</dt><dd><tt>Reset&nbsp;application&nbsp;data.&nbsp;This&nbsp;method&nbsp;can&nbsp;be&nbsp;called&nbsp;only&nbsp;with&nbsp;referee&nbsp;rights&nbsp;account.<br>
 After&nbsp;this&nbsp;operation&nbsp;is&nbsp;completed,&nbsp;the&nbsp;database&nbsp;is&nbsp;completely&nbsp;cleared&nbsp;and&nbsp;the&nbsp;application&nbsp;works&nbsp;again&nbsp;like&nbsp;during&nbsp;the&nbsp;first&nbsp;run.</tt></dd></dl>
 
-<dl><dt><a name="SystemController-registerAccount"><strong>registerAccount</strong></a>(self)</dt><dd><tt>User&nbsp;of&nbsp;referee&nbsp;register&nbsp;account.&nbsp;For&nbsp;empty&nbsp;database&nbsp;tables&nbsp;firsty&nbsp;created&nbsp;account&nbsp;is&nbsp;always&nbsp;with&nbsp;highest&nbsp;referee&nbsp;rights.</tt></dd></dl>
+<dl><dt><a name="SystemController-registerAccount"><strong>registerAccount</strong></a>(self)</dt><dd><tt>User&nbsp;of&nbsp;referee&nbsp;register&nbsp;account.&nbsp;For&nbsp;empty&nbsp;database&nbsp;tables&nbsp;firsty&nbsp;created&nbsp;account&nbsp;is&nbsp;always&nbsp;with&nbsp;highest&nbsp;referee&nbsp;rights.<br>
+&nbsp;<br>
+-&nbsp;if&nbsp;not&nbsp;logged&nbsp;in,&nbsp;call&nbsp;user&nbsp;register&nbsp;account<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;if&nbsp;empty&nbsp;database&nbsp;-&nbsp;save&nbsp;the&nbsp;first&nbsp;account&nbsp;with&nbsp;referee&nbsp;rights<br>
+-&nbsp;elif&nbsp;logged&nbsp;in&nbsp;rights&nbsp;are&nbsp;referee<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;call&nbsp;referee&nbsp;register&nbsp;account<br>
+-&nbsp;elif&nbsp;logged&nbsp;in&nbsp;rights&nbsp;are&nbsp;user<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;call&nbsp;user&nbsp;register&nbsp;account</tt></dd></dl>
 
 <dl><dt><a name="SystemController-showMatchOrderGroupsStatus"><strong>showMatchOrderGroupsStatus</strong></a>(self)</dt><dd><tt>User&nbsp;or&nbsp;referee&nbsp;both&nbsp;can&nbsp;watch&nbsp;the&nbsp;current&nbsp;groups&nbsp;status&nbsp;of&nbsp;teams.</tt></dd></dl>
 
@@ -1181,7 +1212,7 @@ Args:<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;_description_</tt></dd></dl>
 
-<dl><dt><a name="UIAbstractInterface-createDialogYesNo"><strong>createDialogYesNo</strong></a>(self, title, question)</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;asking&nbsp;the&nbsp;user&nbsp;for&nbsp;one&nbsp;of&nbsp;the&nbsp;answers:&nbsp;Yes&nbsp;or&nbsp;No.<br>
+<dl><dt><a name="UIAbstractInterface-createDialogYesNo"><strong>createDialogYesNo</strong></a>(self, title, question) -&gt; bool</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;asking&nbsp;the&nbsp;user&nbsp;for&nbsp;one&nbsp;of&nbsp;the&nbsp;answers:&nbsp;Yes&nbsp;or&nbsp;No.<br>
 User&nbsp;have&nbsp;to&nbsp;choose&nbsp;one&nbsp;option&nbsp;to&nbsp;close&nbsp;the&nbsp;window.<br>
 &nbsp;<br>
 Args:<br>
@@ -1247,7 +1278,7 @@ Args:<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;dialogForNewTeam&nbsp;method&nbsp;defined</tt></dd></dl>
 
-<dl><dt><a name="UIAbstractInterface-dialogForNewUser"><strong>dialogForNewUser</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+<dl><dt><a name="UIAbstractInterface-dialogForNewUser"><strong>dialogForNewUser</strong></a>(self, dataObj: Users.Users, parentFrame: Optional[Any] = None) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
 Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
 and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
 &nbsp;<br>
@@ -1256,6 +1287,7 @@ and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nb
 &nbsp;<br>
 Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;dataObj&nbsp;(<a href="#Users">Users</a>):&nbsp;<a href="#Users">Users</a>&nbsp;class&nbsp;instance<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parentFrame&nbsp;(Any):&nbsp;if&nbsp;given&nbsp;a&nbsp;parent&nbsp;frame&nbsp;is&nbsp;used&nbsp;for&nbsp;embed&nbsp;every&nbsp;needed&nbsp;widgets&nbsp;in&nbsp;there,&nbsp;it&nbsp;not&nbsp;-&nbsp;new&nbsp;modal&nbsp;window&nbsp;is&nbsp;created&nbsp;for&nbsp;controls<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;dialogForNewUser&nbsp;method&nbsp;defined</tt></dd></dl>
@@ -1264,9 +1296,12 @@ Raises:<br>
 
 <dl><dt><a name="UIAbstractInterface-displayStatisticsForPlayoffScheduledGames"><strong>displayStatisticsForPlayoffScheduledGames</strong></a>(self, dataStruct: List[SchedulesWithPlay.SchedulesWithPlay])</dt></dl>
 
-<dl><dt><a name="UIAbstractInterface-inputDataFromUser"><strong>inputDataFromUser</strong></a>(self)</dt><dd><tt>Hand&nbsp;out&nbsp;the&nbsp;control&nbsp;of&nbsp;window&nbsp;UI&nbsp;and&nbsp;all&nbsp;created&nbsp;widgets&nbsp;to&nbsp;user&nbsp;for&nbsp;waiting&nbsp;for&nbsp;they&nbsp;answer.</tt></dd></dl>
+<dl><dt><a name="UIAbstractInterface-getMainFrame"><strong>getMainFrame</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;tkinter&nbsp;main&nbsp;window&nbsp;frame&nbsp;reference.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;getMainFrame&nbsp;method&nbsp;defined</tt></dd></dl>
 
-<dl><dt><a name="UIAbstractInterface-refereeDialogForNewUser"><strong>refereeDialogForNewUser</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+<dl><dt><a name="UIAbstractInterface-refereeDialogForNewUser"><strong>refereeDialogForNewUser</strong></a>(self, dataObj: Users.Users, parentFrame: Any) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
 Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
 and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
 &nbsp;<br>
@@ -1280,7 +1315,7 @@ Args:<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;refereeDialogForNewUser&nbsp;method&nbsp;defined</tt></dd></dl>
 
-<dl><dt><a name="UIAbstractInterface-refereeDialogForUserRights"><strong>refereeDialogForUserRights</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+<dl><dt><a name="UIAbstractInterface-refereeDialogForUserRights"><strong>refereeDialogForUserRights</strong></a>(self, dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
 Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
 and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
 &nbsp;<br>
@@ -1292,6 +1327,8 @@ Args:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;refereeDialogForUserRights&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="UIAbstractInterface-refreshMainWindowView"><strong>refreshMainWindowView</strong></a>(self, login: str, rights: AccountRights.AccountRights)</dt><dd><tt>The&nbsp;rights&nbsp;changed&nbsp;event&nbsp;handler&nbsp;which&nbsp;is&nbsp;called&nbsp;every&nbsp;time&nbsp;when&nbsp;current&nbsp;account&nbsp;rights&nbsp;of&nbsp;the&nbsp;user&nbsp;are&nbsp;changed&nbsp;to&nbsp;rebuild&nbsp;the&nbsp;UI&nbsp;interface.</tt></dd></dl>
 
 <dl><dt><a name="UIAbstractInterface-showErrorMessage"><strong>showErrorMessage</strong></a>(self, title, message)</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;error&nbsp;message.<br>
 &nbsp;<br>
@@ -1637,7 +1674,7 @@ the&nbsp;specified&nbsp;test&nbsp;method's&nbsp;docstring.</tt></dd></dl>
 
 <dl><dt><a name="UnitTests-skipTest"><strong>skipTest</strong></a>(self, reason)</dt><dd><tt>Skip&nbsp;this&nbsp;test.</tt></dd></dl>
 
-<dl><dt><a name="UnitTests-subTest"><strong>subTest</strong></a>(self, msg=&lt;object object at 0x104274b30&gt;, **params)</dt><dd><tt>Return&nbsp;a&nbsp;context&nbsp;manager&nbsp;that&nbsp;will&nbsp;return&nbsp;the&nbsp;enclosed&nbsp;block<br>
+<dl><dt><a name="UnitTests-subTest"><strong>subTest</strong></a>(self, msg=&lt;object object at 0x102988b30&gt;, **params)</dt><dd><tt>Return&nbsp;a&nbsp;context&nbsp;manager&nbsp;that&nbsp;will&nbsp;return&nbsp;the&nbsp;enclosed&nbsp;block<br>
 of&nbsp;code&nbsp;in&nbsp;a&nbsp;subtest&nbsp;identified&nbsp;by&nbsp;the&nbsp;optional&nbsp;message&nbsp;and<br>
 keyword&nbsp;parameters.&nbsp;&nbsp;A&nbsp;failure&nbsp;in&nbsp;the&nbsp;subtest&nbsp;marks&nbsp;the&nbsp;test<br>
 case&nbsp;as&nbsp;failed&nbsp;but&nbsp;resumes&nbsp;execution&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;enclosed<br>
@@ -1677,12 +1714,18 @@ Data and other attributes inherited from <a href="unittest.case.html#TestCase">u
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="Users">class <strong>Users</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="Users">class <strong>Users</strong></a>(<a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>Manages&nbsp;users&nbsp;accounts.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="Users.html#Users">Users</a></dd>
+<dd><a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
 <dl><dt><a name="Users-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Fields<br>
 login&nbsp;(str)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user&nbsp;login<br>
 password&nbsp;(str)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user&nbsp;password<br>
@@ -1744,7 +1787,7 @@ Static methods defined here:<br>
 -&nbsp;start&nbsp;the&nbsp;application&nbsp;main&nbsp;screen&nbsp;with&nbsp;features&nbsp;access&nbsp;depending&nbsp;on&nbsp;the&nbsp;account&nbsp;rights</tt></dd></dl>
 
 <hr>
-Data descriptors defined here:<br>
+Data descriptors inherited from <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>:<br>
 <dl><dt><strong>__dict__</strong></dt>
 <dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>

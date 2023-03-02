@@ -126,7 +126,7 @@ Args:<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#ExceptionUIAbstractInterface">ExceptionUIAbstractInterface</a>:&nbsp;_description_</tt></dd></dl>
 
-<dl><dt><a name="UIAbstractInterface-createDialogYesNo"><strong>createDialogYesNo</strong></a>(self, title, question)</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;asking&nbsp;the&nbsp;user&nbsp;for&nbsp;one&nbsp;of&nbsp;the&nbsp;answers:&nbsp;Yes&nbsp;or&nbsp;No.<br>
+<dl><dt><a name="UIAbstractInterface-createDialogYesNo"><strong>createDialogYesNo</strong></a>(self, title, question) -&gt; bool</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;asking&nbsp;the&nbsp;user&nbsp;for&nbsp;one&nbsp;of&nbsp;the&nbsp;answers:&nbsp;Yes&nbsp;or&nbsp;No.<br>
 User&nbsp;have&nbsp;to&nbsp;choose&nbsp;one&nbsp;option&nbsp;to&nbsp;close&nbsp;the&nbsp;window.<br>
 &nbsp;<br>
 Args:<br>
@@ -192,7 +192,7 @@ Args:<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#ExceptionUIAbstractInterface">ExceptionUIAbstractInterface</a>:&nbsp;no&nbsp;dialogForNewTeam&nbsp;method&nbsp;defined</tt></dd></dl>
 
-<dl><dt><a name="UIAbstractInterface-dialogForNewUser"><strong>dialogForNewUser</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+<dl><dt><a name="UIAbstractInterface-dialogForNewUser"><strong>dialogForNewUser</strong></a>(self, dataObj: Users.Users, parentFrame: Optional[Any] = None) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
 Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
 and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
 &nbsp;<br>
@@ -201,6 +201,7 @@ and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nb
 &nbsp;<br>
 Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;dataObj&nbsp;(Users):&nbsp;Users&nbsp;class&nbsp;instance<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parentFrame&nbsp;(Any):&nbsp;if&nbsp;given&nbsp;a&nbsp;parent&nbsp;frame&nbsp;is&nbsp;used&nbsp;for&nbsp;embed&nbsp;every&nbsp;needed&nbsp;widgets&nbsp;in&nbsp;there,&nbsp;it&nbsp;not&nbsp;-&nbsp;new&nbsp;modal&nbsp;window&nbsp;is&nbsp;created&nbsp;for&nbsp;controls<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#ExceptionUIAbstractInterface">ExceptionUIAbstractInterface</a>:&nbsp;no&nbsp;dialogForNewUser&nbsp;method&nbsp;defined</tt></dd></dl>
@@ -209,9 +210,12 @@ Raises:<br>
 
 <dl><dt><a name="UIAbstractInterface-displayStatisticsForPlayoffScheduledGames"><strong>displayStatisticsForPlayoffScheduledGames</strong></a>(self, dataStruct: List[SchedulesWithPlay.SchedulesWithPlay])</dt></dl>
 
-<dl><dt><a name="UIAbstractInterface-inputDataFromUser"><strong>inputDataFromUser</strong></a>(self)</dt><dd><tt>Hand&nbsp;out&nbsp;the&nbsp;control&nbsp;of&nbsp;window&nbsp;UI&nbsp;and&nbsp;all&nbsp;created&nbsp;widgets&nbsp;to&nbsp;user&nbsp;for&nbsp;waiting&nbsp;for&nbsp;they&nbsp;answer.</tt></dd></dl>
+<dl><dt><a name="UIAbstractInterface-getMainFrame"><strong>getMainFrame</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;tkinter&nbsp;main&nbsp;window&nbsp;frame&nbsp;reference.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ExceptionUIAbstractInterface">ExceptionUIAbstractInterface</a>:&nbsp;no&nbsp;getMainFrame&nbsp;method&nbsp;defined</tt></dd></dl>
 
-<dl><dt><a name="UIAbstractInterface-refereeDialogForNewUser"><strong>refereeDialogForNewUser</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+<dl><dt><a name="UIAbstractInterface-refereeDialogForNewUser"><strong>refereeDialogForNewUser</strong></a>(self, dataObj: Users.Users, parentFrame: Any) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
 Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
 and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
 &nbsp;<br>
@@ -225,7 +229,7 @@ Args:<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#ExceptionUIAbstractInterface">ExceptionUIAbstractInterface</a>:&nbsp;no&nbsp;refereeDialogForNewUser&nbsp;method&nbsp;defined</tt></dd></dl>
 
-<dl><dt><a name="UIAbstractInterface-refereeDialogForUserRights"><strong>refereeDialogForUserRights</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+<dl><dt><a name="UIAbstractInterface-refereeDialogForUserRights"><strong>refereeDialogForUserRights</strong></a>(self, dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
 Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
 and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
 &nbsp;<br>
@@ -237,6 +241,8 @@ Args:<br>
 &nbsp;<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#ExceptionUIAbstractInterface">ExceptionUIAbstractInterface</a>:&nbsp;no&nbsp;refereeDialogForUserRights&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="UIAbstractInterface-refreshMainWindowView"><strong>refreshMainWindowView</strong></a>(self, login: str, rights: AccountRights.AccountRights)</dt><dd><tt>The&nbsp;rights&nbsp;changed&nbsp;event&nbsp;handler&nbsp;which&nbsp;is&nbsp;called&nbsp;every&nbsp;time&nbsp;when&nbsp;current&nbsp;account&nbsp;rights&nbsp;of&nbsp;the&nbsp;user&nbsp;are&nbsp;changed&nbsp;to&nbsp;rebuild&nbsp;the&nbsp;UI&nbsp;interface.</tt></dd></dl>
 
 <dl><dt><a name="UIAbstractInterface-showErrorMessage"><strong>showErrorMessage</strong></a>(self, title, message)</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;error&nbsp;message.<br>
 &nbsp;<br>

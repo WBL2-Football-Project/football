@@ -40,13 +40,22 @@ Login&nbsp;status&nbsp;<a href="builtins.html#object">object</a>&nbsp;to&nbsp;ho
 <dl><dt><a name="LoginStatus-__init__"><strong>__init__</strong></a>(self, login: Optional[str] = None, rights: AccountRights.AccountRights = &lt;AccountRights.NotLoggedIn: 'Not Logged In'&gt;)</dt><dd><tt>Fields:<br>
 &nbsp;<br>
 login&nbsp;(str,&nbsp;optional):&nbsp;The&nbsp;login&nbsp;identifier<br>
-rights&nbsp;(AccountRights):&nbsp;The&nbsp;rights&nbsp;level&nbsp;to&nbsp;the&nbsp;application&nbsp;and&nbsp;database</tt></dd></dl>
+rights&nbsp;(AccountRights):&nbsp;The&nbsp;rights&nbsp;level&nbsp;to&nbsp;the&nbsp;application&nbsp;and&nbsp;database<br>
+eventHandler&nbsp;(Callable[[str,AccountRights],None]):&nbsp;The&nbsp;rights&nbsp;changed&nbsp;event&nbsp;handler&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(common&nbsp;event&nbsp;handler&nbsp;should&nbsp;leads&nbsp;to&nbsp;UI&nbsp;class&nbsp;implementation&nbsp;and&nbsp;is&nbsp;set&nbsp;automatically<br>
+&nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;the&nbsp;SystemController&nbsp;class)<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;login&nbsp;(str,&nbsp;optional):&nbsp;The&nbsp;login&nbsp;identifier<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rights&nbsp;(AccountRights):&nbsp;The&nbsp;rights&nbsp;level&nbsp;to&nbsp;the&nbsp;application&nbsp;and&nbsp;database</tt></dd></dl>
 
 <dl><dt><a name="LoginStatus-loginStatus"><strong>loginStatus</strong></a>(self, login: str, rights: AccountRights.AccountRights)</dt><dd><tt>Registering&nbsp;the&nbsp;new&nbsp;login&nbsp;and&nbsp;rights&nbsp;status.<br>
 &nbsp;<br>
 Args:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;login&nbsp;(str):&nbsp;login&nbsp;identifier<br>
 &nbsp;&nbsp;&nbsp;&nbsp;rights&nbsp;(AccountRights):&nbsp;rights&nbsp;level&nbsp;to&nbsp;the&nbsp;application&nbsp;and&nbsp;database</tt></dd></dl>
+
+<dl><dt><a name="LoginStatus-setRightsChangedEventHandler"><strong>setRightsChangedEventHandler</strong></a>(self, eventHandler: Callable[[str, AccountRights.AccountRights], NoneType])</dt></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -63,5 +72,6 @@ Data descriptors defined here:<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>Optional</strong> = typing.Optional</td></tr></table>
+<td width="100%"><strong>Callable</strong> = typing.Callable<br>
+<strong>Optional</strong> = typing.Optional</td></tr></table>
 </body></html>
