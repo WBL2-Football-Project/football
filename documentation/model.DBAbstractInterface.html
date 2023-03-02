@@ -38,11 +38,21 @@
 <font color="#000000" face="helvetica, arial"><a name="DBAbstractInterface">class <strong>DBAbstractInterface</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>Interface&nbsp;class&nbsp;with&nbsp;abstract&nbsp;method.&nbsp;Need&nbsp;to&nbsp;be&nbsp;implemented&nbsp;by&nbsp;the&nbsp;actual&nbsp;DB&nbsp;writing&nbsp;class&nbsp;which&nbsp;defines&nbsp;all&nbsp;the&nbsp;abstract&nbsp;methods<br>
+<td colspan=2><tt><a href="#DBAbstractInterface">DBAbstractInterface</a>(implementationClassObj)<br>
+&nbsp;<br>
+Interface&nbsp;class&nbsp;with&nbsp;abstract&nbsp;method.&nbsp;Need&nbsp;to&nbsp;be&nbsp;implemented&nbsp;by&nbsp;the&nbsp;actual&nbsp;DB&nbsp;writing&nbsp;class&nbsp;which&nbsp;defines&nbsp;all&nbsp;the&nbsp;abstract&nbsp;methods<br>
 Raises:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#ExceptionDBAbstractInterface">ExceptionDBAbstractInterface</a>:&nbsp;no&nbsp;&lt;method-name&gt;&nbsp;method&nbsp;defined<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
+<dl><dt><a name="DBAbstractInterface-__init__"><strong>__init__</strong></a>(self, implementationClassObj)</dt><dd><tt>Initialisation&nbsp;of&nbsp;the&nbsp;<a href="#DBAbstractInterface">DBAbstractInterface</a>.<br>
+&nbsp;<br>
+Fields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;implementationClassObj&nbsp;(<a href="#DBAbstractInterface">DBAbstractInterface</a>)&nbsp;:&nbsp;implementation&nbsp;class&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;access<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;implementationClassObj&nbsp;(<a href="#DBAbstractInterface">DBAbstractInterface</a>):&nbsp;reference&nbsp;to&nbsp;to&nbsp;implementation&nbsp;class&nbsp;(dependency&nbsp;injection&nbsp;pattern)</tt></dd></dl>
+
 <dl><dt><a name="DBAbstractInterface-addDataToDb"><strong>addDataToDb</strong></a>(self, table, data)</dt><dd><tt>Add&nbsp;new&nbsp;<a href="builtins.html#object">object</a>&nbsp;to&nbsp;the&nbsp;database.<br>
 &nbsp;<br>
 Args:<br>
