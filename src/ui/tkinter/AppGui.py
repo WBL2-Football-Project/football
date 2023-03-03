@@ -13,6 +13,7 @@ from tkinter import simpledialog
 from tkinter import messagebox
 from ModalDialog import ModalDialog
 from DialogEmbedWidgets import DialogEmbedWidgets
+from ui.tkinter.wireframes.DialogForNewTeam import dialogForNewTeam
 
 # starting tkinter helper class
 class AppGui(AppControlInterface,tk.Tk):
@@ -99,6 +100,8 @@ class AppGui(AppControlInterface,tk.Tk):
             ExceptionUIAbstractInterface: no dialogForNewTeam method defined
         """
         _result=False
+
+        # dialogForNewTeam() # TODO: use the wireframe mockup
         return _result
 
     def dialogForEditTeam(self,parentFrame:tk.Frame,dataObj:Teams) -> bool:
@@ -115,6 +118,9 @@ class AppGui(AppControlInterface,tk.Tk):
             ExceptionUIAbstractInterface: no dialogForEditTeam method defined
         """
         _result=False
+
+        # dialogForEditTeam() # TODO: use the wireframe mockup
+
         return _result
 
     def refereeDialogForNewUser(self,dataObj:Users,parentFrame:tk.Frame) -> bool:
@@ -134,55 +140,57 @@ class AppGui(AppControlInterface,tk.Tk):
         """
         _result=False
 
-        _result=False
-        _appGuiSelf=self
-
-        # opening the modal dialog window for getting the values
-        class _modalForNewUser(ModalDialog):
-            def __init__(self,parent,login:str,password:str):
-                self.login:str=login
-                self.password:str=password
-                super().__init__(parent,"Login to app",self.showResults)
+        # dialogForEditTeam() # TODO: use the wireframe mockup
+        
+        # _appGuiSelf=self
+        # # opening the modal dialog window for getting the values
+        # class _modalForNewUser(ModalDialog):
+        #     def __init__(self,parent,login:str,password:str):
+        #         self.login:str=login
+        #         self.password:str=password
+        #         super().__init__(parent,"Login to app",self.showResults)
             
-            def showResults(self,result): # shows the results for every vehicle price offer
-                if result==True:
-                    print("result True")
-                    # values checking
-                    if len(self.loginVar.get()) != 0 and len(self.passwordVar.get()) != 0: 
-                        print("everything's good")
-                        # everything is good, we can proceed accepting it and return
-                        self.login=self.loginVar.get()
-                        self.password=self.passwordVar.get()
-                        _result=result
-                    else:
-                        print("problem with values")
-                        # values have to be changed
-                        _appGuiSelf.showErrorMessage("Error!","Both login and password cannot be empty.")
-                        result=False # return False means the dialog will not be closed until the user repairs the values or close the dialog by 'Cancel' button
+        #     def showResults(self,result): # shows the results for every vehicle price offer
+        #         if result==True:
+        #             print("result True")
+        #             # values checking
+        #             if len(self.loginVar.get()) != 0 and len(self.passwordVar.get()) != 0: 
+        #                 print("everything's good")
+        #                 # everything is good, we can proceed accepting it and return
+        #                 self.login=self.loginVar.get()
+        #                 self.password=self.passwordVar.get()
+        #                 _result=result
+        #             else:
+        #                 print("problem with values")
+        #                 # values have to be changed
+        #                 _appGuiSelf.showErrorMessage("Error!","Both login and password cannot be empty.")
+        #                 result=False # return False means the dialog will not be closed until the user repairs the values or close the dialog by 'Cancel' button
 
-                print("return result",result)
-                return result # False means, dialog can never be closed by clicking OK button, user have to choose Cancel to close the windows
+        #         print("return result",result)
+        #         return result # False means, dialog can never be closed by clicking OK button, user have to choose Cancel to close the windows
             
-            def body(self, frame): # designs the window widgets
-                self.__frame=frame
+        #     def body(self, frame): # designs the window widgets
+        #         self.__frame=frame
 
-                # login
-                tk.Label(frame,text='Login:').grid(row=0,column=0,columnspan=2,ipady=10,sticky='w')
-                self.loginVar=tk.StringVar(frame,self.login)
-                tk.Entry(frame,textvariable=self.loginVar).grid(row=1,column=0,columnspan=2,ipady=10,sticky='ew')
+        #         # login
+        #         tk.Label(frame,text='Login:').grid(row=0,column=0,columnspan=2,ipady=10,sticky='w')
+        #         self.loginVar=tk.StringVar(frame,self.login)
+        #         tk.Entry(frame,textvariable=self.loginVar).grid(row=1,column=0,columnspan=2,ipady=10,sticky='ew')
 
-                # password
-                tk.Label(frame,text='Password:').grid(row=2,column=0,columnspan=2,ipady=10,sticky='w')
-                self.passwordVar=tk.StringVar(frame,self.password)
-                tk.Entry(frame,textvariable=self.passwordVar).grid(row=3,column=0,columnspan=2,ipady=10,sticky='ew')
+        #         # password
+        #         tk.Label(frame,text='Password:').grid(row=2,column=0,columnspan=2,ipady=10,sticky='w')
+        #         self.passwordVar=tk.StringVar(frame,self.password)
+        #         tk.Entry(frame,textvariable=self.passwordVar).grid(row=3,column=0,columnspan=2,ipady=10,sticky='ew')
 
-                return frame
+        #         return frame
 
-        _obj=_modalForNewUser(self,dataObj.login,dataObj.password) 
-        if _obj.getResult():
-            dataObj.login=_obj.login
-            dataObj.password=_obj.password
-            _result=_obj.getResult()
+        # _obj=_modalForNewUser(self,dataObj.login,dataObj.password) 
+        # if _obj.getResult():
+        #     dataObj.login=_obj.login
+        #     dataObj.password=_obj.password
+        #     _result=_obj.getResult()
+
+        # refereeDialogForNewUser() # TODO: use the wireframe mockup
 
         return _result
 
@@ -202,105 +210,107 @@ class AppGui(AppControlInterface,tk.Tk):
             ExceptionUIAbstractInterface: no dialogForNewUser method defined
         """
         _result=False
-        _appGuiSelf=self
 
-        if not parentFrame==None:
-            # opening the modal dialog window for getting the values
-            class _modalForNewUser(ModalDialog):
-                def __init__(self,parent,login:str,password:str):
-                    self.login:str=login
-                    self.password:str=password
-                    super().__init__(parent,"Login to app",self.showResults)
+        # _appGuiSelf=self
+        # if not parentFrame==None:
+        #     # opening the modal dialog window for getting the values
+        #     class _modalForNewUser(ModalDialog):
+        #         def __init__(self,parent,login:str,password:str):
+        #             self.login:str=login
+        #             self.password:str=password
+        #             super().__init__(parent,"Login to app",self.showResults)
                 
-                def showResults(self,result): # shows the results for every vehicle price offer
-                    if result==True:
-                        print("result True")
-                        # values checking
-                        if len(self.loginVar.get()) != 0 and len(self.passwordVar.get()) != 0: 
-                            print("everything's good")
-                            # everything is good, we can proceed accepting it and return
-                            self.login=self.loginVar.get()
-                            self.password=self.passwordVar.get()
-                            _result=result
-                        else:
-                            print("problem with values")
-                            # values have to be changed
-                            _appGuiSelf.showErrorMessage("Error!","Both login and password cannot be empty.")
-                            result=False # return False means the dialog will not be closed until the user repairs the values or close the dialog by 'Cancel' button
+        #         def showResults(self,result): # shows the results for every vehicle price offer
+        #             if result==True:
+        #                 print("result True")
+        #                 # values checking
+        #                 if len(self.loginVar.get()) != 0 and len(self.passwordVar.get()) != 0: 
+        #                     print("everything's good")
+        #                     # everything is good, we can proceed accepting it and return
+        #                     self.login=self.loginVar.get()
+        #                     self.password=self.passwordVar.get()
+        #                     _result=result
+        #                 else:
+        #                     print("problem with values")
+        #                     # values have to be changed
+        #                     _appGuiSelf.showErrorMessage("Error!","Both login and password cannot be empty.")
+        #                     result=False # return False means the dialog will not be closed until the user repairs the values or close the dialog by 'Cancel' button
 
-                    print("return result",result)
-                    return result # False means, dialog can never be closed by clicking OK button, user have to choose Cancel to close the windows
+        #             print("return result",result)
+        #             return result # False means, dialog can never be closed by clicking OK button, user have to choose Cancel to close the windows
                 
-                def body(self, frame): # designs the window widgets
-                    self.__frame=frame
+        #         def body(self, frame): # designs the window widgets
+        #             self.__frame=frame
 
-                    # login
-                    tk.Label(frame,text='Login:').grid(row=0,column=0,columnspan=2,ipady=10,sticky='w')
-                    self.loginVar=tk.StringVar(frame,self.login)
-                    tk.Entry(frame,textvariable=self.loginVar).grid(row=1,column=0,columnspan=2,ipady=10,sticky='ew')
+        #             # login
+        #             tk.Label(frame,text='Login:').grid(row=0,column=0,columnspan=2,ipady=10,sticky='w')
+        #             self.loginVar=tk.StringVar(frame,self.login)
+        #             tk.Entry(frame,textvariable=self.loginVar).grid(row=1,column=0,columnspan=2,ipady=10,sticky='ew')
 
-                    # password
-                    tk.Label(frame,text='Password:').grid(row=2,column=0,columnspan=2,ipady=10,sticky='w')
-                    self.passwordVar=tk.StringVar(frame,self.password)
-                    tk.Entry(frame,textvariable=self.passwordVar).grid(row=3,column=0,columnspan=2,ipady=10,sticky='ew')
+        #             # password
+        #             tk.Label(frame,text='Password:').grid(row=2,column=0,columnspan=2,ipady=10,sticky='w')
+        #             self.passwordVar=tk.StringVar(frame,self.password)
+        #             tk.Entry(frame,textvariable=self.passwordVar).grid(row=3,column=0,columnspan=2,ipady=10,sticky='ew')
 
-                    return frame
+        #             return frame
 
-            _obj=_modalForNewUser(self,dataObj.login,dataObj.password) 
-            if _obj.getResult():
-                dataObj.login=_obj.login
-                dataObj.password=_obj.password
-                _result=_obj.getResult()
-        else:
-            # embeding the fields into the given tk frame to manage it
-            # TODO: implement it by changing the ModalDialog class for the same behaviour but without opening the separate modal window
+        #     _obj=_modalForNewUser(self,dataObj.login,dataObj.password) 
+        #     if _obj.getResult():
+        #         dataObj.login=_obj.login
+        #         dataObj.password=_obj.password
+        #         _result=_obj.getResult()
+        # else:
+        #     # embeding the fields into the given tk frame to manage it
+        #     # TODO: implement it by changing the ModalDialog class for the same behaviour but without opening the separate modal window
 
-            class _embedForNewUser(DialogEmbedWidgets):
-                def __init__(self,parent,login:str,password:str):
-                    self.login:str=login
-                    self.password:str=password
-                    super().__init__(parent,"Login to app",self.showResults)
+        #     class _embedForNewUser(DialogEmbedWidgets):
+        #         def __init__(self,parent,login:str,password:str):
+        #             self.login:str=login
+        #             self.password:str=password
+        #             super().__init__(parent,"Login to app",self.showResults)
                 
-                def showResults(self,result): # shows the results for every vehicle price offer
-                    if result==True:
-                        print("result True")
-                        # values checking
-                        if len(self.loginVar.get()) != 0 and len(self.passwordVar.get()) != 0: 
-                            print("everything's good")
-                            # everything is good, we can proceed accepting it and return
-                            self.login=self.loginVar.get()
-                            self.password=self.passwordVar.get()
-                            _result=result
-                        else:
-                            print("problem with values")
-                            # values have to be changed
-                            _appGuiSelf.showErrorMessage("Error!","Both login and password cannot be empty.")
-                            result=False # return False means the dialog will not be closed until the user repairs the values or close the dialog by 'Cancel' button
+        #         def showResults(self,result): # shows the results for every vehicle price offer
+        #             if result==True:
+        #                 print("result True")
+        #                 # values checking
+        #                 if len(self.loginVar.get()) != 0 and len(self.passwordVar.get()) != 0: 
+        #                     print("everything's good")
+        #                     # everything is good, we can proceed accepting it and return
+        #                     self.login=self.loginVar.get()
+        #                     self.password=self.passwordVar.get()
+        #                     _result=result
+        #                 else:
+        #                     print("problem with values")
+        #                     # values have to be changed
+        #                     _appGuiSelf.showErrorMessage("Error!","Both login and password cannot be empty.")
+        #                     result=False # return False means the dialog will not be closed until the user repairs the values or close the dialog by 'Cancel' button
 
-                    print("return result",result)
-                    return result # False means, dialog can never be closed by clicking OK button, user have to choose Cancel to close the windows
+        #             print("return result",result)
+        #             return result # False means, dialog can never be closed by clicking OK button, user have to choose Cancel to close the windows
                 
-                def body(self, frame): # designs the window widgets
-                    self.__frame=frame
+        #         def body(self, frame): # designs the window widgets
+        #             self.__frame=frame
 
-                    # login
-                    tk.Label(frame,text='Login:').grid(row=0,column=0,columnspan=2,ipady=10,sticky='w')
-                    self.loginVar=tk.StringVar(frame,self.login)
-                    tk.Entry(frame,textvariable=self.loginVar).grid(row=1,column=0,columnspan=2,ipady=10,sticky='ew')
+        #             # login
+        #             tk.Label(frame,text='Login:').grid(row=0,column=0,columnspan=2,ipady=10,sticky='w')
+        #             self.loginVar=tk.StringVar(frame,self.login)
+        #             tk.Entry(frame,textvariable=self.loginVar).grid(row=1,column=0,columnspan=2,ipady=10,sticky='ew')
 
-                    # password
-                    tk.Label(frame,text='Password:').grid(row=2,column=0,columnspan=2,ipady=10,sticky='w')
-                    self.passwordVar=tk.StringVar(frame,self.password)
-                    tk.Entry(frame,textvariable=self.passwordVar).grid(row=3,column=0,columnspan=2,ipady=10,sticky='ew')
+        #             # password
+        #             tk.Label(frame,text='Password:').grid(row=2,column=0,columnspan=2,ipady=10,sticky='w')
+        #             self.passwordVar=tk.StringVar(frame,self.password)
+        #             tk.Entry(frame,textvariable=self.passwordVar).grid(row=3,column=0,columnspan=2,ipady=10,sticky='ew')
 
-                    return frame
+        #             return frame
 
 
-            _obj=_embedForNewUser(self,dataObj.login,dataObj.password) # TODO: remove it after exchancing the ModalDialog class, described line up
-            if _obj.getResult():
-                dataObj.login=_obj.login
-                dataObj.password=_obj.password
-                _result=_obj.getResult()
+        #     _obj=_embedForNewUser(self,dataObj.login,dataObj.password) # TODO: remove it after exchancing the ModalDialog class, described line up
+        #     if _obj.getResult():
+        #         dataObj.login=_obj.login
+        #         dataObj.password=_obj.password
+        #         _result=_obj.getResult()
+
+        # dialogForNewUser() # TODO: use the wireframe mockup
 
         return _result
 
@@ -319,6 +329,9 @@ class AppGui(AppControlInterface,tk.Tk):
             ExceptionUIAbstractInterface: no refereeDialogForUserRights method defined
         """
         _result=False
+
+        # refereeDialogForUserRights() # TODO: use the wireframe mockup
+
         return _result
 
     def dialogForEditPlay(self,parentFrame:tk.Frame,dataObj:Play) -> bool:
@@ -341,6 +354,9 @@ class AppGui(AppControlInterface,tk.Tk):
             ExceptionUIAbstractInterface: no dialogForEditPlay method defined
         """
         _result=False
+
+        # dialogForEditPlay() # TODO: use the wireframe mockup
+
         return _result
 
     def dialogForAppLoginOrRegister(self,parentFrame:tk.Frame,dataObj:Play) -> bool:
@@ -361,6 +377,7 @@ class AppGui(AppControlInterface,tk.Tk):
             ExceptionUIAbstractInterface: no dialogForAppLoginOrRegister method defined
         """
         _result=False
+        
         return _result
 
     def chooseRecordFromList(self, parentFrame:tk.Frame, table:Serialisable, filterFunc:Optional[Callable[[Any],List[Any]]]=None):
@@ -373,6 +390,9 @@ class AppGui(AppControlInterface,tk.Tk):
         Raises:
             ExceptionUIAbstractInterface: _description_
         """
+
+        # refereeDialogForUserRights() # TODO: use the wireframe mockup
+
         pass
 
     def showInfoMessage(self, title, message):
@@ -381,8 +401,9 @@ class AppGui(AppControlInterface,tk.Tk):
         Args:
             title (str): title of the window
             message (str): message text
-
         """
+
+        # showInfoMessage() # TODO: use the wireframe mockup
         pass
 
     def showErrorMessage(self, title, message):
@@ -393,6 +414,7 @@ class AppGui(AppControlInterface,tk.Tk):
             message (str): message text
 
         """
+        # refereeDialogForUserRights() # TODO: use the wireframe mockup
         pass
 
     def createDialogYesNo(self, title, question) -> bool: 
@@ -405,10 +427,13 @@ class AppGui(AppControlInterface,tk.Tk):
 
         """
         _result=False
+        # createDialogYesNo() # TODO: use the wireframe mockup
         return _result
 
     def displayStatisticsForGroupAndItsGamesScheduled(self,dataStruct:List[GroupWithGamesScheduled]):
+        # displayStatisticsForGroupAndItsGamesScheduled() # TODO: use the wireframe mockup
         pass
 
     def displayStatisticsForPlayoffScheduledGames(self,dataStruct:List[SchedulesWithPlay]):
+        # displayStatisticsForPlayoffScheduledGames() # TODO: use the wireframe mockup
         pass
