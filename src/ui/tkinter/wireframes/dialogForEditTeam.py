@@ -28,13 +28,16 @@ def dialogForEditTeam(fieldsObj, onClickOk, parentFrame):
 
     parentFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
-    teamNameLabel = tk.Label(
-        parentFrame, text="Team Name", font=('Helvetica', 10)).grid(row=3, pady=(10, 5))
+    editTeamFrame = tk.Frame(parentFrame)
+    editTeamFrame.grid()
 
-    teamName = tk.Entry(parentFrame, width=40, textvariable=tkVars["name"])
+    teamNameLabel = tk.Label(
+        editTeamFrame, text="Team Name", font=('Helvetica', 10)).grid(row=3, pady=(10, 5))
+
+    teamName = tk.Entry(editTeamFrame, width=40, textvariable=tkVars["name"])
     teamName.grid(ipady=5, row=4)
 
-    buttonsFrame = tk.Frame(parentFrame)
+    buttonsFrame = tk.Frame(editTeamFrame)
     buttonsFrame.grid(row=5, pady=15)
     buttonsFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
@@ -48,7 +51,7 @@ def dialogForEditTeam(fieldsObj, onClickOk, parentFrame):
     onCancelButton = tk.Button(buttonsFrame, text='Cancel', width=20)
     onCancelButton.grid(row=0, column=1, padx=15)
     onCancelButton.bind(
-        "<Button-1>", lambda event: parentFrame.destroy())
+        "<Button-1>", lambda event: editTeamFrame.destroy())
 
 
 if __name__ == "__main__":

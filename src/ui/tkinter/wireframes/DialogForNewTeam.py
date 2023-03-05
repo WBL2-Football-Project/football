@@ -33,21 +33,24 @@ def dialogForNewTeam(fieldsObj, onClickOk, parentFrame):
 
     parentFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
+    newTeamFrame = tk.Frame(parentFrame)
+    newTeamFrame.grid()
+
     teamIDBoxLabel = tk.Label(
-        parentFrame, text="Team ID", font=('Helvetica', 10))
+        newTeamFrame, text="Team ID", font=('Helvetica', 10))
     teamIDBoxLabel.grid(row=1)
 
-    teamIDBox = tk.Spinbox(parentFrame, from_=0, to_=10000,
+    teamIDBox = tk.Spinbox(newTeamFrame, from_=0, to_=10000,
                            textvariable=tkVars["teamID"], width=10)
     teamIDBox.grid(row=2, ipady=5)
 
     teamNameLabel = tk.Label(
-        parentFrame, text="Team Name", font=('Helvetica', 10)).grid(row=3, pady=(10, 5))
+        newTeamFrame, text="Team Name", font=('Helvetica', 10)).grid(row=3, pady=(10, 5))
 
-    teamName = tk.Entry(parentFrame, width=40, textvariable=tkVars["name"])
+    teamName = tk.Entry(newTeamFrame, width=40, textvariable=tkVars["name"])
     teamName.grid(ipady=5, row=4)
 
-    buttonsFrame = tk.Frame(parentFrame)
+    buttonsFrame = tk.Frame(newTeamFrame)
     buttonsFrame.grid(row=5, pady=15)
     buttonsFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
@@ -61,7 +64,7 @@ def dialogForNewTeam(fieldsObj, onClickOk, parentFrame):
     onCancelButton = tk.Button(buttonsFrame, text='Cancel', width=20)
     onCancelButton.grid(row=0, column=1, padx=15)
     onCancelButton.bind(
-        "<Button-1>", lambda event: parentFrame.destroy())
+        "<Button-1>", lambda event: newTeamFrame.destroy())
 
 
 if __name__ == "__main__":
