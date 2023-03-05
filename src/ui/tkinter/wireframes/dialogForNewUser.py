@@ -34,19 +34,23 @@ def dialogForNewUser(fieldsObj, onClickOk, parentFrame):
 
     parentFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
-    usernameLabel = tk.Label(
-        parentFrame, text="Username", font=('Helvetica', 10)).grid(row=0, pady=(10, 5))
+    newUserFrame = tk.Frame(parentFrame)
+    newUserFrame.grid()
 
-    username = tk.Entry(parentFrame, width=40, textvariable=tkVars["login"])
+    usernameLabel = tk.Label(
+        newUserFrame, text="Username", font=('Helvetica', 10)).grid(row=0, pady=(10, 5))
+
+    username = tk.Entry(newUserFrame, width=40, textvariable=tkVars["login"])
     username.grid(ipady=5, row=1)
 
     passwordLabel = tk.Label(
-        parentFrame, text="Password", font=('Helvetica', 10)).grid(row=2, pady=(10, 5))
+        newUserFrame, text="Password", font=('Helvetica', 10)).grid(row=2, pady=(10, 5))
 
-    password = tk.Entry(parentFrame, width=40, textvariable=tkVars["password"])
+    password = tk.Entry(newUserFrame, width=40,
+                        textvariable=tkVars["password"])
     password.grid(ipady=5, row=3)
 
-    buttonsFrame = tk.Frame(parentFrame)
+    buttonsFrame = tk.Frame(newUserFrame)
     buttonsFrame.grid(row=5, pady=15)
     buttonsFrame.grid_columnconfigure(0, weight=1, uniform="equal")
     # OK BUTTON
@@ -59,11 +63,7 @@ def dialogForNewUser(fieldsObj, onClickOk, parentFrame):
     onCancelButton = tk.Button(buttonsFrame, text='Cancel', width=20)
     onCancelButton.grid(row=0, column=1, padx=15)
     onCancelButton.bind(
-        "<Button-1>", lambda event: parentFrame.destroy())
-
-    # TODO: widget for login
-    # TODO: widget for password
-    # TODO: widget for rights
+        "<Button-1>", lambda event: newUserFrame.destroy())
 
 
 if __name__ == "__main__":

@@ -34,13 +34,17 @@ def refereeDialogForUserRights(fieldsObj, onClickOk, parentFrame):
 
     parentFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
-    passwordLabel = tk.Label(
-        parentFrame, text="Password", font=('Helvetica', 10)).grid(row=2, pady=(10, 5))
+    userRightsFrame = tk.Frame(parentFrame)
+    userRightsFrame.grid()
 
-    password = tk.Entry(parentFrame, width=40, textvariable=tkVars["password"])
+    passwordLabel = tk.Label(
+        userRightsFrame, text="Password", font=('Helvetica', 10)).grid(row=2, pady=(10, 5))
+
+    password = tk.Entry(userRightsFrame, width=40,
+                        textvariable=tkVars["password"])
     password.grid(ipady=5, row=3)
 
-    buttonsFrame = tk.Frame(parentFrame)
+    buttonsFrame = tk.Frame(userRightsFrame)
     buttonsFrame.grid(row=5, pady=15)
     buttonsFrame.grid_columnconfigure(0, weight=1, uniform="equal")
     # OK BUTTON
@@ -53,7 +57,7 @@ def refereeDialogForUserRights(fieldsObj, onClickOk, parentFrame):
     onCancelButton = tk.Button(buttonsFrame, text='Cancel', width=20)
     onCancelButton.grid(row=0, column=1, padx=15)
     onCancelButton.bind(
-        "<Button-1>", lambda event: parentFrame.destroy())
+        "<Button-1>", lambda event: userRightsFrame.destroy())
 
     # TODO: widget for login
     # TODO: widget for password
