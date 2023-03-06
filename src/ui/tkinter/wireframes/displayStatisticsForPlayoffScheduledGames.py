@@ -28,9 +28,28 @@ def displayStatisticsForPlayoffScheduledGames(dataStruct:List[SchedulesWithPlay]
 			isGroupPhase (bool) : True means this game is for group phase of tournament, False - playoff phase of tournament
 
     """
+    parentFrame.grid_columnconfigure(0, weight=1, uniform="equal")
+
+    playOffFrame = tk.Frame(parentFrame)
+    playOffFrame.grid()
+
+    scheduleFrame = tk.Frame(playOffFrame)
+    scheduleFrame.grid(row=0)
+
+    for idx, game in enumerate(dataStruct):
+        gameFrame = tk.Frame(scheduleFrame)
+        gameFrame.grid()
+
+    buttonsFrame = tk.Frame(playOffFrame)
+    buttonsFrame.grid(row=20, pady=15)
+    buttonsFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
 
-    # TODO: create the dialog
+    # Cancel Button
+    onCancelButton = tk.Button(buttonsFrame, text='Close', width=20)
+    onCancelButton.grid(row=0, column=1, padx=15)
+    onCancelButton.bind(
+        "<Button-1>", lambda event: playOffFrame.destroy())
 
 if __name__=="__main__":
 

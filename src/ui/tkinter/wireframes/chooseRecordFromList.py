@@ -32,14 +32,14 @@ def chooseRecordFromList(fieldsObj_list: List[Any], onClickOk, parentFrame):
     chooseRecordFromListFrame = tk.Frame(parentFrame)
     chooseRecordFromListFrame.grid()
 
-    recordList = ttk.Treeview(chooseRecordFromListFrame, columns="c1, c2, c3")
+    recordList = ttk.Treeview(chooseRecordFromListFrame, columns="c1, c2")
 
     recordList.heading('#0', text='ID')
     recordList.heading('#1', text='Field 1')
     recordList.heading('#2', text='Field 2')
-    recordList.column('#0')
-    recordList.column('#1')
-    recordList.column('#2')
+    recordList.column('#0', anchor=tk.CENTER)
+    recordList.column('#1', anchor=tk.CENTER)
+    recordList.column('#2', anchor=tk.CENTER)
 
     recordList.grid(row=0)
 

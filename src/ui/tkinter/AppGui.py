@@ -31,6 +31,7 @@ class AppGui(AppControlInterface, tk.Tk):
 
         # e.g. root window title and dimension
         self.title("Football Tournament Tracker")
+        self.resizable(False, False)
 
         # e.g. or - set geometry (width x height)
         self.geometry('800x600')
