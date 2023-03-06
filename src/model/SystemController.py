@@ -8,6 +8,8 @@ from AppControlInterface import *
 from FootballStateMachine import *
 
 # exception related to SystemController class
+
+
 class ExceptionSystemController(Exception):
     def __init__(self, message='SystemController Exception'):
         super().__init__(f"ERROR(SystemController): {message}")
@@ -15,8 +17,8 @@ class ExceptionSystemController(Exception):
 class SystemController(ApplicationState):
     """Main system controller for the application definition. The application instance could start after this controller will be initiated.
     """
-    
-    def __init__(self, dbControl:DBAbstractInterface, appControl:AppControlInterface):
+
+    def __init__(self, dbControl: DBAbstractInterface, appControl: AppControlInterface):
         """System controller initialisation method with dependency injection convention.
         To successfully create this controller you need to pass two implementation classes, one for DB and the other for UI purposes.
         Every calls to DB or UI have to be made through self.dbImplementationObj and self.uiImplementationObj instances.
@@ -61,7 +63,7 @@ class SystemController(ApplicationState):
             AppControlInterface: the helper object used to create the UI interface implementation
         """
         return self.appControl
-    
+
     def getDb(self) -> DBAbstractInterface:
         """Return the implementation for DBAbstractInterface
 
@@ -96,18 +98,18 @@ class SystemController(ApplicationState):
 
     def registerAccount(self,embedded:bool=False):
         """User of referee register account. For empty database tables firsty created account is always with highest referee rights.
-        
+
         - if not logged in, call user register account
             - if empty database - save the first account with referee rights
         - elif logged in rights are referee
             - call referee register account
         - elif logged in rights are user
             - call user register account
-        
+
         """
 
-        _changes=False
-        _user=Users() # empty users instance for holding the data
+        _changes = False
+        _user = Users()  # empty users instance for holding the data
         # if self.loginStatus.rights == AccountRights.NotLoggedIn:
         #     _changes=self.getApp().dialogForNewUser(_user,self.getApp().getMainFrame())
         #     if self.getDb().getCountOfRecordsInTable(Users)==0:
@@ -124,10 +126,12 @@ class SystemController(ApplicationState):
 
         # else:
         #     raise ExceptionUIAbstractInterface(f"unknown current rights of an account")
-        _changes=self.getApp().refereeDialogForNewUser(_user,self.getApp().getMainFrame()) # temporary for test UI
+        _changes = self.getApp().refereeDialogForNewUser(
+            _user, self.getApp().getMainFrame())  # temporary for test UI
 
         if _changes:
-            self.loginStatus.loginStatus(_user.login,self.getDb().getRightsFromDb(_user.login,_user.password))
+            self.loginStatus.loginStatus(
+                _user.login, self.getDb().getRightsFromDb(_user.login, _user.password))
 
     def defineTeam(self,embeded:bool=True):
         """Define team. This method can be called only with referee rights account."""
@@ -180,7 +184,7 @@ class SystemController(ApplicationState):
     def loginToApp(self,embeded:bool=True):
         """Classic login/password authentication. After the data are taken, the application have to check with database if access should be granted.
         Additionally, the application keep the rights level for the account (user or referee rights account)
-        
+
         - create new dialog window for getting: login, password (refer to UIAbstractInterface create new dialog)
         - get rights from database (refer to DBAbstractInterface get rights from db) and show error message if access isn't granted then go back to login dialog
         - update the login status (refer to SystemController loginStatus)
