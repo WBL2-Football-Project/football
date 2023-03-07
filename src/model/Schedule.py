@@ -8,8 +8,10 @@ from TimeOfDay import *
 # #checkifequal16
 # #checkiftournamentbegan
 
+
 class Schedule:
     """Manages the schedule of the tournament plays."""
+
     def __init__(self):
         """Fields
             scheduleID (int): (PK) schedule record ID

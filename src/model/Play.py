@@ -3,8 +3,10 @@ from Teams import *
 from Schedule import *
 from unittest import TestCase
 
+
 class Play:
     """Manages sinle play between two teams statistic data object."""
+
     def __init__(self):
         """Fields
 
@@ -23,6 +25,8 @@ class Play:
         """
         self.playID = None
         self.team1ID = None
+        self.team1Name = None
+        self.team2Name = None
         self.team2ID = None
         self.team1GoalsScored = None
         self.team2GoalsScored = None
@@ -45,17 +49,17 @@ class Play:
         """Generates a randomly sorted list of all teams for further schedule computation."""
         pass
 
-    def _prepareGroupPhaseData(self,randomTeamsList:List[Teams]):
+    def _prepareGroupPhaseData(self, randomTeamsList: List[Teams]):
         """Generates a breakdown of the teams into 4 groups of 3 teams each.
         """
         pass
 
-    def _preparePlayoffPhaseData(self,randomTeamsList:List[Teams],groupsTeamsDistribution:List):
+    def _preparePlayoffPhaseData(self, randomTeamsList: List[Teams], groupsTeamsDistribution: List):
         """Generates a breakdown of the teams for quarter-final (4 plays of 2 teams each), semi-final (2 plays of 2 teams each), 3rdPlace-final (1 play of 2 teams) and final (1 play of 2 teams).
         """
         pass
 
-    def saveRelativeScheduleRecords(self,randomTeamsList:List[Teams],groupsTeamsDistribution:List):
+    def saveRelativeScheduleRecords(self, randomTeamsList: List[Teams], groupsTeamsDistribution: List):
         """Creates full schedule calendar records for each required play of tournament for both group and playoff games.
         The coresponding to every scheduled game Play objects records are saved into the database as well."""
         pass
@@ -76,7 +80,7 @@ class Play:
         pass
 
     @staticmethod
-    def getPlayListForListOfSchedules(listOfRecords:List[Schedule]):
+    def getPlayListForListOfSchedules(listOfRecords: List[Schedule]):
         """Creates windows with view of games statistics for a given list of Schedule records (including Play records)
 
         Args:
@@ -95,7 +99,7 @@ class Play:
         - prepare 2 schedule object (with unique schedule ID's) for the semi-final tree of games, match the winner teams from quarter-final
         - prepare 2 schedule object (with unique schedule ID's) for the final tree of games, match the looser teams for the 3rd place final 
             and the winner teams for the 1st place final
-        
+
         Importat notice: 
             Quarter-final and semi-final tree of games expect us to set the fields: revelantScheduleIDForTeam1 and revelantScheduleIDForTeam2,
             which indicate the scheduleID primary key fields in the next level of tree of games. We don't know at this moment who will be the
@@ -106,6 +110,7 @@ class Play:
         Returns:
             List[Schedule] : list of Schedule objects
         """
+
 
 class PlayTesting(TestCase):
     def test_surface(self):
