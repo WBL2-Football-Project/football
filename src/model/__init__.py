@@ -9,13 +9,11 @@ from UIAbstractInterface import *
 from DBAbstractInterface import *
 from Teams import *
 from Schedule import *
-from StateMachine import *
+from ApplicationState import *
 from SystemController import *
 from LoginStatus import *
 from Play import *
 from DBPickleFile import *
-from Widget import *
-from WidgetDefinition import *
 from Serialisable import *
 from GroupWithGamesScheduled import *
 from SchedulesWithPlay import *
@@ -23,7 +21,8 @@ from TimeOfDay import *
 from AccountRights import *
 from AppAbstractInterface import *
 from AppControlInterface import *
+from PickleSerialisation import *
 
-__all__ = ["Users","UnitTests","UIAbstractInterface","DBAbstractInterface","Teams","Schedule","StateMachine",
-	"SystemController","LoginStatus","Play","DBPickleFile","WidgetDefinition","AccountRights","LayoutTypesEnum",
-    "Serialisable","Widget","GroupWithGamesScheduled","SchedulesWithPlay","TimeOfDay","AppAbstractInterface","AppControlInterface"]
+__all__ = ["Users","UnitTests","UIAbstractInterface","DBAbstractInterface","Teams","Schedule","ApplicationState",
+	"SystemController","LoginStatus","Play","DBPickleFile","AccountRights","Serialisable","GroupWithGamesScheduled",
+    "SchedulesWithPlay","TimeOfDay","AppAbstractInterface","AppControlInterface","PickleSerialisation"]

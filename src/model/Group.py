@@ -1,6 +1,7 @@
 from typing import Optional
+from Serialisable import Serialisable
 
-class Group:
+class Group(Serialisable):
 	"""Class representing every single group in group phase of tournament"""
 	def __init__(self):
 		"""Fields:
@@ -26,14 +27,17 @@ class Group:
 			team3YellowCards (int)=0 : the team 3 yellow cards
 			isGroupCompleted (bool)=false : true if all the games in this group was already completed
 		"""
+		Serialisable.__init__(self,self.__class__,["groupID","groupName","team1ID","team2ID","team3ID","teams1PlayCounter","team2PlayCounter","team3PlayCounter",
+			"team1Score","team2Score","team3Score","team1GoalsScored","team2GoalsScored","team3GoalsScored","team1GoalsMissed","team2GoalsMissed","team3GoalsMissed",
+			"team1YellowCards","team2YellowCards","team3YellowCards","isGroupCompleted"])
 		self.groupID:int=0
 		self.groupName:str=""
 		self.team1ID:int=0
 		self.team2ID:int=0
 		self.team3ID:int=0
-		self.teams1PlayCounter:int=0
-		self.teams2PlayCounter:int=0
-		self.teams3PlayCounter:int=0
+		self.team1PlayCounter:int=0
+		self.team2PlayCounter:int=0
+		self.team3PlayCounter:int=0
 		self.team1Score:int=0
 		self.team2Score:int=0
 		self.team3Score:int=0
@@ -76,7 +80,7 @@ class Group:
 		- check if every team play counter is equal to 3 (every team is expected to play 3 games during the group phase)
 		- if every team in group object had already 3 plays, set the isGroupCompleted flat to true
 		- if isGroupCompleted is true, check every other group record in the database and if every groups are already completed,
-			set the StateMachine.setGroupPhaseCompleted()
+			set the ApplicationState.setGroupPhaseCompleted()
 
 		Args:
 			team1AddGoalsScored (int,optional): team 1 amount of scored goals to add after next play is completed

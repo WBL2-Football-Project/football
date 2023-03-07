@@ -1,9 +1,11 @@
-from typing import List
+from typing import List,Optional
 from Teams import *
 from Schedule import *
 from unittest import TestCase
+from Serialisable import Serialisable
+import inspect
 
-class Play:
+class Play(Serialisable):
     """Manages sinle play between two teams statistic data object."""
     def __init__(self):
         """Fields
@@ -21,24 +23,26 @@ class Play:
             revelantScheduleIDForTeam1 (int) : after the play is completed, the winner team1ID should be set in the coresponing future schedule ID object
             revelantScheduleIDForTeam2 (int) : after the play is completed, the winner team2ID should be set in the coresponing future schedule ID object
         """
-        self.playID = None
-        self.team1ID = None
-        self.team2ID = None
-        self.team1GoalsScored = None
-        self.team2GoalsScored = None
-        self.team1GoalsMissed = None
-        self.team2GoalsMissed = None
-        self.team1YellowCards = None
-        self.team2YellowCards = None
-        self.isPlayCompleted = None
-        self.revelantScheduleIDForTeam1 = None
-        self.revelantScheduleIDForTeam2 = None
+        # Serialisable.__init__(self,self.__class__,["playID","team1ID","team2ID","team1GoalsScored","team2GoalsScored","team1GoalsMissed","team2GoalsMissed","team1YellowCards","team2YellowCards",
+        #     "isPlayCompleted","relevantScheduleIDForTeam1","relevantScheduleIDForTeam2"])
+        self.playID:int = 0
+        self.team1ID:int = 0
+        self.team2ID:int = 0
+        self.team1GoalsScored:Optional[int] = None
+        self.team2GoalsScored:Optional[int] = None
+        self.team1GoalsMissed:Optional[int] = None
+        self.team2GoalsMissed:Optional[int] = None
+        self.team1YellowCards:Optional[int] = None
+        self.team2YellowCards:Optional[int] = None
+        self.isPlayCompleted:bool = False
+        self.relevantScheduleIDForTeam1:Optional[int] = None
+        self.relevantScheduleIDForTeam2:Optional[int] = None
 
     def generateRandomGroupPhasePlaySchedule(self):
         """Generates a random play schedule for entire tournament after is checked if expected amount of teams is defined.
         Method uses helpers: generateRandomTeamsList(), prepareGroupPhaseData(), preparePlayoffPhaseData().
         Call saveRelativeScheculeRecords() when the tournament schedule is calculated.
-        Sets StateMachine.setIsScheduled() after full schedule is saved."""
+        Sets ApplicationState.setIsScheduled() after full schedule is saved."""
         pass
 
     def _generateRandomTeamsList(self):
@@ -110,3 +114,42 @@ class Play:
 class PlayTesting(TestCase):
     def test_surface(self):
         pass
+
+if __name__ == "__main__":
+    p=Play()
+    # print('properties',[ k for k,v in Play().__dict__.items() if not k.startswith('_') ] )
+    # print('tableNameList',p.tableNameList,'properties',[p for p in dir(Play) if isinstance(getattr(Play,p),property)])
+
+    # starting database
+    from DBPickleFile import DBPickleFile
+    db=DBPickleFile(fileName='test_db.pck')
+
+    # add some records
+    db.startDatabase()
+    db.addDataToDb(Play,p)
+    p.playID=p.playID+1
+    db.addDataToDb(Play,p)
+    p.playID=p.playID+1
+    db.addDataToDb(Play,p)
+
+    # list all records
+    print("after 3 records added",[ x.playID for x in db.getListOfRecords(Play) ]) # type: ignore
+
+    # how much records we have
+    print("amount of records",db.getCountOfRecordsInTable(Play))
+
+    # modify record
+    oldId=0
+    p.playID=3
+    db.updateDataInDb(Play,p,oldId)
+    print("after change",oldId," into ",p.playID,[ x.playID for x in db.getListOfRecords(Play) ]) # type: ignore
+
+    # delete one record
+    db.deleteDataFromDb(Play,lambda x: x.playID==2) # type: ignore
+    print("after deleting 2",[ x.playID for x in db.getListOfRecords(Play) ]) # type: ignore
+
+    print("max ID",db.getMaxIdFromTable(Play))
+
+    # truncate table
+    db.truncateTable(Play)
+    print("after truncate",[ x.playID for x in db.getListOfRecords(Play) ]) # type: ignore

@@ -9,12 +9,12 @@
 			"justMyCode": true
 		},
 		{
-			"name": "Python: Current File Tests",
+			"name": "Python: football",
 			"type": "python",
 			"request": "launch",
-			"module": "pytest",
+			"program": "src/main.py",
 			"console": "integratedTerminal",
 			"justMyCode": true
-		}
+		}	
 	]
 }

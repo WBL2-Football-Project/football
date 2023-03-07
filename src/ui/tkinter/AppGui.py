@@ -1,6 +1,4 @@
-from ui.tkinter.wireframes.DialogForNewTeam import dialogForNewTeam
-from .DialogEmbedWidgets import DialogEmbedWidgets
-from .ModalDialog import ModalDialog
+from ui.tkinter.wireframes.dialogForNewTeam import dialogForNewTeam
 from tkinter import messagebox
 from tkinter import simpledialog
 import tkinter.font as tkfont
@@ -11,10 +9,8 @@ import os
 import sys
 from typing import Optional, List, Any, Callable
 import inspect
-sys.path.insert(0, os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '.')))
-sys.path.insert(0, os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 
 # starting tkinter helper class
@@ -39,8 +35,10 @@ class AppGui(AppControlInterface, tk.Tk):
 
     def startApplicationLoop(self):
 
-        self.refreshMainWindowView(
-            self.systemController.loginStatus.login, self.systemController.loginStatus.rights)
+        self.systemController.stateMachine.start()
+
+        # self.refreshMainWindowView(
+        #     self.systemController.loginStatus.login, self.systemController.loginStatus.rights)
 
         # Execute Tkinter window mainloop
         self.mainloop()

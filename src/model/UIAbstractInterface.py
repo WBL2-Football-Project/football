@@ -2,7 +2,6 @@ from abc import abstractmethod
 from typing import Optional,Callable,Any,List
 from enum import Enum
 import inspect
-from WidgetDefinition import *
 from Serialisable import *
 from GroupWithGamesScheduled import *
 from SchedulesWithPlay import *

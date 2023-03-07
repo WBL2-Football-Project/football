@@ -10,6 +10,8 @@ class Users(Serialisable):
             password (str)           user password
             rights (AccountRights)   user rights type   
         """
+        Serialisable.__init__(self,self.__class__,["login","password","rights"])
+        self.userID:int=0
         self.login:str = ""
         self.password:str = ""
         self.rights:AccountRights = AccountRights.NotLoggedIn

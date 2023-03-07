@@ -105,7 +105,7 @@ if __name__ == '__main__':
 `python -m pytest pytest_test_and_presentation.py`
 which presents the following results:
 
-![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/tests/pytest-presentation-results.jpg "presentation tests results")
+![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/img/pytest-presentation-results.jpg "presentation tests results")
 
 4. Summary
 With OOP approach, we likely add separate test object for every class created. Every test object defines as many particular tests as needed to check everything related. Before combining new branch into the main source, we need to have all the necessary tests defined and completed to avoid risk of disordering the other works.
@@ -144,15 +144,15 @@ With OOP approach, we likely add separate test object for every class created. E
 1. src/main.py is the application starting point
 2. python src/main.py --help give us the help how to run it:
 
-![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/tests/launch-help.jpg "launch-help")
+![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/img/launch-help.jpg "launch-help")
 
 3. python src/main.py --console give us console start of the application without any gui
 
-![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/tests/launch-console.jpg "launch-console")
+![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/img/launch-console.jpg "launch-console")
 
 4. python src/main.py # without any parameters start the gui version of application if possible (tkinter is installed)
 
-![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/tests/launch-gui.jpg "launch-gui")
+![Alt text](https://github.com/WBL2-Football-Project/football/blob/main/img/launch-gui.jpg "launch-gui")
 
 ## To generate documentation you need to run the command:
 

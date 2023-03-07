@@ -1,14 +1,7 @@
 from TimeOfDay import *
+from Serialisable import Serialisable
 
-# TODO:
-# showmatchorderplayofftree
-# #recordgamesdata
-# calculateplayoffphaseschedule
-# #calculategroupphaseschedule
-# #checkifequal16
-# #checkiftournamentbegan
-
-class Schedule:
+class Schedule(Serialisable):
     """Manages the schedule of the tournament plays."""
     def __init__(self):
         """Fields
@@ -19,6 +12,7 @@ class Schedule:
             isPlayCompleted (bool): is play completed
             isGroupPhase (bool): is play in group phase
         """
+        Serialisable.__init__(self,self.__class__,["scheduleID","playID","date","timeOfDay","isPLayCompleted","isGroupPhase"])
         self.scheduleID = None
         self.playID = None
         self.date = None
@@ -30,12 +24,12 @@ class Schedule:
         """Calculate group phase schedule. This method can be called only with referee rights account.
         To calculate group phase schedule use the 'Calculate Group Phase Schedule' sequence diagram.
         When done correctly, in database should be group records and every group phase games schedule saved.
-        When done correctly, the proper StateMachine record should be updated by calling StateMachine.setIsGroupsScheduled().
+        When done correctly, the proper ApplicationState record should be updated by calling ApplicationState.setIsGroupsScheduled().
 
         References: 
             Group
             Schedule
-            StateMachine
+            ApplicationState
             Schedule.calculateGroupPhaseSchedule()
         """
         pass
@@ -46,17 +40,17 @@ class Schedule:
         To calculate playoff phase schedule use the 'Calculate Playoff Phase Schedule' sequence diagram.
         When done correctly, in the database should be every playoff game scheduled with NULL team1/2 ID's 
         but with virtual team1/2 completed for future games with unknown yes compatitors.
-        When done correctly, the proper StateMachine record should be updated by calling StateMachine.setIsPlayoffScheduled().
+        When done correctly, the proper ApplicationState record should be updated by calling ApplicationState.setIsPlayoffScheduled().
 
         References: 
-            StateMachine
+            ApplicationState
             Schedule
             Schedule.calculateGroupPhaseSchedule()
         """
         pass
 
     def checkIfTournamentBegan(self):
-        """Check if the tournament is started by calling @StateMachine.checkIsGroupScheduled() and return True.
+        """Check if the tournament is started by calling @ApplicationState.checkIsGroupScheduled() and return True.
         """
         pass
 
@@ -83,7 +77,7 @@ class Schedule:
         - create a dialog yes no to let the user confirm the calculation have to be done
         - generate playoff phase play schedule (coresponding method from Play class)
         - use the list of schedules returned for sarialise it into the database (using add data to db from DBAbstractInterface class)
-        - set is playoff scheduled (corresponding method from StateMachine class)
+        - set is playoff scheduled (corresponding method from ApplicationState class)
         - show confirmation message to use, everything's done (show info message from UIAbstractInterface class)
         """
         pass

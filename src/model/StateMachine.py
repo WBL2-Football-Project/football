@@ -1,79 +1,133 @@
-from AccountRights import *
+from __future__ import annotations
+from abc import abstractmethod
+from typing import List,Dict,Any,Optional,Union,Callable
+from AccountRights import AccountRights
 
-# exception related to AccountRights class
+# exception related to StateMachine class
 class ExceptionStateMachine(Exception):
     def __init__(self, message='StateMachine Exception'):
         super().__init__(f"ERROR(StateMachine): {message}")
 
-class StateMachine:
-    """This class keep the current state of the application instance, e.g. holding instances for: is schedule generated or current user account rights."""
+class Flag:
+    def __init__(self, name:str, type_, startingValue=None):
+        self.name=name
+        self.value:type_=startingValue
 
-    def __init__(self):
-        self.groupScheduleGenerated = False
-        self.groupPhaseCompleted = False
-        self.playoffScheduleGenerated = False
-        self.accountRights:AccountRights = AccountRights.NotLoggedIn
+    def setSM(self, sm):
+        self.sm=sm
 
-    def setGroupPhaseCompleted(self):
-        """Set into database the groupPhaseCompleted to True, which means that tournament group phase is completed and the playoff phase is beginning."""
-        pass
+    def getSM(self):
+        return self.sm
 
-    def checkIsGroupScheduled(self):
-        """Returns True if the games group phase schedules is generated."""
-        return self.scheduleGenerated
+class Event:
+    def __init__(self, name:str):
+        self.name=name
+
+    def setSM(self, sm):
+        self.sm=sm
+
+    def getSM(self):
+        return self.sm
     
-    def checkIsGroupPhaseCompleted(self):
-        """Returns True if the games group phase schedules is completed."""
-        return self.groupPhaseCompleted
+class Transition:
+    def __init__(self,dstState:State,event:Callable[[State,StateMachine],bool]=lambda st,sm:True,
+                 beforeFlags:Optional[Union[List[Flag],Callable[[Dict[str,Flag]],bool]]]=lambda _:True,
+                 beforeChange:Optional[Union[List[Callable[[State,StateMachine],bool]],Callable[[State,StateMachine],bool]]]=lambda st,sm:True,
+                 afterChange:Optional[Union[List[Callable[[State,StateMachine],bool]],Callable[[State,StateMachine],bool]]]=lambda st,sm:True,
+                 afterFlags:Optional[Union[List[Flag],Callable[[Dict[str,Flag]],bool]]]=lambda _:True):
 
-    def setIsGroupScheduled(self,isGroupScheduled:bool):
-        """Sets the isGroupScheduled flag of the application
+        self.dstState=dstState
+        self.beforeFlags=beforeFlags if type(beforeFlags)==list else [beforeFlags]
+        self.beforeChange=beforeChange if type(beforeChange)==list else [beforeChange]
+        self.afterChange=afterChange if type(afterChange)==list else [afterChange]
+        self.afterFlags=afterFlags if type(afterFlags)==list else [afterFlags]
 
-        Args:
-            isGroupScheduled (bool): the games group phase callendar is scheduled
-        """
-        self.scheduleGenerated = isGroupScheduled
+class State:
+    def __init__(self, name:str='',fun:Callable[[*Any],Optional[bool]]=lambda __:print("State method started"),default:bool=False):
+        self.name=name
+        self.fun=fun
+        self.dstState:Optional[State]=None
+        self.transitions:Dict[str,Transition]={}
+        self.default=default
 
-    def checkIsPlayoffScheduled(self):
-        """Returns True if the games playoff schedules is generated."""
-        return self.scheduleGenerated
+    def setSM(self, sm):
+        self.sm=sm
 
-    def setIsPlayoffScheduled(self,isPlayoffScheduled:bool):
-        """Sets the isPlayoffScheduled flag of the application
+    def getSM(self):
+        return self.sm
+    
+    def transition(self, dstState:State,
+            event:Callable[[State,StateMachine],bool]=lambda st,sm:True,
+            beforeFlags:Optional[Union[List[Flag],Callable[[Dict[str,Flag]],bool]]]=lambda _:True,
+            beforeChange:Optional[Union[List[Callable[[State,StateMachine],bool]],Callable[[State,StateMachine],bool]]]=lambda st,sm:True,
+            afterChange:Optional[Union[List[Callable[[State,StateMachine],bool]],Callable[[State,StateMachine],bool]]]=lambda st,sm:True,
+            afterFlags:Optional[Union[List[Flag],Callable[[Dict[str,Flag]],bool]]]=lambda _:True):
+        
+        if dstState.name in self.transitions:
+            raise Exception(f"State.transition error: '{dstState.name}' already defined")
+        self.transitions[dstState.name]=Transition(dstState,event,beforeFlags,beforeChange,afterChange,afterFlags)
 
-        Args:
-            isPlayoffScheduled (bool): the games playoff phase callendar is scheduled
+class StateMachine:
+    def __init__(self,systemController=None):
+        self.states:Dict[str,State]={}
+        self.flags:Dict[str,Flag]={}
+        # self.transitions:Dict[str,Dict[Transition]={}
+        self.events:Dict[str,Event]={}
+        self.systemController=systemController
 
-        Exceptions:
+    def addFlag(self, flag:Flag):
+        if not flag.name in self.flags:
+            self.flags[flag.name]=flag
+        return self.flags[flag.name]
 
-        """
-        if not self.setIsGroupScheduled:
-            raise ExceptionStateMachine("you don't have a group phase callendar yet, generate it first")
-        self.scheduleGenerated = isPlayoffScheduled
-
-    def setAccountRights(self, accountRights:AccountRights):
-        """Sets the accountRights flag of the application, which usually should be set after a user is logged in.
-
-        Args:
-            accountRights (AccountRights): account rights deducted from the database user account data
-
-        Raises:
-            ExceptionStateMachine: exception state machine could be raised when improper account rights value was given
-        """
-        try:
-            _rightName=AccountRights(accountRights)
-            self.accountRights = accountRights
-        except:
-            raise ExceptionStateMachine('setAccountRights, accountRights must be AccountRights type')
-
-    def isLoggedIn(self):
-        """Return True if the user is logged in properly."""
-        return self.accountRights!=AccountRights.NotLoggedIn
-
-    def isUserRights(self):
-        """Return True if the user is logged in and have 'user' account rights."""
-        return self.accountRights==AccountRights.UserRights
-
-    def isRefereeRights(self):
-        """Return True if the user is logged in and have 'referee' account rights."""
-        return self.accountRights==AccountRights.RefereeRights
+    # def addStatesByNames(self,*stateNamesArgs:str) -> List[State]:
+    #     _retStateList:List[State]=[]
+    #     if len(stateNamesArgs)==0:
+    #         raise ExceptionStateMachine('StateMachine.addStatesByNames error: stateArgs is empty')
+    #     else:
+    #         for name in stateNamesArgs:
+    #             state=State(name)
+    #             if not state.name in self.states:
+    #                 _retStateList.append(state)
+    #                 self.states[state.name]=state
+    #                 state.setSM(self)
+    #             else:
+    #                 raise ExceptionStateMachine(f"StateMachine.addStatesByNames error: '{name}' dupllicated")
+    #     return _retStateList
+            
+    def addStatesByObjs(self, *stateArgs:State) -> List[State]:
+        _retStateList:List[State]=[]
+        if len(stateArgs)==0:
+            raise ExceptionStateMachine('StateMachine.addStatesByObjs error: stateArgs is empty')
+        else:
+            for state in stateArgs:
+                if not state.name in self.states:
+                    _retStateList.append(state)
+                    self.states[state.name]=state
+                    state.setSM(self)
+                else:
+                    raise ExceptionStateMachine("StateMachine.addStatesByObjs error: '{state.name}' duplicated")
+        return _retStateList
+    
+    def addFlagsByObjs(self, *flagsArgs:Flag) -> List[Flag]:
+        _retFlagsList:List[Flag]=[]
+        if len(flagsArgs)==0:
+            raise ExceptionStateMachine('StateMachine.addFlagsByObjs error: flagsArgs is empty')
+        else:
+            for flag in flagsArgs:
+                if not flag.name in self.flags:
+                    _retFlagsList.append(flag)
+                    self.flags[flag.name]=flag
+        return _retFlagsList
+    
+    def start(self):
+        _startState:Optional[State]=None
+        for name,state in self.states.items():
+            if state.default:
+                _startState=state
+                break
+        if _startState is None:
+            raise ExceptionStateMachine('StateMachine.start error: not default State found')
+        
+        # start the default state:
+        _startState.fun(_startState.default)

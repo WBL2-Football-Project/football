@@ -2,5 +2,22 @@
 	"liveServer.settings.AdvanceCustomBrowserCmdLine": "",
 	"search.exclude": {
 		"**/*.html": true
-	}
+	},
+	"python.analysis.extraPaths": [
+		"./src/model"
+	],
+	"python.testing.unittestEnabled": false,
+	"python.testing.pytestEnabled": true,
+	"python.testing.cwd": "tests",
+	"python.testing.unittestArgs": [
+		"-v",
+		"-s",
+		".",
+		"-p",
+		"*test*.py"
+	],
+	"terminal.explorerKind": "integrated",
+	"python.testing.pytestArgs": [
+		"tests"
+	]
 }

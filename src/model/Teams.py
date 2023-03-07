@@ -1,6 +1,6 @@
-from DBAbstractInterface import *
+from Serialisable import Serialisable
 
-class Teams:
+class Teams(Serialisable):
     """Manages the teams data structure."""
     def __init__(self):
         """Fields
@@ -12,6 +12,7 @@ class Teams:
             totalYellowCards (int): (calculated) The total yellow cards played by the team during tournament
             totalPoints (int): (calculated) The total points played by the team during tournament
         """
+        Serialisable.__init__(self,self.__class__,["teamID","name","totalGoalsScored","totalGoalsMissed","totalYellowCards","totalPoints"])
         self.teamID = None
         self.name = None
         self.totalGoalsScored = 0
