@@ -1,4 +1,4 @@
-# Football Tournament Tracker
+# TourneyTracker
 
 ## Documentation
 
