@@ -1,3 +1,4 @@
+from ModalDialog import ModalDialog
 from tkinter import messagebox
 from tkinter import simpledialog
 import tkinter.font as tkfont
@@ -14,9 +15,10 @@ sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../..')))
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../../..')))
-from ModalDialog import ModalDialog
 
 # Exported dialog procedure:
+
+
 def createDialogYesNo(title: str, content: str, parentFrame):
     """Showing new modal window on screen designed for asking the user for one of the answers: Yes or No.
     User have to choose one option to close the window.
@@ -56,19 +58,24 @@ def createDialogYesNo(title: str, content: str, parentFrame):
 
     # open the modal dialog window for getting the values
     class _modalForExit(ModalDialog):
-        def __init__(self,parent,title="Question",content="Do you want to exit the application"):
-            super().__init__(parent,title,self.showResults)
-            self.content=content
-        def showResults(self,result): # shows the results for every vehicle price offer
+        def __init__(self, parent, title="Question", content="Do you want to exit the application"):
+            super().__init__(parent, title, self.showResults)
+            self.content = content
+
+        def showResults(self, result):  # shows the results for every vehicle price offer
             return result
-        def body(self, frame): # designs the window widgets
+
+        def body(self, frame):  # designs the window widgets
             # exit question label
-            tk.Label(frame,text=content).grid(row=0,column=0,ipadx=30,ipady=30,sticky='news')
+            tk.Label(frame, text=content).grid(
+                row=0, column=0, ipadx=30, ipady=30, sticky='news')
             return frame
 
-    _obj=_modalForExit(parentFrame,title,content)
-    if _obj.getResult(): return True
+    _obj = _modalForExit(parentFrame, title, content)
+    if _obj.getResult():
+        return True
     return False
+
 
 if __name__ == "__main__":
 

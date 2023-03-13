@@ -4,6 +4,7 @@ import tkinter.font as tkfont
 from tkinter import ttk
 import tkinter as tk
 # from model import *
+from constants import *
 import os
 import sys
 from typing import Optional, List, Any, Callable, Dict
@@ -51,7 +52,8 @@ def displayStatisticsForGroupAndItsGamesScheduled(dataStruct: List, parentFrame)
     groupStageFrame = tk.Frame(parentFrame)
     groupStageFrame.grid()
 
-    legendLabel = tk.Label(groupStageFrame, text="GS - Goals Scored\t\tGM - Goals Missed\nYC - Yellow Cards\t\tGP - Games Played\nP - Points\t\t\t\t")
+    legendLabel = tk.Label(
+        groupStageFrame, text="GS - Goals Scored\t\tGM - Goals Missed\nYC - Yellow Cards\t\tGP - Games Played\nP - Points\t\t\t\t")
     legendLabel.grid(row=0, padx=10, pady=10)
 
     col: int = 0
@@ -72,7 +74,7 @@ def displayStatisticsForGroupAndItsGamesScheduled(dataStruct: List, parentFrame)
         groupTable = ttk.Treeview(
             groupFrame, columns="c1, c2, c3, c4, c5", height=5)
 
-        groupTable.heading('#0', text='Team') # Team ID
+        groupTable.heading('#0', text='Team')  # Team ID
         groupTable.heading('#1', text='GS')  # Goals Scored
         groupTable.heading('#2', text='GM')  # Goals Missed
         groupTable.heading('#3', text='YC')  # Yellow Cards
@@ -103,12 +105,15 @@ def displayStatisticsForGroupAndItsGamesScheduled(dataStruct: List, parentFrame)
     buttonsFrame.grid(row=20, pady=15)
     buttonsFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
-
     # Cancel Button
-    onCancelButton = tk.Button(buttonsFrame, text='Close', width=20)
-    onCancelButton.grid(row=0, column=1, padx=15)
+    onCancelButton = tk.Button(
+        buttonsFrame, text='Close', width=20, background=SECONDARY_COLOUR, font=(FONT, 10), foreground='#FFFFFF')
+    onCancelButton.grid(row=0, column=1, padx=15,
+                        ipadx=2, ipady=2, columnspan=5)
     onCancelButton.bind(
         "<Button-1>", lambda event: groupStageFrame.destroy())
+
+
 if __name__ == "__main__":
 
     # TEST CODE FOR DIALOG:

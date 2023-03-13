@@ -3,6 +3,7 @@ from tkinter import simpledialog
 import tkinter.font as tkfont
 from tkinter import ttk
 import tkinter as tk
+from constants import *
 #from model import *
 import os
 import sys
@@ -15,14 +16,18 @@ sys.path.insert(0, os.path.abspath(
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../../..')))
 
-def dialogForEditTeam(data, actions, parentFrame, tkVars:Dict):
+
+def dialogForEditTeam(data, actions, parentFrame, tkVars: Dict):
     """Create dialog window for input fields:
         - name
     """
     tkVars["name"] = tk.StringVar(parentFrame, data["name"])
 
-    tk.Label(parentFrame, text="Team Name", font=('Helvetica', 10)).grid(row=3, pady=(10, 5))
-    tk.Entry(parentFrame, width=40, textvariable=tkVars["name"]).grid(ipady=5, row=4)
+    tk.Label(parentFrame, text="Team Name", font=(
+        FONT, 10)).grid(row=3, pady=(10, 5))
+    tk.Entry(parentFrame, width=40,
+             textvariable=tkVars["name"], font=(FONT, 10)).grid(ipady=5, row=4)
+
 
 if __name__ == "__main__":
     mainFrame = tk.Tk()
@@ -38,7 +43,7 @@ if __name__ == "__main__":
     def onClickOk(*name):
         print("name", name)
 
-    tkVars={}
+    tkVars = {}
     dialogForEditTeam(fields, onClickOk, mainFrame, tkVars)
 
     mainFrame.mainloop()
