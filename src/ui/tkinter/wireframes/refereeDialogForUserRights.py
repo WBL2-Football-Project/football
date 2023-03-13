@@ -14,53 +14,39 @@ sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../..')))
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../../..')))
-
+from AccountRights import AccountRights
 
 tkVars = {}  # helper variable
 
 # Exported dialog procedure:
 
-
-def refereeDialogForUserRights(fieldsObj, onClickOk, parentFrame):
+def refereeDialogForUserRights(data, actions, parentFrame, tkVars:Dict={}):
     """Create dialog window for input fields:
         - rights (AccountRights)
         - password
     """
-    global stringVars
+    tkVars["password"] = tk.StringVar(parentFrame, data["password"])
+    tkVars["rights"] = tk.StringVar(parentFrame, data["rights"])
 
-    global tkVars
-    tkVars["password"] = tk.StringVar(parentFrame, fieldsObj.password)
-    tkVars["rights"] = tk.StringVar(parentFrame, fieldsObj.rights)
+    rightsList=[ {'key':c.value,'value':c.name} for c in filter(lambda x: x!=AccountRights.NotLoggedIn,AccountRights) ]
+    print('rightsList',rightsList)
 
     parentFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
-    userRightsFrame = tk.Frame(parentFrame)
-    userRightsFrame.grid()
+    tk.Label(parentFrame, text="Password", font=('Helvetica', 10)).grid(row=2, pady=(10, 5))
+    tk.Entry(parentFrame, width=40,textvariable=tkVars["password"]).grid(ipady=5, row=3)
 
-    passwordLabel = tk.Label(
-        userRightsFrame, text="Password", font=('Helvetica', 10)).grid(row=2, pady=(10, 5))
+    radioButtonsFrame = tk.Frame(parentFrame)
+    radioButtonsFrame.grid(row=4, pady=15)
+    radioButtonsFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
-    password = tk.Entry(userRightsFrame, width=40,
-                        textvariable=tkVars["password"])
-    password.grid(ipady=5, row=3)
+    _rightsRadio=[]
+    _col=0
+    for rdef in rightsList:
+        tk.Radiobutton(radioButtonsFrame, text=rdef['key'],variable=tkVars["rights"], value=rdef['value']).grid(row=0, column=_col, sticky='w')
+        _col+=1
 
-    buttonsFrame = tk.Frame(userRightsFrame)
-    buttonsFrame.grid(row=5, pady=15)
-    buttonsFrame.grid_columnconfigure(0, weight=1, uniform="equal")
-    # OK BUTTON
-    onOKButton = tk.Button(buttonsFrame, text='OK', width=20)
-    onOKButton.grid(row=0, column=0)
-    onOKButton.bind(
-        "<Button-1>", lambda event: onClickOk({"password": tkVars["password"].get()}))
 
-    # Cancel Button
-    onCancelButton = tk.Button(buttonsFrame, text='Cancel', width=20)
-    onCancelButton.grid(row=0, column=1, padx=15)
-    onCancelButton.bind(
-        "<Button-1>", lambda event: userRightsFrame.destroy())
-
-    # TODO: widget for login
-    # TODO: widget for password
     # TODO: widget for rights
 
 

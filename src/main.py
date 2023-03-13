@@ -42,7 +42,8 @@ if __name__ == '__main__':
         from ui.tkinter.AppGui import AppGui
 
         # starting the SystemController for the application ( dependency injection pattern ) - everything else is managed inside the SystemController object instance
-        SystemController(DBPickleFile('football.pck'), AppGui())
+        a=FootballStateMachine()
+        SystemController(DBPickleFile('football.pck'), AppGui(), FootballStateMachine() )
 
     else:  # console UI
 
@@ -50,4 +51,4 @@ if __name__ == '__main__':
         from ui.console.AppConsole import AppConsole
 
         # starting the SystemController for the application ( dependency injection pattern ) - everything else is managed inside the SystemController object instance
-        SystemController(DBPickleFile('football.pck'), AppConsole())
+        SystemController(DBPickleFile('football.pck'), AppConsole(), FootballStateMachine())

@@ -1,3 +1,4 @@
+from dataclasses import dataclass,field
 from AccountRights import *
 from Serialisable import Serialisable
 
@@ -6,16 +7,23 @@ class ExceptionApplicationState(Exception):
     def __init__(self, message='ApplicationState Exception'):
         super().__init__(f"ERROR(ApplicationState): {message}")
 
+@dataclass(order=True)
 class ApplicationState(Serialisable):
     """This class keep the current state of the application instance, e.g. holding instances for: is schedule generated or current user account rights."""
 
-    def __init__(self):
-        Serialisable.__init__(self,self.__class__,["groupScheduleGenerated","groupPhaseGenerated","playoffScheduleGenerated","accountRights"])
-        self.ApplicationStateID=0
-        self.groupScheduleGenerated = False
-        self.groupPhaseCompleted = False
-        self.playoffScheduleGenerated = False
-        self.accountRights:AccountRights = AccountRights.NotLoggedIn
+    applicationStateID:int=field(default=0)
+    groupScheduleGenerated:bool=field(default=False)
+    groupPhaseCompleted:bool=field(default=False)
+    playoffScheduleGenerated:bool=field(default=False)
+    accountRights:AccountRights=field(default=AccountRights.NotLoggedIn)
+
+    # def __init__(self):
+    #     # Serialisable.__init__(self,self.__class__,["groupScheduleGenerated","groupPhaseGenerated","playoffScheduleGenerated","accountRights"])
+    #     self.ApplicationStateID=0
+    #     self.groupScheduleGenerated = False
+    #     self.groupPhaseCompleted = False
+    #     self.playoffScheduleGenerated = False
+    #     self.accountRights:AccountRights = AccountRights.NotLoggedIn
 
     def setGroupPhaseCompleted(self):
         """Set into database the groupPhaseCompleted to True, which means that tournament group phase is completed and the playoff phase is beginning."""

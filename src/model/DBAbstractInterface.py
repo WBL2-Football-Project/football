@@ -1,7 +1,6 @@
 from abc import abstractmethod
 from AccountRights import *
-from typing import Callable,Any,List,Optional
-from Serialisable import *
+from typing import Callable,Any,List,Optional,Type
 
 # exception related to DBAbstractInterface class
 class ExceptionDBAbstractInterface(Exception):
@@ -21,12 +20,12 @@ class DBAbstractInterface:
         return self.systemControllerInstance
     
     @abstractmethod
-    def startDatabase(self):
+    def startDatabase(self,systemController):
         """Start database"""
         raise ExceptionDBAbstractInterface("no startDatabase method defined")
 
     @abstractmethod
-    def addDataToDb(self, table:Type[Serialisable], data:Serialisable) -> bool: 
+    def addDataToDb(self, table, data) -> bool: 
         """Add new object to the database. If there's object with the same ID, it will be updated.
         Args:
             table (Type[Serialisable]): class type of the objects in the database
@@ -41,7 +40,7 @@ class DBAbstractInterface:
         raise ExceptionDBAbstractInterface("no addDataToDb method defined")
 
     @abstractmethod
-    def updateDataInDb(self, table:Type[Serialisable], data:Serialisable, ID) -> bool: 
+    def updateDataInDb(self, table, data, ID) -> bool: 
         """Update the data in the database
 
         Args:
@@ -58,7 +57,7 @@ class DBAbstractInterface:
         raise ExceptionDBAbstractInterface("no updateDataInDb method defined")
 
     @abstractmethod
-    def deleteDataFromDb(self, table:Optional[Type[Serialisable]]=None, filter_:Optional[Callable[[Serialisable],bool]]=None):
+    def deleteDataFromDb(self, table=None, filter_=None):
         """Delete the data from the DB - all or for the specific table optionally with condition.
 
         Args:
@@ -80,7 +79,7 @@ class DBAbstractInterface:
         raise ExceptionDBAbstractInterface("no resetAllDataInDb method defined")
 
     @abstractmethod
-    def getCountOfRecordsInTable(self, table:Type[Serialisable]) -> int: 
+    def getCountOfRecordsInTable(self, table) -> int: 
         """Return amount of records for chosen table in the database.
 
         Args:
@@ -95,7 +94,7 @@ class DBAbstractInterface:
         raise ExceptionDBAbstractInterface("no getCountOfRecordsInTable method defined")
 
     @abstractmethod
-    def truncateTable(self, table:Type[Serialisable]): 
+    def truncateTable(self, table): 
         """Zeroes out the specified table in the database.
 
         Args:
@@ -120,7 +119,23 @@ class DBAbstractInterface:
         raise ExceptionDBAbstractInterface("no getRightsFromDb method defined")
 
     @abstractmethod
-    def getListOfRecords(self, table:Type[Serialisable], filterFunc: Optional[Callable[[Serialisable],bool]]=None) -> List[Serialisable]:
+    def getOneRecord(self, table, id:int) -> Any:
+        """Find by given id and return one record from database
+
+        Reference:
+            DBAbstractInterface.getOneRecord()
+
+        Args:
+            table (Type[Serialisable]): serialisable class type
+            id:int : record id to find
+
+        Returns:
+            Serialisable: one record data in form of Serialisable object
+        """
+        raise ExceptionDBAbstractInterface("no getOneRecord method defined")
+
+    @abstractmethod
+    def getListOfRecords(self, table, filterFunc=None) -> List:
         """Returns list of objects from the table filtered by filter function if provided.
 
         Reference:
@@ -136,7 +151,7 @@ class DBAbstractInterface:
         raise ExceptionDBAbstractInterface("no getListOfRecords method defined")
 
     @abstractmethod
-    def getMaxIdFromTable(self, table:Type[Serialisable]) -> int:
+    def getMaxIdFromTable(self, table) -> int:
         """Returns the maximum ID value found in the given table in the database.
 
         Reference:
@@ -148,4 +163,18 @@ class DBAbstractInterface:
         Returns:
             int: max value existed in the database for the table or 0 if there's no records yet
         """
+        raise ExceptionDBAbstractInterface("no getMaxIdFromTable method defined")
+
+    @abstractmethod
+    def setPrimaryKey(self, objInstance, value) -> Any:
+        """Check defined primary key for given object implementation (inherited from Serialisable) and sets the primary key for given value.
+        Args:
+            objInstance (Serialisable): object instance
+            value (Any): valu to set for primary key of given object instance
+        """
+        raise ExceptionDBAbstractInterface("no getMaxIdFromTable method defined")
+    
+    @abstractmethod
+    def getPrimaryKeyFieldNamesList(self,tableType) -> List[str]:
+        """Check defined primary keys for given table type (inherited from Serialisable) and return list of names of primary keys fields."""
         raise ExceptionDBAbstractInterface("no getMaxIdFromTable method defined")

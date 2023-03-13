@@ -1,24 +1,28 @@
+from typing import Optional
+from datetime import datetime
+from dataclasses import dataclass,field
 from TimeOfDay import *
 from Serialisable import Serialisable
 
+@dataclass(order=True)
 class Schedule(Serialisable):
-    """Manages the schedule of the tournament plays."""
-    def __init__(self):
-        """Fields
+    """Manages the schedule of the tournament plays.
+    
+        Fields
             scheduleID (int): (PK) schedule record ID
             playID (int): (FK) corresponding play record ID
             date (datetime): date of play scheduled
             timeOfDay (TimeOfDay): time of day of play scheduled
             isPlayCompleted (bool): is play completed
             isGroupPhase (bool): is play in group phase
-        """
-        Serialisable.__init__(self,self.__class__,["scheduleID","playID","date","timeOfDay","isPLayCompleted","isGroupPhase"])
-        self.scheduleID = None
-        self.playID = None
-        self.date = None
-        self.timeOfDay = None
-        self.isPlayCompleted = None
-        self.isGroupPhase = None
+    """
+
+    scheduleID:Optional[int] = field(default=None)
+    playID:Optional[int] = field(default=None)
+    date:Optional[datetime] = field(default=None)
+    timeOfDay:TimeOfDay = field(default=TimeOfDay.Morning)
+    isPlayCompleted:bool = field(default=False)
+    isGroupPhase:bool = field(default=False)
 
     def calculateGroupPhaseSchedule(self):
         """Calculate group phase schedule. This method can be called only with referee rights account.

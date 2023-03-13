@@ -31,7 +31,7 @@ def showInfoMessage(title: str, content: str, parentFrame):
 
     infoPopUp.title(title)
     infoPopUp.geometry("250x100")
-    infoPopUp.resizable(False,  False)
+    # infoPopUp.resizable(False,  False)
 
     infoMessage = tk.Label(
         infoPopUp, text=content, font=('Helvetica', 10))

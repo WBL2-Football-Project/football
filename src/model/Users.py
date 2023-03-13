@@ -1,20 +1,23 @@
+from __future__ import annotations
+from dataclasses import dataclass,field,fields
+from typing import Optional,Dict,Any
 from AccountRights import *
 from Serialisable import Serialisable
 
+@dataclass(order=True)
 class Users(Serialisable):
-    """Manages users accounts."""
+    """Manages users accounts.
     
-    def __init__(self):
-        """Fields
+        Fields
             login (str)              user login
             password (str)           user password
             rights (AccountRights)   user rights type   
-        """
-        Serialisable.__init__(self,self.__class__,["login","password","rights"])
-        self.userID:int=0
-        self.login:str = ""
-        self.password:str = ""
-        self.rights:AccountRights = AccountRights.NotLoggedIn
+    """
+
+    userID:int=field(default=0)
+    login:str=field(default='')
+    password:str=field(default='')
+    rights:AccountRights=field(default=AccountRights.NotLoggedIn)
 
     def checkNewUserData(self, login, password):
         """Check if new account with user rights is possible (in relation to accounts existed in the current database).
@@ -39,7 +42,12 @@ class Users(Serialisable):
         Returns:
             True if login and password are valid (still are free to use), False otherwise
         """
-        pass
+        print("checkNewUserDataReferee")
+        _rec=self.getDb().getListOfRecords(Users,lambda x: x.login==login)
+        if len(_rec)>0:
+            self.getApp().showErrorMessage('checkNewUserDataReferee','There is a record found for login '+login+' you cannot save it')
+            return False
+        return True
 
     def getNewAcountDataReferee(self):
         """Generates UI dialog window for input login, password and rights type.
@@ -67,27 +75,28 @@ class Users(Serialisable):
         """
         pass
 
-    @staticmethod
-    def changeUserRights():
-        """Generates UI dialogs for changing user rights.
+    def checkRightsChange(self,userObj:Users):
+        """Check if the edited name of the user is correct and can be saved to the database.
+        Returns True if data is correct and False otherwise.
+        Changed fields are:
+            - rights (AccountRights)
+            - password
 
-        - creates the new dialog windows for input user data: ID, login (search database filter, user can leave it blank to see all the records)
-        - get list of records from database (refer to DBAbstractInterface get list of records), show error message if empty and finish the procedure
-        - let the user choose from the list of records (refer to UIAbstractInterface - choose record from list)
-        - for every record chosen to edit, create new dialog window for getting new 'rights'
-        - check the new value of the rights (refer to Users check rights change) and show error message if it's forbidden then exit
-        - save the new value of the rights to the database (refer to DBAbstractInterface update data in db)
-        - show the confirmation message to user and go back to the list of users to let the user choose another one or exit
+        Args:
+            teamObj (Users): The team object with data
+            forEdit (bool): True if checking for edit reasons, False otherwise
         """
-        pass
-    
-    @staticmethod
-    def logintoapp():
-        """Generates UI dialogs for input the login and password data from the user to check the rights with the database.
-        
-        - create new dialog window for getting: login, password (refer to UIAbstractInterface create new dialog)
-        - get rights from database (refer to DBAbstractInterface get rights from db) and show error message if access isn't granted then go back to login dialog
-        - update the login status (refer to SystemController loginStatus)
-        - start the application main screen with features access depending on the account rights
-        """
-        pass
+        print('checkData teamObj',userObj)
+        if type(userObj.rights)!=AccountRights:
+            self.getSystemController().getApp().showErrorMessage('User check failed','User rights cannot be empty.')
+            return False
+        elif userObj.rights==AccountRights.UserRights and len(self.getSystemController().getDb().getListOfRecords(Users,lambda x: x.rights==AccountRights.RefereeRights and x.userID!=userObj.userID))==0:
+            self.getSystemController().getApp().showErrorMessage('User check failed','You cannot change rights into <user rights> for last existing <referee rights> user.')
+            return False
+        elif len(self.getSystemController().getDb().getListOfRecords(Users,lambda x: x.rights==AccountRights.RefereeRights and x.userID==userObj.userID and x.password==userObj.password))>0:
+            self.getSystemController().getApp().showErrorMessage('User check failed','Saving not needed - look\'s like nothing changed.')
+            return False
+        elif len(userObj.password)==0:
+            self.getSystemController().getApp().showErrorMessage('User check failed','You cannot set empty password.')
+            return False
+        return True

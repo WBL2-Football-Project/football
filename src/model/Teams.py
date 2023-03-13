@@ -1,9 +1,12 @@
+from __future__ import annotations
+from dataclasses import dataclass,field
 from Serialisable import Serialisable
 
+@dataclass(order=True)
 class Teams(Serialisable):
-    """Manages the teams data structure."""
-    def __init__(self):
-        """Fields
+    """Manages the teams data structure.
+    
+        Fields
 
             teamID (int): (PM) The team ID
             name (str): The team name
@@ -11,20 +14,39 @@ class Teams(Serialisable):
             totalGoalsMissed (int): (calculated) The total goals misses by the team during tournament
             totalYellowCards (int): (calculated) The total yellow cards played by the team during tournament
             totalPoints (int): (calculated) The total points played by the team during tournament
-        """
-        Serialisable.__init__(self,self.__class__,["teamID","name","totalGoalsScored","totalGoalsMissed","totalYellowCards","totalPoints"])
-        self.teamID = None
-        self.name = None
-        self.totalGoalsScored = 0
-        self.totalGoalsMissed = 0
-        self.totalYellowCards = 0
-        self.totalPoints = 0
+    """
 
-    def checkData(self,name):
+    teamID:int = field(default=0)
+    name:str = field(default='')
+    totalGoalsScored:int = field(default=0)
+    totalGoalsMissed:int = field(default=0)
+    totalYellowCards:int = field(default=0)
+    totalPoints:int = field(default=0)
+
+    def checkData(self,teamObj:Teams,forEdit:bool=False):
         """Check if the edited name of the team is correct and can be saved to the database.
         Returns True if data is correct and False otherwise.
+
+        Args:
+            teamObj (Teams): The team object with data
+            forEdit (bool): True if checking for edit reasons, False otherwise
         """
-        pass
+        print('checkData teamObj',teamObj,'forEdit',forEdit)
+        if not forEdit:
+            if len(teamObj.name)==0 or teamObj.teamID==0:
+                self.getSystemController().getApp().showErrorMessage('Team check failed','Team data is incorrect, some fields could be empty.')
+                return False
+            elif len(self.getSystemController().getDb().getListOfRecords(Teams,lambda x: x.teamID==teamObj.teamID or x.name==teamObj.name))>0:
+                self.getSystemController().getApp().showErrorMessage('Team check failed','Team index or name duplicated.')
+                return False
+        else:
+            if len(teamObj.name)==0:
+                self.getSystemController().getApp().showErrorMessage('Team check failed','Team name cannot be empty.')
+                return False
+            elif len(self.getSystemController().getDb().getListOfRecords(Teams,lambda x: x.name==teamObj.name and x.teamID!=teamObj.teamID))>0:
+                self.getSystemController().getApp().showErrorMessage('Team check failed','Team name duplicated, you have it in the database already.')
+                return False
+        return True
 
     @staticmethod
     def getNewTeamData():

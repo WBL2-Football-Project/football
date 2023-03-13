@@ -1,14 +1,18 @@
-from typing import List,Optional
-from Teams import *
-from Schedule import *
+from __future__ import annotations
+import inspect
+from typing import List,Optional,Dict
+from dataclasses import dataclass,field
+import random
+from Teams import Teams
+from Schedule import Schedule
 from unittest import TestCase
 from Serialisable import Serialisable
-import inspect
 
+@dataclass(order=True)
 class Play(Serialisable):
-    """Manages sinle play between two teams statistic data object."""
-    def __init__(self):
-        """Fields
+    """Manages sinle play between two teams statistic data object.
+    
+        Fields
 
             playID (int) : (PK) play record ID
             team1ID (Optional(int)) : (FK|None) team1 record ID (None at the tournament stage we don't know yet know which team to play)
@@ -22,28 +26,20 @@ class Play(Serialisable):
             isPlayCompleted (bool) : indicates if the play is finished, False - still on
             revelantScheduleIDForTeam1 (int) : after the play is completed, the winner team1ID should be set in the coresponing future schedule ID object
             revelantScheduleIDForTeam2 (int) : after the play is completed, the winner team2ID should be set in the coresponing future schedule ID object
-        """
-        # Serialisable.__init__(self,self.__class__,["playID","team1ID","team2ID","team1GoalsScored","team2GoalsScored","team1GoalsMissed","team2GoalsMissed","team1YellowCards","team2YellowCards",
-        #     "isPlayCompleted","relevantScheduleIDForTeam1","relevantScheduleIDForTeam2"])
-        self.playID:int = 0
-        self.team1ID:int = 0
-        self.team2ID:int = 0
-        self.team1GoalsScored:Optional[int] = None
-        self.team2GoalsScored:Optional[int] = None
-        self.team1GoalsMissed:Optional[int] = None
-        self.team2GoalsMissed:Optional[int] = None
-        self.team1YellowCards:Optional[int] = None
-        self.team2YellowCards:Optional[int] = None
-        self.isPlayCompleted:bool = False
-        self.relevantScheduleIDForTeam1:Optional[int] = None
-        self.relevantScheduleIDForTeam2:Optional[int] = None
+    """
 
-    def generateRandomGroupPhasePlaySchedule(self):
-        """Generates a random play schedule for entire tournament after is checked if expected amount of teams is defined.
-        Method uses helpers: generateRandomTeamsList(), prepareGroupPhaseData(), preparePlayoffPhaseData().
-        Call saveRelativeScheculeRecords() when the tournament schedule is calculated.
-        Sets ApplicationState.setIsScheduled() after full schedule is saved."""
-        pass
+    playID:int = field(default=0)
+    team1ID:int = field(default=0)
+    team2ID:int = field(default=0)
+    team1GoalsScored:int = field(default=0)
+    team2GoalsScored:int = field(default=0)
+    team1GoalsMissed:int = field(default=0)
+    team2GoalsMissed:int = field(default=0)
+    team1YellowCards:int = field(default=0)
+    team2YellowCards:int = field(default=0)
+    isPlayCompleted:bool = field(default=False)
+    relevantScheduleIDForTeam1:Optional[int] = field(default=None)
+    relevantScheduleIDForTeam2:Optional[int] = field(default=None)
 
     def _generateRandomTeamsList(self):
         """Generates a randomly sorted list of all teams for further schedule computation."""
@@ -54,6 +50,9 @@ class Play(Serialisable):
         """
         pass
 
+    def checkData(self,playObj:Play,forEdit:bool=False) -> bool:
+        return True
+    
     def _preparePlayoffPhaseData(self,randomTeamsList:List[Teams],groupsTeamsDistribution:List):
         """Generates a breakdown of the teams for quarter-final (4 plays of 2 teams each), semi-final (2 plays of 2 teams each), 3rdPlace-final (1 play of 2 teams) and final (1 play of 2 teams).
         """

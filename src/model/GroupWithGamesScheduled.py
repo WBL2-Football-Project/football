@@ -5,7 +5,8 @@ from Schedule import *
 class GroupWithGamesScheduled(Group):
 	"""A group structure extended by list of related games scheduled objects including the play records for each schedule."""
 	def __init__(self,group,schedulesList:List[Schedule]):
-		"""Fields:
+		"""
+		Fields:
 			groupID (int)=0 : the group ID
 			groupName (str)="" : the group name
 			team1PlayCounter (int)=0 : the amount of plays completed for team 1

@@ -6,43 +6,41 @@ import tkinter as tk
 #from model import *
 import os
 import sys
-from typing import Optional, List, Any, Callable, Dict
+from typing import Optional, List, Any, Callable, Dict, Type
 import inspect
-sys.path.insert(0, os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '.')))
-sys.path.insert(0, os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../..')))
-sys.path.insert(0, os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../../..')))
-
-
-tkID = Any  # helper variable
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
+from Serialisable import Serialisable
+from ColumnStyle import ColumnStyle,JustifyEnum
 
 # Exported dialog procedure:
 
 
-def chooseRecordFromList(fieldsObj_list: List[Any], onClickOk, parentFrame):
+# def chooseRecordFromList(tableType:Type[Serialisable], headers: Dict[str,ColumnStyle], fieldsObj_list: List[Serialisable], actions:Dict[str,Callable], parentFrame):
+def chooseRecordFromList(title:str, headers: List[ColumnStyle], fieldsObj_list: List[Dict[str,Any]], actions:Dict[str,Callable], parentFrame):
     """Create a window with the list of records from chosen table and let the user select one of them."""
 
-    global tkID
+    tkID = Any  # helper variable
     tkID = tk.StringVar(parentFrame)
 
-    parentFrame.grid_columnconfigure(0, weight=1, uniform="equal")
+    _columns=""
+    for _cn in range(0,len(headers)):
+        _columns+=', ' if len(_columns) > 0 else ''
+        _columns+=f"c{_cn}"
+    recordList = ttk.Treeview(parentFrame, columns=_columns) #"c1, c2")
 
-    chooseRecordFromListFrame = tk.Frame(parentFrame)
-    chooseRecordFromListFrame.grid()
-
-    recordList = ttk.Treeview(chooseRecordFromListFrame, columns="c1, c2")
-
-    recordList.heading('#0', text='ID')
-    recordList.heading('#1', text='Field 1')
-    recordList.heading('#2', text='Field 2')
-    recordList.column('#0', anchor=tk.CENTER)
-    recordList.column('#1', anchor=tk.CENTER)
-    recordList.column('#2', anchor=tk.CENTER)
+    # headers
+    _cn=0    
+    for style in headers:
+        _colHash=f'#{_cn}'
+        _cn+=1
+        recordList.heading(_colHash, text=style.getName())
+        recordList.column(_colHash, anchor=style.getJustifyForUI())
 
     recordList.grid(row=0)
 
+    # choose row handler
     def selectItem(item):
         item = recordList.focus()
         selected_item = recordList.item(item)
@@ -50,26 +48,31 @@ def chooseRecordFromList(fieldsObj_list: List[Any], onClickOk, parentFrame):
 
     recordList.bind('<ButtonRelease-1>', selectItem)
 
-    for record in fieldsObj_list:
-        recordList.insert('', 'end', text=record.ID,
-                          values=(record.field1, record.field2))
+    _ID_names_array = [ v.getName() for v in headers if v.getPrimaryKey() ] # primary key names in array
 
-    buttonsFrame = tk.Frame(chooseRecordFromListFrame)
+    # values
+    _cn=0
+    for iteamValuesDict in fieldsObj_list:
+        # _text=f'{[ v for k,v in iteamValuesDict.items() if k in _ID_names_array ]}'
+        _values=iteamValuesDict.items()
+        # [ _values[v.getName()] for v in headers ]
+        recordList.insert('','end',text=f'{_cn}', values=[ v for k,v in iteamValuesDict.items() ])
+        _cn+=1
+
+    buttonsFrame = tk.Frame(parentFrame)
     buttonsFrame.grid(row=5, pady=15)
     buttonsFrame.grid_columnconfigure(0, weight=1, uniform="equal")
 
     # OK BUTTON
     onOKButton = tk.Button(buttonsFrame, text='Choose', width=20)
     onOKButton.grid(row=0, column=0)
-    onOKButton.bind(
-        "<Button-1>", lambda event: onClickOk({"chosen_record_ID": tkID.get()}))
+    onOKButton.bind("<Button-1>", lambda event: actions['chosen'](fieldsObj_list[int(tkID.get())]))
 
     # Cancel Button
     onCancelButton = tk.Button(buttonsFrame, text='Cancel', width=20)
     onCancelButton.grid(row=0, column=1, padx=15)
     onCancelButton.bind(
-        "<Button-1>", lambda event: chooseRecordFromListFrame.destroy())
-
+        "<Button-1>", lambda event: actions['cancel']())
 
 if __name__ == "__main__":
 
