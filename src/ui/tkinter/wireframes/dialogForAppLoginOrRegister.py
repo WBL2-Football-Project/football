@@ -54,7 +54,7 @@ def dialogForAppLoginOrRegister(fieldsObj, actions: Dict[str, Callable], parentF
 
     # OK BUTTON
     onOKButton = tk.Button(buttonsFrame, text='Login', width=20,
-                           background=PRIMARY_COLOUR, foreground="#FFFFFF", font=('FONT', 10))
+                           background=PRIMARY_COLOUR, foreground="#FFFFFF", font=(FONT, 10))
     onOKButton.grid(row=0, padx=15, ipadx=2, ipady=2)
     if 'ok' in actions:
         onOKButton.bind("<Button-1>", lambda event: actions['ok'](
@@ -80,11 +80,11 @@ def dialogForAppLoginOrRegister(fieldsObj, actions: Dict[str, Callable], parentF
     footerFrame.grid(row=6)
 
     appNameLabel = tk.Label(
-        footerFrame, text="TourneyTracker", foreground=SECONDARY_COLOUR)
+        footerFrame, text="TourneyTracker", foreground=SECONDARY_COLOUR, font=(FONT, 10))
     appNameLabel.grid(row=2)
 
     appVersionLabel = tk.Label(
-        footerFrame, text="Version 1.0.0", foreground=SECONDARY_COLOUR)
+        footerFrame, text="Version 1.0.0", foreground=SECONDARY_COLOUR, font=(FONT, 10))
     appVersionLabel.grid(row=3)
 
 
