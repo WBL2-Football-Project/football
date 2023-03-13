@@ -15,6 +15,14 @@
 			"module": "pytest",
 			"console": "integratedTerminal",
 			"justMyCode": true
+		},
+		{
+			"name": "Python: Football",
+			"type": "python",
+			"request": "launch",
+			"program": "src/main.py",
+			"console": "integratedTerminal",
+			"justMyCode": true
 		}
 	]
 }
