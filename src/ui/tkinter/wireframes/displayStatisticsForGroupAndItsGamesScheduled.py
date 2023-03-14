@@ -53,7 +53,7 @@ def displayStatisticsForGroupAndItsGamesScheduled(dataStruct: List[GroupWithGame
     groupStageFrame.grid()
 
     legendLabel = tk.Label(
-        groupStageFrame, text="GS - Goals Scored\t\tGM - Goals Missed\nYC - Yellow Cards\t\tGP - Games Played\nP - Points\t\t\t\t")
+        groupStageFrame, text="GS - Goals Scored\t\tGM - Goals Missed\nYC - Yellow Cards\t\tP - Points")
     legendLabel.grid(row=0, padx=10, pady=10)
 
     col: int = 0
@@ -72,34 +72,32 @@ def displayStatisticsForGroupAndItsGamesScheduled(dataStruct: List[GroupWithGame
         groupLabel.grid(row=0)
 
         groupTable = ttk.Treeview(
-            groupFrame, columns="c1, c2, c3, c4, c5", height=5)
+            groupFrame, columns="c1, c2, c3, c4", height=5)
 
         groupTable.heading('#0', text='Team')  # Team ID
         groupTable.heading('#1', text='GS')  # Goals Scored
         groupTable.heading('#2', text='GM')  # Goals Missed
         groupTable.heading('#3', text='YC')  # Yellow Cards
-        groupTable.heading('#4', text='GP')  # Games Played
-        groupTable.heading('#5', text='P')  # Points
+        groupTable.heading('#4', text='P')  # Points
         groupTable.column('#0', width=50, anchor=tk.CENTER)
         groupTable.column('#1', width=50, anchor=tk.CENTER)
         groupTable.column('#2', width=50, anchor=tk.CENTER)
         groupTable.column('#3', width=50, anchor=tk.CENTER)
         groupTable.column('#4', width=50, anchor=tk.CENTER)
-        groupTable.column('#5', width=50, anchor=tk.CENTER)
 
         groupTable.grid(row=1)
 
         groupTable.insert('', 'end', text=group.team1ID,
                           values=(group.team1GoalsScored,
-                                  group.team1GoalsMissed, group.team1YellowCards, 0, group.team1Score))  # group.teams1PlayCounter
+                                  group.team1GoalsMissed, group.team1YellowCards, group.team1Score))  # group.teams1PlayCounter
 
         groupTable.insert('', 'end', text=group.team2ID,
                           values=(group.team2GoalsScored,
-                                  group.team2GoalsMissed, group.team2YellowCards, 0, group.team2Score))  # group.teams2PlayCounter
+                                  group.team2GoalsMissed, group.team2YellowCards,  group.team2Score))  # group.teams2PlayCounter
 
         groupTable.insert('', 'end', text=group.team3ID,
                           values=(group.team3GoalsScored,
-                                  group.team3GoalsMissed, group.team3YellowCards, 0, group.team3Score))  # group.teams3PlayCounter
+                                  group.team3GoalsMissed, group.team3YellowCards, group.team3Score))  # group.teams3PlayCounter
 
     buttonsFrame = tk.Frame(groupStageFrame)
     buttonsFrame.grid(row=20, pady=15)
