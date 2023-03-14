@@ -1,7 +1,12 @@
 import os
 import sys
 # sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../..')))
+# print('cwd',os.getcwd(),os.path.dirname(__file__))
 sys.path.insert(0, os.path.dirname(__file__)) #  os.getcwd())
+
+# print('dir:',os.path.dirname(__file__))
+# for _file in os.listdir(os.path.dirname(__file__)):
+#     print(f'{_file}')
 
 from Users import *
 from UnitTests import *
