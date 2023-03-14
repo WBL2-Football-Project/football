@@ -1,3 +1,4 @@
+from GroupWithGamesScheduled import GroupWithGamesScheduled, PlayWithSchedule
 from tkinter import messagebox
 from tkinter import simpledialog
 import tkinter.font as tkfont
@@ -16,10 +17,9 @@ sys.path.insert(0, os.path.abspath(
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../../..')))
 
-from GroupWithGamesScheduled import GroupWithGamesScheduled,PlayWithSchedule
 
 # Exported dialog procedure:
-def displayStatisticsForGroupAndItsGamesScheduled(dataStruct: List[GroupWithGamesScheduled], actions:Dict[str,Callable], parentFrame):
+def displayStatisticsForGroupAndItsGamesScheduled(dataStruct: List[GroupWithGamesScheduled], actions: Dict[str, Callable], parentFrame):
     """
         Creates the statistics window showing the list of every group content, including schedules for games.
 
@@ -91,15 +91,15 @@ def displayStatisticsForGroupAndItsGamesScheduled(dataStruct: List[GroupWithGame
 
         groupTable.insert('', 'end', text=group.team1ID,
                           values=(group.team1GoalsScored,
-                                  group.team1GoalsMissed, group.team1YellowCards, 0, group.team1Score)) #group.teams1PlayCounter
+                                  group.team1GoalsMissed, group.team1YellowCards, 0, group.team1Score))  # group.teams1PlayCounter
 
         groupTable.insert('', 'end', text=group.team2ID,
                           values=(group.team2GoalsScored,
-                                  group.team2GoalsMissed, group.team2YellowCards, 0, group.team2Score)) #group.teams2PlayCounter
+                                  group.team2GoalsMissed, group.team2YellowCards, 0, group.team2Score))  # group.teams2PlayCounter
 
         groupTable.insert('', 'end', text=group.team3ID,
                           values=(group.team3GoalsScored,
-                                  group.team3GoalsMissed, group.team3YellowCards, 0, group.team3Score)) #group.teams3PlayCounter
+                                  group.team3GoalsMissed, group.team3YellowCards, 0, group.team3Score))  # group.teams3PlayCounter
 
     buttonsFrame = tk.Frame(groupStageFrame)
     buttonsFrame.grid(row=20, pady=15)
@@ -111,7 +111,7 @@ def displayStatisticsForGroupAndItsGamesScheduled(dataStruct: List[GroupWithGame
     onCancelButton.grid(row=0, column=1, padx=15,
                         ipadx=2, ipady=2, columnspan=5)
     onCancelButton.bind(
-        "<Button-1>", lambda event: actions['close'])
+        "<Button-1>", lambda event: actions['cancel']())
 
 
 if __name__ == "__main__":
