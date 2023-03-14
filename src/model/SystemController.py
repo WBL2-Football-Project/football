@@ -1,6 +1,6 @@
 import inspect
 from typing import Optional
-from dataclasses import asdict
+from dataclasses import *
 from DBAbstractInterface import *
 from UIAbstractInterface import *
 from ApplicationState import *
@@ -12,7 +12,7 @@ from ExceptionSystemController import *
 from Teams import *
 from Group import *
 from Play import *
-
+from GroupWithGamesScheduled import GroupWithGamesScheduled,PlayWithSchedule
 
 class SystemController(SystemControllerAbstract):
     """Main system controller for the application definition. The application instance could start after this controller will be initiated.
@@ -88,7 +88,7 @@ class SystemController(SystemControllerAbstract):
                     'Serialisation', 'Error in saving the data!')
         return False
 
-    def saveTeam(self, data, *args, returnFlags, **kwargs):
+    def saveTeam(self,data,*args,returnFlags,**kwargs) -> bool:
         """Transfer State, check new Team record and save it to the database
 
         Args:
@@ -116,8 +116,115 @@ class SystemController(SystemControllerAbstract):
                 self.appControl.showErrorMessage(
                     'Serialisation', 'Error in saving the data!')
         return False
+    
+    def saveGamesData(self,data,*args,returnFlags,**kwargs) -> bool:
+        """Transfer State, check new Play data record and save it to the database
 
-    def saveEditedTeam(self, data, *args, **kwargs):
+        Args:
+            data (Dict[str,Any]): data dict for new Team object
+
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        print('saveGamesData:',data)
+        play=Play().fromDict(data)
+        print(play)
+        if play.checkData(play,forEdit=True):
+            if self.getDb().updateDataInDb(Play,play,play.playID):
+                if play.isPlayCompleted:
+                    if not self.stateMachine.getFlag('groups_completed'): # groups phase
+                        # add statistics to groups - if the game is completed:
+                        group:List[Group]=self.getDb().getListOfRecords(Group,lambda x: play.team1ID in [x.team1ID,x.team2ID] or play.team2ID in [x.team1ID,x.team2ID] )
+                        if len(group)!=1:
+                            self.appControl.showErrorMessage('saveGamesData error','Data inconsistency, cannot find one group for play teams!')
+                            raise ExceptionSystemController('saveGamesData error: data inconsistency, cannot find one group for play teams')
+
+                        # team1
+                        group[0].team1GoalsScored+=play.team1GoalsScored
+                        group[0].team1GoalsMissed+=play.team1GoalsMissed
+                        group[0].team1YellowCards+=play.team1YellowCards
+                        group[0].team1Score+=3 if play.team1GoalsScored>play.team2GoalsScored else 1 if play.team1GoalsScored==play.team2GoalsScored else 0
+
+                        # team2
+                        group[0].team2GoalsScored+=play.team2GoalsScored
+                        group[0].team2GoalsMissed+=play.team2GoalsMissed
+                        group[0].team2YellowCards+=play.team2YellowCards
+                        group[0].team2Score+=3 if play.team2GoalsScored>play.team1GoalsScored else 1 if play.team1GoalsScored==play.team2GoalsScored else 0
+
+                        # save
+                        self.getDb().updateDataInDb(Group,group[0],group[0].groupID)
+                    else: # play-off phase
+                        # schedule next play-off phase play
+                        if not play.isFinal:
+                            if not play.isSemiFinal:
+                                if not play.is3rdPlaceFinal and not play.isFinal:
+                                    _p:List[Play]=self.getDb().getListOfRecords(Play,lambda x: 0 in [x.team1ID,x.team2ID] and play.playID in [x.relevantScheduleIDForTeam1,x.relevantScheduleIDForTeam2] )
+                                    if len(_p)!=1:
+                                        self.appControl.showErrorMessage('saveGamesData error',f'Data inconsistency, cannot find one next relative to play ({play.playID}) game record!')
+                                        raise ExceptionSystemController(f'saveGamesData error: data inconsistency, cannot find one next relative to play ({play.playID}) game record!')
+                                    _winnerTeamID=play.team1ID if play.team1GoalsScored>play.team2GoalsScored else play.team2ID
+                                    if _p[0].team1ID==0:
+                                        _p[0].team1ID=_winnerTeamID
+                                    elif _p[0].team2ID==0:
+                                        _p[0].team2ID=_winnerTeamID
+                                    else:
+                                        self.appControl.showErrorMessage('saveGamesData error',f"Data inconsistency, can't set teamID ({_winnerTeamID}) to the next level as it's fulfiled already!")
+                                        raise ExceptionSystemController(f"saveGamesData error: Data inconsistency, can't set teamID ({_winnerTeamID}) to the next level as it's fulfiled already!")
+                                    
+                                    # save
+                                    self.getDb().updateDataInDb(Play,_p[0],_p[0].playID)
+
+                            else: # play.isSemiFinal
+                                _winnerTeamID=play.team1ID if play.team1GoalsScored>play.team2GoalsScored else play.team2ID
+                                _loserTeamID=play.team1ID if play.team1GoalsScored<play.team2GoalsScored else play.team2ID
+
+                                # 3rd place final - _p[0]
+                                _p:List[Play]=self.getDb().getListOfRecords(Play,lambda x: x.is3rdPlaceFinal and 0 in [x.team1ID,x.team2ID] and play.playID in [x.relevantScheduleIDForTeam1,x.relevantScheduleIDForTeam2] )
+                                if len(_p)!=1:
+                                    self.appControl.showErrorMessage('saveGamesData error',f'Data inconsistency, cannot find one next relative to play ({play.playID}) game record!')
+                                    raise ExceptionSystemController(f'saveGamesData error: data inconsistency, cannot find one next relative to play ({play.playID}) game record!')
+                                if _p[0].team1ID==0:
+                                    _p[0].team1ID=_loserTeamID
+                                elif _p[0].team2ID==0:
+                                    _p[0].team2ID=_loserTeamID
+                                else:
+                                    self.appControl.showErrorMessage('saveGamesData error',f"Data inconsistency, can't set teamID ({_loserTeamID}) to the next level as it's fulfiled already!")
+                                    raise ExceptionSystemController(f"saveGamesData error: Data inconsistency, can't set teamID ({_loserTeamID}) to the next level as it's fulfiled already!")
+
+                                # save
+                                self.getDb().updateDataInDb(Play,_p[0],_p[0].playID)
+
+                                # final - _p[1]
+                                _p:List[Play]=self.getDb().getListOfRecords(Play,lambda x: x.isFinal and  0 in [x.team1ID,x.team2ID] and play.playID in [x.relevantScheduleIDForTeam1,x.relevantScheduleIDForTeam2] )
+                                if len(_p)!=1:
+                                    self.appControl.showErrorMessage('saveGamesData error',f'Data inconsistency, cannot find one next relative to play ({play.playID}) game record!')
+                                    raise ExceptionSystemController(f'saveGamesData error: data inconsistency, cannot find one next relative to play ({play.playID}) game record!')
+                                if _p[0].team1ID==0:
+                                    _p[0].team1ID=_winnerTeamID
+                                elif _p[0].team2ID==0:
+                                    _p[0].team2ID=_winnerTeamID
+                                else:
+                                    self.appControl.showErrorMessage('saveGamesData error',f"Data inconsistency, can't set teamID ({_winnerTeamID}) to the next level as it's fulfiled already!")
+                                    raise ExceptionSystemController(f"saveGamesData error: Data inconsistency, can't set teamID ({_winnerTeamID}) to the next level as it's fulfiled already!")
+                                
+                                # save
+                                self.getDb().updateDataInDb(Play,_p[0],_p[0].playID)
+                
+                # check how many incompleted plays left
+                _playsLeft=self.getDb().getListOfRecords(Play,lambda x: not x.isPlayCompleted)
+                if len(_playsLeft)==0:
+                    if not self.stateMachine.getFlag('playoff_scheduled'):
+                        self.stateMachine.setFlag('groups_completed',True)
+                    else:
+                        self.stateMachine.setFlag('tournament_completed',True)
+                self.appControl.showInfoMessage('Serialisation',f'Congratulations! Game record successfuly edited.')
+                return True
+            else:
+                self.appControl.showErrorMessage('Serialisation','Error in saving the data!')
+
+        return False # False - prevent to further change view - will stay on list of teams to choose to edit next one
+
+    def saveEditedTeam(self,data,*args,**kwargs):
         """Transfer State, check edited Team record and save it to the database
 
         Args:
@@ -239,16 +346,10 @@ class SystemController(SystemControllerAbstract):
             Schedule
             Schedule.calculateGroupPhaseSchedule()
         """
-        _db = self.getDb()
-        _app = self.getApp()
-        _sm = self.stateMachine
-        if self.getApp().createDialogYesNo('Clear database', 'Are you sure to clear Group Play and Schedules?'):
-            _db.truncateTable(Group)
-            _db.truncateTable(Play)
-            _db.truncateTable(Schedule)
-            _sm.setFlag('groups_defined', True)
-            _sm.setFlag('groups_scheduled', True)
-        if self.getApp().createDialogYesNo('Scheduling group phase', 'Are you sure, you want to let the app randomly \ngenerate games play for group phase?\n\n(warning: it\'s the one way decision)'):
+        _db=self.getDb()
+        _app=self.getApp()
+        _sm=self.stateMachine
+        if self.getApp().createDialogYesNo('Scheduling group phase','Are you sure, you want to let the app randomly \ngenerate games play for group phase?\n\n(warning: it\'s the one way decision)'):
             # checks
             _teamsCount = _db.getListOfRecords(Teams)
             if len(_teamsCount) != 12:
@@ -301,24 +402,93 @@ class SystemController(SystemControllerAbstract):
             Schedule
             Schedule.calculatePlayoffPhaseSchedule()
         """
-        if self.getApp().createDialogYesNo('Scheduling play-off phase', 'Are you sure, you want to let the app randomly \ngenerate games play for play-off phase?\n\n(warning: it\'s the one way decision)'):
-            pass
+        _db=self.getDb()
+        _app=self.getApp()
+        _sm=self.stateMachine
+        if not self.getApp().createDialogYesNo('Scheduling play-off phase','Are you sure, you want to let the app randomly \ngenerate games play for play-off phase?\n\n(warning: it\'s the one way decision)'):
+            return False
+        # checks
+        _fl=self.stateMachine.getFlags()
+        if not _fl['groups_completed'] or _fl['playoff_scheduled'] or _fl['tournament_completed']:
+            _app.showErrorMessage('Calculate play-off phase error',f'Current state of flags in the application are incorrect\n(groups_completed,playoff_scheduled,tournament_completed).\nOperation forbidden.')
+            return False
+
+        # TODO: additional fields: isQuarterFinal:bool, isSemiFinal:bool, is3rdPlaceFinal:bool, isFinal:bool
+        # generate quarter-final 4 games / 8 teams -> add isQuarterFinal=True field
+        # generate semi-final 2 games / 4 teams -> add isSemiFinal=True field
+        # generate 3rdPlaceFinal 1 game / 2 teams -> add is3rdPlaceFinal=True field
+        # generate final 1 game / 2 teams -> add isFinal=True field
+        groups=_db.getListOfRecords(Group)
+        _quarterFinalGames:List[List[int]]=self._generateQuarterFinalSchedule(groups)
+
+        # save it and add schedule records
+        _playMaxID=_db.getMaxIdFromTable(Play)+1
+        _scheduleMaxID=_db.getMaxIdFromTable(Schedule)+1
+        _date=datetime.now()+timedelta(days=2)
+        _semiFinalGames:Dict[int,List[int]]={0:[0,0],1:[0,0]}
+        _cn=0
+        # quarter final matches
+        for (t1,t2) in _quarterFinalGames:
+            p=Play(playID=_playMaxID,team1ID=t1,team2ID=t2,isQuarterFinal=True,relevantScheduleIDForTeam1=0,relevantScheduleIDForTeam2=0)
+            s=Schedule(scheduleID=_scheduleMaxID,playID=p.playID,date=_date,timeOfDay=TimeOfDay.Afternoon)
+            _db.addDataToDb(Play,p)
+            _db.addDataToDb(Schedule,s)
+            _playMaxID+=1
+            _scheduleMaxID+=1
+            _date+=timedelta(days=1)
+            _semiFinalGames[int(_cn/2)][_cn%2]=p.playID
+            _cn+=1
+        # semi final matches
+        _date+=timedelta(days=2)
+        _finalGames:List=[0,0]
+        _cn=1
+        for i,players in _semiFinalGames.items():
+            p=Play(playID=_playMaxID,team1ID=0,team2ID=0,isSemiFinal=True,relevantScheduleIDForTeam1=players[0],relevantScheduleIDForTeam2=players[1])
+            s=Schedule(scheduleID=_scheduleMaxID,playID=p.playID,date=_date,timeOfDay=TimeOfDay.Afternoon)
+            _db.addDataToDb(Play,p)
+            _db.addDataToDb(Schedule,s)
+            _playMaxID+=1
+            _scheduleMaxID+=1
+            _date+=timedelta(days=1)
+            _finalGames[int(_cn/2)]=p.playID
+            _cn+=1
+        # 3rd place match
+        _date+=timedelta(days=2)
+        p=Play(playID=_playMaxID,team1ID=0,team2ID=0,is3rdPlaceFinal=True,relevantScheduleIDForTeam1=_finalGames[0],relevantScheduleIDForTeam2=_finalGames[1])
+        s=Schedule(scheduleID=_scheduleMaxID,playID=p.playID,date=_date,timeOfDay=TimeOfDay.Afternoon)
+        _db.addDataToDb(Play,p)
+        _db.addDataToDb(Schedule,s)
+        _playMaxID+=1
+        _scheduleMaxID+=1
+        _date+=timedelta(days=1)
+        # final match
+        p=Play(playID=_playMaxID,team1ID=0,team2ID=0,isFinal=True,relevantScheduleIDForTeam1=_finalGames[0],relevantScheduleIDForTeam2=_finalGames[1])
+        s=Schedule(scheduleID=_scheduleMaxID,playID=p.playID,date=_date,timeOfDay=TimeOfDay.Afternoon)
+        _db.addDataToDb(Play,p)
+        _db.addDataToDb(Schedule,s)
+
+        # set the flag for the application (serialisable flags will be automatically saved to the database)
+        _sm.setFlag('playoff_scheduled',True)
+        _app.showInfoMessage('Success!','Play-off phase schedule fully generated.\nYou can now start recording scores for games.')
         return True
 
-    def recordGamesDataList(self, data, actions: Dict[str, Callable], parentFrame: Any = None, *args, **kwargs) -> bool:
+    def recordGamesDataList(self,data,actions:Dict[str,Callable],parentFrame:Any=None,*args,returnFlags,**kwargs) -> bool:
         """Record games data. This method can be called only with referee rights account.
         Referee is updating the data of the game while there'are any changes like goals or yellow cards.
         Follow the 'Record games data' sequence diagram.
         """
-        play = Play()
-        playListDict: List[Dict[str, Any]] = [
-            asdict(x) for x in self.getDb().getListOfRecords(Play)]
-        _headers = play.getHeadersForTreeview()
+        play=Play()
+        playListDict:List[Dict[str,Any]]=[ asdict(x) for x in self.getDb().getListOfRecords(Play,lambda x: not x.isPlayCompleted) ]
+
+        if len(playListDict)==0: # no more plays incomplete
+            returnFlags['transitionTo']='userMenu' # go back to userMenu state
+            returnFlags['data']=None
+            return True
+
+        _headers=play.getHeadersForTreeview()
 
         self.appControl.clearMainCanvas()
-        self.appControl.getMainFrame().after(50, lambda: self.appControl.chooseRecordFromList(
-            Play.__name__, _headers, playListDict, actions, self.getApp().getMainCanvasFrame()))
-
+        self.appControl.getMainFrame().after(50, lambda: self.appControl.chooseRecordFromList(Play.__name__,_headers,playListDict,actions,self.getApp().getMainCanvasFrame()))
         return True
 
     def recordGamesData(self, data, actions: Dict[str, Callable], parentFrame: Any = None, *args, **kwargs) -> bool:
@@ -328,15 +498,17 @@ class SystemController(SystemControllerAbstract):
         """
         """Creates list of Team records on screen with option to edit it."""
         """Edit team data. This method can be called only with referee rights account."""
-        play = Play().fromDict(data)
-        return self.getApp().modalDialog('Play edit', self.appControl.dialogForEditPlay, data, actions, parentFrame, lambda data: play.fromDict(data).checkData(play, forEdit=True))
+        print('play',data)
+        play=Play().fromDict(data)
+        return self.getApp().modalDialog('Play edit',self.appControl.dialogForEditPlay,data,actions,parentFrame,lambda data: play.fromDict(data).checkData(play,forEdit=True))
 
     def refereeResetApplicationData(self, data, actions: Dict[str, Callable], embedded: bool = True, *args, **kwargs) -> bool:
         """Reset application data. This method can be called only with referee rights account.
         After this operation is completed, the database is completely cleared and the application works again like during the first run.
         """
-        if self.getApp().createDialogYesNo('Reset application data', 'Are you sure, you want to reset entire database of application?\n\n(warning: it\'s the one way decision)'):
-            pass
+        if self.getApp().createDialogYesNo('Reset application data','Are you sure, you want to reset entire database of application?\n\n(warning: it\'s the one way decision)'):
+            self.getDb().resetAllDataInDb(FootballStateMachine)
+            self.stateMachine.setFlagsDefault()
         return True
 
     def loginToApp(self, data, actions: Dict[str, Callable], embedded: bool = True, *args, **kwargs):
@@ -378,10 +550,31 @@ class SystemController(SystemControllerAbstract):
         self.stateMachine.setFlag('rights', AccountRights.NotLoggedIn)
         return True
 
-    def showMatchOrderGroupsStatus(self):
-        """User or referee both can watch the current groups status of teams."""
-        raise ExceptionUIAbstractInterface(
-            f"no {inspect.currentframe().f_code.co_name} method defined")  # type: ignore
+    def showMatchOrderGroupsStatus(self,data:List[GroupWithGamesScheduled],actions:Dict[str,Callable],parentFrame:Any=None,*args,**kwargs) -> bool:
+        """User or referee both can watch the current groups status of teams.
+            data: Group records list, extended by the field: 
+                'plays' - list of plays for the group, which is extended by the field:
+                    'schedule' - schedule record related to the current play record
+        """
+        data=[]
+        _groups=self.getDb().getListOfRecords(Group)
+        for g in _groups:
+            _gs=GroupWithGamesScheduled().fromDict(asdict(g))
+            data.append(_gs)
+        for index,group in enumerate(data):
+            _playList=self.getDb().getListOfRecords(Play,lambda x: x.team1ID in [group.team1ID,group.team2ID,group.team3ID])
+            _cn=1
+            for p in _playList:
+                _ps=PlayWithSchedule().fromDict(asdict(p))
+                _ps.schedule=self.getDb().getListOfRecords(Schedule,lambda x: x.playID==_ps.playID)[0]
+                setattr(data[index],f'play{_cn}',_ps)
+                _cn+=1
+        print('showMatchOrderGroupsStatus DATA SENT:')
+        print(data)
+        print()
+        self.getApp().clearMainCanvas()
+        self.getApp().getMainFrame().after(50, lambda: self.getApp().displayStatisticsForGroupAndItsGamesScheduled(data,actions,self.appControl.getMainCanvasFrame()))
+        return True
 
     def showMatchOrderPlayOffTree(self):
         """User or referee both can watch the current play-off-tree status of teams."""
@@ -439,47 +632,54 @@ class SystemController(SystemControllerAbstract):
         _date = datetime.now()
         for group in _groupRecs:
             # team1 - team2
-            p = Play(playID=_playCn)
-            _playCn += 1
-            p.team1ID = group.team1ID
-            p.team2ID = group.team2ID
-            s = Schedule(scheduleID=_scheduleCn)
-            _scheduleCn += 1
-            s.playID = p.playID
-            s.date = _date
-            s.timeOfDay = TimeOfDay.Morning
-            s.isGroupPhase = True
+            p=Play(playID=_playCn,team1ID=group.team1ID,team2ID=group.team2ID,isGroupPhase=True)
+            _playCn+=1
+            s=Schedule(scheduleID=_scheduleCn,playID=p.playID,date=_date,timeOfDay=TimeOfDay.Morning,isGroupPhase=True)
+            _scheduleCn+=1
             _ret["play"].append(p)
             _ret["schedule"].append(s)
 
             # team1 - team3
-            p = Play(playID=_playCn)
-            _playCn += 1
-            p.team1ID = group.team1ID
-            p.team2ID = group.team3ID
-            s = Schedule(scheduleID=_scheduleCn)
-            _scheduleCn += 1
-            s.playID = p.playID
-            s.date = _date
-            s.timeOfDay = TimeOfDay.Noon
-            s.isGroupPhase = True
+            p=Play(playID=_playCn,team1ID=group.team1ID,team2ID=group.team3ID,isGroupPhase=True)
+            _playCn+=1
+            s=Schedule(scheduleID=_scheduleCn,playID=p.playID,date=_date,timeOfDay=TimeOfDay.Noon,isGroupPhase=True)
+            _scheduleCn+=1
             _ret["play"].append(p)
             _ret["schedule"].append(s)
 
             # team2 - team3
-            p = Play(playID=_playCn)
-            _playCn += 1
-            p.team1ID = group.team2ID
-            p.team2ID = group.team3ID
-            s = Schedule(scheduleID=_scheduleCn)
-            _scheduleCn += 1
-            s.playID = p.playID
-            s.date = _date
-            s.timeOfDay = TimeOfDay.Afternoon
-            s.isGroupPhase = True
+            p=Play(playID=_playCn,team1ID=group.team2ID,team2ID=group.team3ID,isGroupPhase=True)
+            _playCn+=1
+            s=Schedule(scheduleID=_scheduleCn,playID=p.playID,date=_date,timeOfDay=TimeOfDay.Afternoon,isGroupPhase=True)
+            _scheduleCn+=1
             _ret["play"].append(p)
             _ret["schedule"].append(s)
 
             _date += timedelta(days=1)
+
+        return _ret
+
+    def _generateQuarterFinalSchedule(self,groups) -> List[List[int]]:
+        """Generates schedule for 4 plays with pair of one winner of a group and one 2nd place winner of a group.
+
+        Args:
+            groups (Group): list of all groups obj from the database
+        """
+        _ret:List[List[int]]=[[0,0],[0,0],[0,0],[0,0]]
+
+        _winners=[ g.getGroupWinner() for g in groups ]
+        _secondPlaces=[ g.getGroupSecondPlace() for g in groups ]
+
+        _ret[0][0]=self._randomTeamFromList(_winners)
+        _ret[0][1]=self._randomTeamFromList(_secondPlaces)
+
+        _ret[1][0]=self._randomTeamFromList(_winners)
+        _ret[1][1]=self._randomTeamFromList(_secondPlaces)
+
+        _ret[2][0]=self._randomTeamFromList(_winners)
+        _ret[2][1]=self._randomTeamFromList(_secondPlaces)
+
+        _ret[3][0]=self._randomTeamFromList(_winners)
+        _ret[3][1]=self._randomTeamFromList(_secondPlaces)
 
         return _ret

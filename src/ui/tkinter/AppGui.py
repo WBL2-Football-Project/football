@@ -37,7 +37,7 @@ class AppGui(AppControlInterface, tk.Tk):
         self.mainCanvasFrame = self._genNewMainCanvasFrame()
 
         # e.g. or - set geometry (width x height)
-        self.geometry('800x600')
+        self.geometry('1800x600')
 
     # AppAbstractInterface implementation shown below:
 
@@ -143,20 +143,19 @@ class AppGui(AppControlInterface, tk.Tk):
         _parentFrame = self.getMainFrame()
 
         class SimpleModalDialog(ModalDialog):
-            def __init__(self, parent, genDialogFun: Callable, actions: Dict[str, Callable], title: str, incomeData: Dict[str, Any], checkFun: Optional[Callable] = None):
-                self.incomeData = incomeData
-                self.tkVars = {k: tk.StringVar(parent, v)
-                               for k, v in incomeData.items()}
-                self.checkFun = checkFun
-                self.resultDataDict = {}
-                self.genDialogFun = genDialogFun
-                super().__init__(parent, title, self.showResults)
-
-            def showResults(self, result):  # shows the results for every vehicle price offer
-                if result == True:
-                    self.resultDataDict = {k: v.get()
-                                           for k, v in self.tkVars.items()}
-                    if self.checkFun != None and not self.checkFun(self.resultDataDict):
+            def __init__(self,parent,genDialogFun:Callable,actions:Dict[str,Callable],title:str,incomeData:Dict[str,Any],checkFun:Optional[Callable]=None):
+                self.incomeData=incomeData
+                self.tkVars={ k:tk.StringVar(parent,v) for k,v in incomeData.items() }
+                self.checkFun=checkFun
+                self.resultDataDict={}
+                self.genDialogFun=genDialogFun
+                super().__init__(parent,title,self.showResults)
+            
+            def showResults(self,result): # shows the results for every vehicle price offer
+                if result==True:
+                    self.resultDataDict={ k:v.get() for k,v in self.tkVars.items() }
+                    print('AppGui.modalDialog.showResults:',self.resultDataDict)
+                    if self.checkFun!=None and not self.checkFun(self.resultDataDict):
                         return False
                     self.setResult(self.resultDataDict)
                     print(

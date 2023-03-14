@@ -9,17 +9,18 @@ class FootballStateMachine(StateMachine,Serialisable):
 
     footballStateMachineID:int=field(default=0)
     teams_defined:bool=field(default=False)
-    groups_defines:bool=field(default=False)
+    groups_defined:bool=field(default=False)
     groups_scheduled:bool=field(default=False)
     groups_completed:bool=field(default=False)
     playoff_scheduled:bool=field(default=False)
+    tournament_completed:bool=field(default=False)
 
     def __init__(self):
         StateMachine.__init__(self)
 
     def initialise(self):
         # register flags:
-        (empty_database,login,rights,teams_defined,at_least_one_team_defined,groups_defined,groups_scheduled,groups_completed,teams_scheduled)=self.addFlagsByObjs(
+        (empty_database,login,rights,teams_defined,at_least_one_team_defined,groups_defined,groups_scheduled,groups_completed,teams_scheduled,tournament_completed)=self.addFlagsByObjs(
             Flag("empty_database",bool,default=False,call=lambda sc: len(sc.getDb().getListOfRecords(Users))==0,serialisable=False),
             Flag("login",str,default="",serialisable=False),
             Flag("rights",AccountRights,default=AccountRights.NotLoggedIn,serialisable=False),
@@ -28,7 +29,8 @@ class FootballStateMachine(StateMachine,Serialisable):
             Flag("groups_defined",bool,default=False,serialisable=True),
             Flag("groups_scheduled",bool,default=False,serialisable=True),
             Flag("groups_completed",bool,default=False,serialisable=True),
-            Flag("playoff_scheduled",bool,default=False,serialisable=True)
+            Flag("playoff_scheduled",bool,default=False,serialisable=True),
+            Flag("tournament_completed",bool,default=False,serialisable=True)
         )
         self.initialiseFlags()
 
@@ -57,6 +59,7 @@ class FootballStateMachine(StateMachine,Serialisable):
         calculatePlayoffPhaseSchedule=self.addState(State('calculatePlayoffPhaseSchedule',systemController.calculatePlayoffPhaseSchedule))
         recordGamesDataList=self.addState(State('recordGamesDataList',systemController.recordGamesDataList))
         recordGamesData=self.addState(State('recordGamesData',systemController.recordGamesData))
+        saveGamesData=self.addState(State('saveGamesData',systemController.saveGamesData))
         refereeResetApplicationData=self.addState(State('refereeResetApplicationData',systemController.refereeResetApplicationData))
 
         # tmp:
@@ -77,10 +80,10 @@ class FootballStateMachine(StateMachine,Serialisable):
         userMenu.setTransition("change_user_rights_list",changeUserRightsList).condFlags(lambda fl:fl['rights']==AccountRights.RefereeRights)
         userMenu.setTransition("edit_team_data_list",refereeEditTeamDataList).condFlags(lambda fl:not fl['groups_defined'] and fl['at_least_one_team_defined'])
         userMenu.setTransition("define_teams",defineTeam).condFlags(lambda fl:not fl['teams_defined'])
-        userMenu.setTransition("record_games_data_list",recordGamesDataList).condFlags(lambda fl:fl['groups_scheduled'])
+        userMenu.setTransition("record_games_data_list",recordGamesDataList).condFlags(lambda fl:not fl['tournament_completed'] and ((fl['groups_scheduled'] and not fl['groups_completed']) or (fl['groups_completed'] and fl['playoff_scheduled'])))
         userMenu.setTransition("reset_application_data",refereeResetApplicationData,transitionTo=self.getDefaultState())
         userMenu.setTransition("calculate_group_phase_schedule",calculateGroupPhaseSchedule,transitionTo=userMenu).condFlags(lambda fl:fl['teams_defined'] and not fl['groups_scheduled'])
-        userMenu.setTransition("calculate_playoff_phase_schedule",calculatePlayoffPhaseSchedule,transitionTo=userMenu).condFlags(lambda fl:fl['groups_scheduled'] and not fl['playoff_scheduled'])
+        userMenu.setTransition("calculate_playoff_phase_schedule",calculatePlayoffPhaseSchedule,transitionTo=userMenu).condFlags(lambda fl:fl['groups_completed'] and not fl['playoff_scheduled'])
 
         # tmp:
         userMenu.setTransition("clear_for_schedule",clearForSchedule,transitionTo=userMenu).condFlags(lambda fl:fl['groups_scheduled'] and not fl['playoff_scheduled'])
@@ -93,19 +96,16 @@ class FootballStateMachine(StateMachine,Serialisable):
 
         recordGamesDataList.setTransition("chosen",recordGamesData)
         recordGamesDataList.setTransition("cancel",userMenu)
+        recordGamesData.setTransition("ok",saveGamesData,transitionTo=recordGamesDataList) # TODO: add previous call for 'transitionTo'
+        recordGamesData.setTransition("cancel",userMenu)
         
         refereeEditTeamData.setTransition("ok",saveEditedTeam,transitionTo=refereeEditTeamDataList) # TODO: add previous call for 'transitionTo'
         refereeEditTeamData.setTransition("cancel",refereeEditTeamDataList)
 
         changeUserRightsList.setTransition("chosen",changeUserRights)
         changeUserRightsList.setTransition("cancel",userMenu)
-
         changeUserRights.setTransition("ok",saveUserRightChanges,transitionTo=changeUserRightsList)
         changeUserRights.setTransition("cancel",changeUserRightsList)
 
-        # recordGamesDataList.setTransition("choose",recordGamesData) # TODO: add style of Modal Dialog for recording data
-        # recordGamesDataList.setTransition("cancel",recordGamesData.previous)
-        
-        # recordGamesData.setTransition("ok",saveGamesData,transitionTo=recordGamesData.previous)
-        # recordGamesData.setTransition("cancel",recordGamesData.previous)
+        showMatchOrderGroupsStatus.setTransition('cancel',userMenu)
 

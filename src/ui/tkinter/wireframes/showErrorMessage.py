@@ -1,10 +1,3 @@
-from .ModalDialog import ModalDialog
-from tkinter import messagebox
-from tkinter import simpledialog
-import tkinter.font as tkfont
-from tkinter import ttk
-import tkinter as tk
-#from model import *
 import os
 import sys
 from typing import Optional, List, Any, Callable, Dict
@@ -15,6 +8,13 @@ sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../..')))
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../../..')))
+from ModalDialog import ModalDialog
+from tkinter import messagebox
+from tkinter import simpledialog
+import tkinter.font as tkfont
+from tkinter import ttk
+import tkinter as tk
+#from model import *
 
 # Exported dialog procedure:
 

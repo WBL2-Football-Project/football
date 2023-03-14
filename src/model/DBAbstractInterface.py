@@ -70,7 +70,7 @@ class DBAbstractInterface:
         raise ExceptionDBAbstractInterface("no deleteDataFromDb method defined")
 
     @abstractmethod
-    def resetAllDataInDb(self): 
+    def resetAllDataInDb(self,excludeTableType=None): 
         """Reset every data in database.
 
         Raises:

@@ -96,6 +96,18 @@ class SystemControllerInterface:
         raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined") # type: ignore
 
     @abstractmethod
+    def saveGamesData(self,data,*args,returnFlags,**kwargs) -> bool:
+        """Transfer State, check new Play data record and save it to the database
+
+        Args:
+            data (Dict[str,Any]): data dict for new Team object
+
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined") # type: ignore
+    
+    @abstractmethod
     def refereeResetApplicationData(self,data,actions:Dict[str,Callable],embedded:bool=True,*args,**kwargs) -> bool:
         """Reset application data. This method can be called only with referee rights account.
         After this operation is completed, the database is completely cleared and the application works again like during the first run.

@@ -192,3 +192,7 @@ class StateMachineInterface:
     @abstractmethod    
     def startState(self,stateName:str):
         raise ExceptionStateMachine(f"no {inspect.currentframe().f_code.co_name} method defined") # type: ignore
+
+    @abstractmethod
+    def setFlagsDefault(self): 
+        raise ExceptionStateMachine(f"no {inspect.currentframe().f_code.co_name} method defined") # type: ignore

@@ -24,8 +24,13 @@ class Play(Serialisable):
             team1YellowCards (int) : yellow cards played by team1 in the game
             team2YellowCards (int) : yellow cards played by team2 in the game
             isPlayCompleted (bool) : indicates if the play is finished, False - still on
-            revelantScheduleIDForTeam1 (int) : after the play is completed, the winner team1ID should be set in the coresponing future schedule ID object
-            revelantScheduleIDForTeam2 (int) : after the play is completed, the winner team2ID should be set in the coresponing future schedule ID object
+            relevantScheduleIDForTeam1 (int) : after the play is completed, the winner team1ID should be set in the coresponing future schedule ID object
+            relevantScheduleIDForTeam2 (int) : after the play is completed, the winner team2ID should be set in the coresponing future schedule ID object
+            isGroupPhase (bool) : True if the play related to group phase, False otherwise.
+            isQuarterFinal (bool) : True if the play is in quarter-final phase, False otherwise.
+            isSemiFinal (bool) : True if the play is in semi-final phase, False otherwise.
+            is3rdPlaceFinal (bool) : True if the game is for 3rd place of tournament, False otherwise.
+            isFinal (bool) : True if the game is the final play of entire tournament, False otherwise.
     """
 
     playID:int = field(default=0)
@@ -40,6 +45,11 @@ class Play(Serialisable):
     isPlayCompleted:bool = field(default=False)
     relevantScheduleIDForTeam1:Optional[int] = field(default=None)
     relevantScheduleIDForTeam2:Optional[int] = field(default=None)
+    isGroupPhase:bool = field(default=False)
+    isQuarterFinal:bool = field(default=False)
+    isSemiFinal:bool = field(default=False)
+    is3rdPlaceFinal:bool = field(default=False)
+    isFinal:bool = field(default=False)
 
     def _generateRandomTeamsList(self):
         """Generates a randomly sorted list of all teams for further schedule computation."""
@@ -51,6 +61,28 @@ class Play(Serialisable):
         pass
 
     def checkData(self,playObj:Play,forEdit:bool=False) -> bool:
+        """Check the data in given play object in case to serialise new or edit existent in the database.
+        
+        Args:
+            playObj (Play): _description_
+            forEdit (bool, optional): _description_. Defaults to False.
+
+        Returns:
+            bool: _description_
+        """
+        if not forEdit:
+            raise Exception('Play.checkData error: you cannot call it without flag forEdit==True')
+
+        # check basement
+        print('playObj.playID',playObj.playID)
+        _rec=self.getDb().getOneRecord(Play,playObj.playID)
+        if _rec == None:
+            self.getApp().showErrorMessage('Play edit record error',f'You cannot edit because the playID={playObj.playID} is not found in the database.')
+            return False
+        elif _rec.isPlayCompleted:
+            self.getApp().showErrorMessage('Play edit record error',f'You can\'t edit the play ({playObj.playID}) with isCompleted==True.')
+            return False
+        
         return True
     
     def _preparePlayoffPhaseData(self,randomTeamsList:List[Teams],groupsTeamsDistribution:List):

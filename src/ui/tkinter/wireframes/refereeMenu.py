@@ -1,12 +1,5 @@
-from tkinter import messagebox
-from tkinter import simpledialog
-import tkinter.font as tkfont
-from tkinter import ttk
-# from model import *
-import tkinter as tk
 import os
 import sys
-from .constants import *
 from typing import Optional, List, Any, Callable, Dict
 import inspect
 sys.path.insert(0, os.path.abspath(
@@ -16,6 +9,14 @@ sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', '..')))
 sys.path.insert(0, os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', '..', '..')))
+
+from tkinter import messagebox
+from tkinter import simpledialog
+import tkinter.font as tkfont
+from tkinter import ttk
+# from model import *
+import tkinter as tk
+from constants import *
 tkVars = {}  # helper variable
 
 # Exported dialog procedure:

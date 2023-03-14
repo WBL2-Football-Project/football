@@ -1,11 +1,3 @@
-from StateMachine import State
-from tkinter import messagebox
-from tkinter import simpledialog
-from .constants import *
-import tkinter.font as tkfont
-from tkinter import ttk
-#from model import *
-import tkinter as tk
 import os
 import sys
 from typing import Optional, List, Any, Callable, Dict
@@ -17,6 +9,14 @@ sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', '..')))
 sys.path.insert(0, os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', '..', '..')))
+from StateMachine import State
+from tkinter import messagebox
+from tkinter import simpledialog
+from constants import *
+import tkinter.font as tkfont
+from tkinter import ttk
+#from model import *
+import tkinter as tk
 
 print(os.getcwd(), os.path.abspath(os.path.join(
     os.path.dirname(__file__), 'src', 'model')))

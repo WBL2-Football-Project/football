@@ -1,24 +1,29 @@
-from .refereeMenu import refereeMenu
-from .userMenu import userMenu
-from .dialogForAppLoginOrRegister import dialogForAppLoginOrRegister
-from .showInfoMessage import showInfoMessage
-from .showErrorMessage import showErrorMessage
-from .refereeDialogForUserRights import refereeDialogForUserRights
-from .refereeDialogForNewUser import refereeDialogForNewUser
-from .displayStatisticsForPlayoffScheduledGames import displayStatisticsForPlayoffScheduledGames
-from .displayStatisticsForGroupAndItsGamesScheduled import displayStatisticsForGroupAndItsGamesScheduled
-from .dialogForNewUser import dialogForNewUser
-from .dialogForNewTeam import dialogForNewTeam
-from .dialogForEditTeam import dialogForEditTeam
-from .dialogForEditPlay import dialogForEditPlay
-from .createDialogYesNo import createDialogYesNo
-from .chooseRecordFromList import chooseRecordFromList
-from .ModalDialog import ModalDialog
 import os
 import sys
 sys.path.insert(0, os.path.dirname(__file__))
+
+from chooseRecordFromList import chooseRecordFromList
+from createDialogYesNo import createDialogYesNo
+from dialogForEditPlay import dialogForEditPlay
+from dialogForEditTeam import dialogForEditTeam
+from dialogForNewTeam import dialogForNewTeam
+from dialogForNewUser import dialogForNewUser
+from displayStatisticsForGroupAndItsGamesScheduled import displayStatisticsForGroupAndItsGamesScheduled
+from displayStatisticsForPlayoffScheduledGames import displayStatisticsForPlayoffScheduledGames
+from refereeDialogForNewUser import refereeDialogForNewUser
+from refereeDialogForUserRights import refereeDialogForUserRights
+from showErrorMessage import showErrorMessage
+from showInfoMessage import showInfoMessage
+from dialogForAppLoginOrRegister import dialogForAppLoginOrRegister
+from userMenu import userMenu
+from refereeMenu import refereeMenu
 
 
 __all__ = ["chooseRecordFromList", "createDialogYesNo", "dialogForEditPlay", "dialogForEditTeam", "dialogForNewTeam", "dialogForNewUser", "displayStatisticsForGroupAndItsGamesScheduled",
            "displayStatisticsForPlayoffScheduledGames", "refereeDialogForNewUser", "refereeDialogForUserRights", "showErrorMessage", "showInfoMessage", "dialogForAppLoginOrRegister",
            "userMenu", "refereeMenu", "ModalDialog"]
+
+
+__all__=["chooseRecordFromList","createDialogYesNo","dialogForEditPlay","dialogForEditTeam","dialogForNewTeam","dialogForNewUser","displayStatisticsForGroupAndItsGamesScheduled",
+	"displayStatisticsForPlayoffScheduledGames","refereeDialogForNewUser","refereeDialogForUserRights","showErrorMessage","showInfoMessage","dialogForAppLoginOrRegister",
+    "userMenu","refereeMenu"]

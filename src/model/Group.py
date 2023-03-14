@@ -41,9 +41,6 @@ class Group(Serialisable):
     team1ID:int=field(default=0)
     team2ID:int=field(default=0)
     team3ID:int=field(default=0)
-    team1PlayCounter:int=field(default=0)
-    team2PlayCounter:int=field(default=0)
-    team3PlayCounter:int=field(default=0)
     team1Score:int=field(default=0)
     team2Score:int=field(default=0)
     team3Score:int=field(default=0)
@@ -56,6 +53,65 @@ class Group(Serialisable):
     team1YellowCards:int=field(default=0)
     team2YellowCards:int=field(default=0)
     team3YellowCards:int=field(default=0)
+
+    def _betterTeam(self,c1,c2):
+        """Return which index of team in group ( c1,c2 in [1,2,3] ) is better from two given team indexes: c1,c2
+
+        Args:
+            c1 (int): index of team in grup (1,2 or 3)
+            c2 (int): index of team in grup (1,2 or 3)
+
+        Returns:
+            int: index of the team in group (1,2 or 3) which is better then the other from c1,c2
+        """
+        _team1=f'team{c1}'
+        _team2=f'team{c2}'
+        _score1=getattr(self,f'{_team1}Score')
+        _goals1=getattr(self,f'{_team1}GoalsScored')
+        _missed1=getattr(self,f'{_team1}GoalsMissed')
+        _yellow1=getattr(self,f'{_team1}YellowCards')
+        _score2=getattr(self,f'{_team2}Score')
+        _goals2=getattr(self,f'{_team2}GoalsScored')
+        _missed2=getattr(self,f'{_team2}GoalsMissed')
+        _yellow2=getattr(self,f'{_team2}YellowCards')
+        if _score1>_score1: return c1
+        elif _score2>_score1: return c2
+        elif _score1==_score2:
+            if _goals1>_goals2: return c1
+            elif _goals2>_goals1: return c2
+            else:
+                if _missed1<_missed2: return c1
+                elif _missed2<_missed1: return c2
+                else:
+                    if _yellow1<_yellow2: return c1
+                    elif _yellow2<_yellow1: return c2
+                    else:
+                        if random.randrange(1)==0: return c1
+                        else: return c2
+
+    def getGroupWinner(self) -> int:
+        """Return teamID of the winner team for the group.
+
+        Returns:
+            int: teamID
+        """
+        _winnerCn=0
+        if self._betterTeam(1,2) and self._betterTeam(1,3): _winnerCn=1
+        elif self._betterTeam(2,1) and self._betterTeam(2,3): _winnerCn=2
+        else: _winnerCn=3
+        return getattr(self,f'team{_winnerCn}ID')
+
+    def getGroupSecondPlace(self):
+        """Return teamID of the second place winner team for the group.
+
+        Returns:
+            int: teamID
+        """
+        _2ndPlace=0
+        if self._betterTeam(1,2) and not self._betterTeam(1,3): _2ndPlace=1
+        elif self._betterTeam(2,1) and not self._betterTeam(2,3): _2ndPlace=2
+        else: _2ndPlace=3
+        return getattr(self,f'team{_2ndPlace}ID')
 
     @staticmethod
     def showMatchOrderGroupsStatus():

@@ -17,12 +17,8 @@ sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../../..')))
 
 
-tkVars = {}  # helper variable
-
 # Exported dialog procedure:
-
-
-def dialogForEditPlay(fieldsObj, actions, parentFrame, tkVar={}):
+def dialogForEditPlay(fieldsObj, actions, parentFrame, tkVars:Dict):
     """Create dialog window for input fields:
         - team1GoalsScored (int)
         - team2GoalsScored (int)

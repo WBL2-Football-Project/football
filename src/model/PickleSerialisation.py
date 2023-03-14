@@ -172,13 +172,16 @@ class PickleSerialisation:
             _fulldatabase.clear()
         self.saveData(_fulldatabase)
 
-    def resetAllDataInDb(self):
+    def resetAllDataInDb(self,exclude:Optional[Type[Serialisable]]=None):
         """Reset every data in database.
 
         Raises:
             ExceptionDBAbstractInterface: exception when method has no implementation in final DB implementation class
         """
-        self.deleteDataFromDb()
+        _fulldatabase:Dict[Type[Serialisable],List[Serialisable]]=self.loadData()
+        for tableType,recList in _fulldatabase.items():
+            if exclude==None or tableType!=exclude:
+                self.truncateTable(tableType)
 
     def getCountOfRecordsInTable(self, table:Type[Serialisable]) -> int: 
         """Return amount of records for chosen table in the database.

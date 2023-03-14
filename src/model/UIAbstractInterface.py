@@ -212,7 +212,7 @@ class UIAbstractInterface:
         raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined") # type: ignore
 
     @abstractmethod
-    def displayStatisticsForGroupAndItsGamesScheduled(self,dataStruct):
+    def displayStatisticsForGroupAndItsGamesScheduled(self,data,actions:Dict[str,Callable],parentFrame:Any=None,*args,**kwargs) -> bool:
         """_summary_
 
         Args:
@@ -224,7 +224,7 @@ class UIAbstractInterface:
         raise ExceptionUIAbstractInterface(f"no {inspect.currentframe().f_code.co_name} method defined") # type: ignore
 
     @abstractmethod
-    def displayStatisticsForPlayoffScheduledGames(self,dataStruct):
+    def displayStatisticsForPlayoffScheduledGames(self,data,actions:Dict[str,Callable],parentFrame:Any=None,*args,**kwargs) -> bool:
         """_summary_
 
         Args:

@@ -194,3 +194,8 @@ class StateMachine(StateMachineInterface):
             raise ExceptionStateMachine(f'StateMachine.startState error: cannot find {stateName} state.')
         self.states[stateName].start()
 
+    def setFlagsDefault(self):
+        _default:Dict[str,Any]={}
+        for k,flag in self.flags.items():
+            _default[k]=flag.default
+        self.setFlags(_default)
