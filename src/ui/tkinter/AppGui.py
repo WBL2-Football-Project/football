@@ -37,7 +37,7 @@ class AppGui(AppControlInterface, tk.Tk):
         self.mainCanvasFrame = self._genNewMainCanvasFrame()
 
         # e.g. or - set geometry (width x height)
-        self.geometry('1800x600')
+        self.geometry('900x500')
 
     # AppAbstractInterface implementation shown below:
 
