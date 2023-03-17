@@ -298,7 +298,11 @@ class SystemController(SystemControllerAbstract):
         team = Teams()
         teamsListDict: List[Dict[str, Any]] = [
             asdict(x) for x in self.getDb().getListOfRecords(Teams)]
-        _headers = team.getHeadersForTreeview()
+        _headers = [
+            ColumnStyle(self,'teamID','id',JustifyEnum.RIGHT,True),
+            ColumnStyle(self,'name','name',JustifyEnum.LEFT)
+        ]
+        #team.getHeadersForTreeview()
 
         self.appControl.clearMainCanvas()
         self.appControl.getMainFrame().after(50, lambda: self.appControl.chooseRecordFromList(
