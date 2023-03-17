@@ -1,6 +1,6 @@
 import inspect
 from typing import Optional
-from dataclasses import *
+from dataclasses import fields,asdict
 from DBAbstractInterface import *
 from UIAbstractInterface import *
 from ApplicationState import *
@@ -13,6 +13,7 @@ from Teams import *
 from Group import *
 from Play import *
 from GroupWithGamesScheduled import GroupWithGamesScheduled,PlayWithSchedule
+from SchedulesWithPlay import SchedulesWithPlay
 
 class SystemController(SystemControllerAbstract):
     """Main system controller for the application definition. The application instance could start after this controller will be initiated.
@@ -310,13 +311,25 @@ class SystemController(SystemControllerAbstract):
         user = Users()
         usersListDict: List[Dict[str, Any]] = [
             asdict(x) for x in self.getDb().getListOfRecords(Users)]
-        _headers = user.getHeadersForTreeview()
+        _headers = [
+            ColumnStyle(self,'userID','id',JustifyEnum.RIGHT,True),
+            ColumnStyle(self,'login','login',JustifyEnum.LEFT),
+            ColumnStyle(self,'rights','rigths',JustifyEnum.LEFT)
+        ]
+        # for ind,user in enumerate(usersListDict):
+        #     usersListDict[ind]={ k:v if k!='rights' else v.value for k,v in user.items() }
+        # user.getHeadersForTreeview()
 
         self.appControl.clearMainCanvas()
-        self.appControl.getMainFrame().after(50, lambda: self.appControl.chooseRecordFromList(
-            Users.__name__, _headers, usersListDict, actions, self.getApp().getMainCanvasFrame()))
+        self.appControl.getMainFrame().after(50, lambda: self.appControl.chooseRecordFromList(Users.__name__, _headers, usersListDict, actions, self.getApp().getMainCanvasFrame()))
 
         return True
+
+    def changeUserRights(self, data, actions: Dict[str, Callable], parentFrame: Any = None, *args, **kwargs) -> bool:
+        """Change the rights for specific users. This call should be transferred to the User.changeUserRights method"""
+        print('data',data)
+        user = Users().fromDict(data)
+        return self.getApp().modalDialog('User edit', self.appControl.refereeDialogForUserRights, data, actions, parentFrame, lambda data: user.fromDict(data).checkRightsChange(user))
 
     def refereeEditTeamData(self, data, actions: Dict[str, Callable], parentFrame: Any = None, *args, **kwargs) -> bool:
         """Edit team data. This method can be called only with referee rights account."""
@@ -478,17 +491,40 @@ class SystemController(SystemControllerAbstract):
         Follow the 'Record games data' sequence diagram.
         """
         play=Play()
-        playListDict:List[Dict[str,Any]]=[ asdict(x) for x in self.getDb().getListOfRecords(Play,lambda x: not x.isPlayCompleted) ]
+        playListDict:List[Play]=self.getDb().getListOfRecords(Play,lambda x: not x.isPlayCompleted)
 
         if len(playListDict)==0: # no more plays incomplete
             returnFlags['transitionTo']='userMenu' # go back to userMenu state
             returnFlags['data']=None
             return True
 
-        _headers=play.getHeadersForTreeview()
+        _data:List[Dict[str,Any]]=[]
+        _headers=[
+            ColumnStyle(self,'playID','play',JustifyEnum.RIGHT,True),
+            ColumnStyle(self,'date','date',JustifyEnum.LEFT),
+            ColumnStyle(self,'team1ID','team 1',JustifyEnum.RIGHT),
+            ColumnStyle(self,'team1_name','name',JustifyEnum.LEFT),
+            ColumnStyle(self,'team1GoalsScored','goals',JustifyEnum.RIGHT),
+            ColumnStyle(self,'team1YellowCards','yellow cards',JustifyEnum.RIGHT),
+            ColumnStyle(self,'team2ID','team 2',JustifyEnum.RIGHT),
+            ColumnStyle(self,'team2_name','name',JustifyEnum.LEFT),
+            ColumnStyle(self,'team2GoalsScored','goals',JustifyEnum.RIGHT),
+            ColumnStyle(self,'team2YellowCards','yellow cards',JustifyEnum.RIGHT)
+            ]
+
+        for i,play in enumerate(playListDict):
+            # additional relationas objects added to record:
+            _team1Obj=self.getDb().getListOfRecords(Teams,lambda x: x.teamID==play.team1ID)[0] if play.team1ID>0 else None # type: ignore
+            _team2Obj=self.getDb().getListOfRecords(Teams,lambda x: x.teamID==play.team2ID)[0] if play.team2ID>0 else None # type: ignore
+            _scheduleObj=self.getDb().getListOfRecords(Schedule,lambda x: x.playID==play.playID)[0] # type: ignore
+            _data.append(asdict(play)|{
+                'date':f"{_scheduleObj.date.strftime('%Y-%m-%d')} {_scheduleObj.timeOfDay.value}",
+                'team1_name': _team1Obj.name if _team1Obj!=None else f"<play {play.relevantScheduleIDForTeam1}>",
+                'team2_name': _team2Obj.name if _team2Obj!=None else f"<play {play.relevantScheduleIDForTeam2}>",
+            }) #type: ignore
 
         self.appControl.clearMainCanvas()
-        self.appControl.getMainFrame().after(50, lambda: self.appControl.chooseRecordFromList(Play.__name__,_headers,playListDict,actions,self.getApp().getMainCanvasFrame()))
+        self.appControl.getMainFrame().after(50, lambda: self.appControl.chooseRecordFromList(Play.__name__,_headers,_data,actions,self.getApp().getMainCanvasFrame())) # type: ignore
         return True
 
     def recordGamesData(self, data, actions: Dict[str, Callable], parentFrame: Any = None, *args, **kwargs) -> bool:
@@ -500,6 +536,9 @@ class SystemController(SystemControllerAbstract):
         """Edit team data. This method can be called only with referee rights account."""
         print('play',data)
         play=Play().fromDict(data)
+        if not (play.team1ID>0 and play.team2ID>0):
+            self.getApp().showErrorMessage('Record game data error!','You cannot edit game data before both teams will be set.')
+            return False
         return self.getApp().modalDialog('Play edit',self.appControl.dialogForEditPlay,data,actions,parentFrame,lambda data: play.fromDict(data).checkData(play,forEdit=True))
 
     def refereeResetApplicationData(self, data, actions: Dict[str, Callable], embedded: bool = True, *args, **kwargs) -> bool:
@@ -576,20 +615,28 @@ class SystemController(SystemControllerAbstract):
         self.getApp().getMainFrame().after(50, lambda: self.getApp().displayStatisticsForGroupAndItsGamesScheduled(data,actions,self.appControl.getMainCanvasFrame()))
         return True
 
-    def showMatchOrderPlayOffTree(self):
+    def showMatchOrderPlayOffTree(self,data,actions:Dict[str,Callable],parentFrame:Any=None,*args,**kwargs) -> bool:
         """User or referee both can watch the current play-off-tree status of teams."""
-        raise ExceptionUIAbstractInterface(
-            f"no {inspect.currentframe().f_code.co_name} method defined")  # type: ignore
+
+        data=[]
+        _schedules=self.getDb().getListOfRecords(Schedule)
+        for g in _schedules:
+            _pl=self.getDb().getListOfRecords(Play,lambda x: x.playID==g.playID)[0]
+            _t1=self.getDb().getOneRecord(Teams,_pl.team1ID)
+            _t2=self.getDb().getOneRecord(Teams,_pl.team2ID)
+            _gs=SchedulesWithPlay(g,_pl,_t1,_t2)
+            data.append(_gs)
+        print('showMatchOrderPlayOffTree DATA SENT:')
+        print(data)
+        print()
+        self.getApp().clearMainCanvas()
+        self.getApp().getMainFrame().after(50, lambda: self.getApp().displayStatisticsForPlayoffScheduledGames(data,actions,self.appControl.getMainCanvasFrame()))
+        return True
 
     def teamsAmountLessThen16(self):
         """Return True if the saved number of teams in the database is less then 16"""
         raise ExceptionUIAbstractInterface(
             f"no {inspect.currentframe().f_code.co_name} method defined")  # type: ignore
-
-    def changeUserRights(self, data, actions: Dict[str, Callable], parentFrame: Any = None, *args, **kwargs) -> bool:
-        """Change the rights for specific users. This call should be transferred to the User.changeUserRights method"""
-        user = Users().fromDict(data)
-        return self.getApp().modalDialog('User edit', self.appControl.refereeDialogForUserRights, data, actions, parentFrame, lambda data: user.fromDict(data).checkRightsChange(user))
 
     def getRightsFromDb(self, data, *args, **kwargs):
         login = data['login'] if 'login' in data else ''

@@ -75,7 +75,7 @@ def refereeMenu(data, actions: Dict[str, Callable], parentFrame=None):
         _refereeMenu.append({"name": "View Groups",
                             "action": lambda event: _a_show_match_order_groups_status()})
     if _a_show_match_order_playoff_tree != None:
-        _refereeMenu.append({"name": "View Schedule",
+        _refereeMenu.append({"name": "View Play-offs",
                             "action": lambda event: _a_show_match_order_playoff_tree()})
     if _a_register_account != None:
         _refereeMenu.append(

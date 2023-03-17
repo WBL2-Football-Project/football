@@ -1,6 +1,7 @@
 import os
 import sys
 from typing import Optional, List, Any, Callable, Dict, Type
+from functools import reduce
 import inspect
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '.')))
@@ -30,36 +31,46 @@ def chooseRecordFromList(title: str, headers: List[ColumnStyle], fieldsObj_list:
     tkID = tk.StringVar(parentFrame)
 
     parentFrame.grid_columnconfigure(0, weight=1, uniform="equal")
+    parentFrame.grid_rowconfigure(0, weight=1)
 
-    _columns = ""
-    for _cn in range(0, len(headers)-1):
-        _columns += ', ' if len(_columns) > 0 else ''
-        _columns += f"c{_cn}"
-    recordList = ttk.Treeview(
-        parentFrame, columns=_columns)
+    _columns = []
+    for header in headers: #_cn in range(1, len(headers)):
+        _columns.append(header.getName()) #f"c{_cn}")
 
+    recordList = ttk.Treeview(parentFrame, columns=_columns, show='headings')
+
+    def _r(a,b):
+        return max(
+            int(tkfont.Font().measure(a)),
+            int(tkfont.Font().measure(b))
+        )
+    
     # headers
-    _cn = 0
     for style in headers:
-        _colHash = f'#{_cn}'
-        _cn += 1
-        recordList.heading(_colHash, text=style.getName())
-        recordList.column(_colHash, anchor=style.getJustifyForUI(), width=150)
+        _maxColValueWidth=0
+        if len(fieldsObj_list)>=2:
+            _maxColValueWidth=reduce(_r,[ x[style.getName()] for x in fieldsObj_list ])
+        else:
+            for fieldsObj in fieldsObj_list:
+                _a:str=fieldsObj[style.getName()] # type: ignore - get the value for column 
+                _maxColValueWidth=max(_maxColValueWidth,int(tkfont.Font().measure(_a)))
+        recordList.heading(style.getName(), text=style.getVisualName()) #_colHash
+        _maxColValueWidth=max(_maxColValueWidth,int(tkfont.Font().measure(style.getVisualName())))
+        recordList.column(style.getName(), anchor=style.getJustifyForUI(), width=_maxColValueWidth) #_colHash
 
-    recordList.grid(row=0)
+    recordList.grid(row=0,column=0,sticky='news')
 
-    scrollbar = tk.Scrollbar(
-        parentFrame, orient='horizontal', command=recordList.xview)
+    scrollbar = ttk.Scrollbar(parentFrame, orient='horizontal', command=recordList.xview)
     scrollbar.grid(row=1, sticky='ew')
     recordList.configure(xscrollcommand=scrollbar.set)
 
-    # choose row handler
-    def selectItem(item):
-        item = recordList.focus()
-        selected_item = recordList.item(item)
-        tkID.set(selected_item.get('text'))
+    def item_selected(event):
+        for selected_item in recordList.selection():
+            item = recordList.item(selected_item)
+            record = item['values']
+            tkID.set(item.get('text'))
 
-    recordList.bind('<ButtonRelease-1>', selectItem)
+    recordList.bind('<<TreeviewSelect>>', item_selected)
 
     # primary key names in array
     _ID_names_array = [v.getName() for v in headers if v.getPrimaryKey()]
@@ -67,11 +78,8 @@ def chooseRecordFromList(title: str, headers: List[ColumnStyle], fieldsObj_list:
     # values
     _cn = 0
     for iteamValuesDict in fieldsObj_list:
-        # _text=f'{[ v for k,v in iteamValuesDict.items() if k in _ID_names_array ]}'
-        _values = iteamValuesDict.items()
-        # [ _values[v.getName()] for v in headers ]
-        recordList.insert('', 'end', text=f'{_cn}', values=[
-                          v for k, v in iteamValuesDict.items()])
+        _values=[ iteamValuesDict[h.getName()] if h.getName() in iteamValuesDict else "?" for h in headers ]
+        recordList.insert('', 'end', values=_values, text=f'{_cn}')
         _cn += 1
 
     buttonsFrame = tk.Frame(parentFrame)

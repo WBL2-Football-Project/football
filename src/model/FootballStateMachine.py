@@ -97,7 +97,7 @@ class FootballStateMachine(StateMachine,Serialisable):
         recordGamesDataList.setTransition("chosen",recordGamesData)
         recordGamesDataList.setTransition("cancel",userMenu)
         recordGamesData.setTransition("ok",saveGamesData,transitionTo=recordGamesDataList) # TODO: add previous call for 'transitionTo'
-        recordGamesData.setTransition("cancel",userMenu)
+        recordGamesData.setTransition("cancel",recordGamesDataList)
         
         refereeEditTeamData.setTransition("ok",saveEditedTeam,transitionTo=refereeEditTeamDataList) # TODO: add previous call for 'transitionTo'
         refereeEditTeamData.setTransition("cancel",refereeEditTeamDataList)
@@ -108,4 +108,4 @@ class FootballStateMachine(StateMachine,Serialisable):
         changeUserRights.setTransition("cancel",changeUserRightsList)
 
         showMatchOrderGroupsStatus.setTransition('cancel',userMenu)
-
+        showMatchOrderPlayOffTree.setTransition('close',userMenu)

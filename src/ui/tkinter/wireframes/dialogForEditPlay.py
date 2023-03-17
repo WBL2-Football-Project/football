@@ -22,8 +22,8 @@ def dialogForEditPlay(fieldsObj, actions, parentFrame, tkVars:Dict):
     """Create dialog window for input fields:
         - team1GoalsScored (int)
         - team2GoalsScored (int)
-        - team1GoalsMissed (int)
-        - team2GoalsMissed (int)
+        # - team1GoalsMissed (int)
+        # - team2GoalsMissed (int)
         - team1YellowCards (int)
         - team2YellowCards (int)
         - isPlayCompleted (bool)
@@ -33,10 +33,10 @@ def dialogForEditPlay(fieldsObj, actions, parentFrame, tkVars:Dict):
         parentFrame, fieldsObj['team1GoalsScored'])
     tkVars["team2GoalsScored"] = tk.StringVar(
         parentFrame, fieldsObj['team2GoalsScored'])
-    tkVars["team1GoalsMissed"] = tk.StringVar(
-        parentFrame, fieldsObj['team1GoalsMissed'])
-    tkVars["team2GoalsMissed"] = tk.StringVar(
-        parentFrame, fieldsObj['team2GoalsMissed'])
+    # tkVars["team1GoalsMissed"] = tk.StringVar(
+    #     parentFrame, fieldsObj['team1GoalsMissed'])
+    # tkVars["team2GoalsMissed"] = tk.StringVar(
+    #     parentFrame, fieldsObj['team2GoalsMissed'])
     tkVars["team1YellowCards"] = tk.StringVar(
         parentFrame, fieldsObj['team1YellowCards'])
     tkVars["team2YellowCards"] = tk.StringVar(
@@ -60,26 +60,26 @@ def dialogForEditPlay(fieldsObj, actions, parentFrame, tkVars:Dict):
     tk.Spinbox(goalScoredFrame, from_=0, to_=10000,
                textvariable=tkVars["team2GoalsScored"], width=10, font=(FONT, 10)).grid(row=2, column=2, ipady=5)
 
-    # Goals Missed
-    goalMissedFrame = tk.Frame(parentFrame)
-    goalMissedFrame.grid(row=1, column=1, padx=10)
+    # # Goals Missed
+    # goalMissedFrame = tk.Frame(parentFrame)
+    # goalMissedFrame.grid(row=1, column=1, padx=10)
 
-    tk.Label(goalMissedFrame, text="Goals Missed",
-             font=(FONT, 10)).grid(row=0, pady=10)
+    # tk.Label(goalMissedFrame, text="Goals Missed",
+    #          font=(FONT, 10)).grid(row=0, pady=10)
 
-    tk.Label(goalMissedFrame, text="Team 1",
-             font=(FONT, 10)).grid(row=1, column=0)
-    tk.Spinbox(goalMissedFrame, from_=0, to_=10000,
-               textvariable=tkVars["team1GoalsMissed"], width=10, font=(FONT, 10)).grid(row=2, column=0, ipady=5)
+    # tk.Label(goalMissedFrame, text="Team 1",
+    #          font=(FONT, 10)).grid(row=1, column=0)
+    # tk.Spinbox(goalMissedFrame, from_=0, to_=10000,
+    #            textvariable=tkVars["team1GoalsMissed"], width=10, font=(FONT, 10)).grid(row=2, column=0, ipady=5)
 
-    tk.Label(goalMissedFrame, text="Team 2",
-             font=(FONT, 10)).grid(row=1, column=2)
-    tk.Spinbox(goalMissedFrame, from_=0, to_=10000,
-               textvariable=tkVars["team2GoalsMissed"], width=10, font=(FONT, 10)).grid(row=2, column=2, ipady=5)
+    # tk.Label(goalMissedFrame, text="Team 2",
+    #          font=(FONT, 10)).grid(row=1, column=2)
+    # tk.Spinbox(goalMissedFrame, from_=0, to_=10000,
+    #            textvariable=tkVars["team2GoalsMissed"], width=10, font=(FONT, 10)).grid(row=2, column=2, ipady=5)
 
     # Yellow Cards
     yellowCardsFrame = tk.Frame(parentFrame)
-    yellowCardsFrame.grid(row=2, column=0, padx=10)
+    yellowCardsFrame.grid(row=1, column=1, padx=10)
 
     tk.Label(yellowCardsFrame, text="Yellow Cards",
              font=(FONT, 10)).grid(row=0, pady=10)

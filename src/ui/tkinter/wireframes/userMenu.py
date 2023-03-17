@@ -47,7 +47,7 @@ def userMenu(data, actions: Dict[str, Callable], parentFrame=None):
         _userMenu.append({"name": "View Groups",
                          "action": lambda event: _a_show_match_order_groups_status()})
     if _a_show_match_order_playoff_tree != None:
-        _userMenu.append({"name": "View Schedule",
+        _userMenu.append({"name": "View play-offs",
                          "action": lambda event: _a_show_match_order_playoff_tree()})
     if _a_register_account != None:
         _userMenu.append({"name": "Show match order playodd tree",

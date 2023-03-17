@@ -7,15 +7,19 @@ class JustifyEnum(Enum):
     CENTER="center"
 
 class ColumnStyle:
-    def __init__(self,systemController,name="",justify:JustifyEnum=JustifyEnum.LEFT,primaryKey:bool=False):
+    def __init__(self,systemController,name="",visualName="",justify:JustifyEnum=JustifyEnum.LEFT,primaryKey:bool=False):
         self.systemController = systemController
         self.name=name
+        self.visualName=self.name if len(visualName)==0 else visualName
         self.justify=justify
         self.primaryKey=primaryKey
 
     def getName(self):
         return self.name
-    
+
+    def getVisualName(self):
+        return self.visualName
+
     def getJustify(self):
         return self.justify
 

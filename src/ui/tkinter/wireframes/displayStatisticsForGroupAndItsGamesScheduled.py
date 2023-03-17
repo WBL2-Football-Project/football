@@ -1,4 +1,3 @@
-from GroupWithGamesScheduled import GroupWithGamesScheduled, PlayWithSchedule
 from tkinter import messagebox
 from tkinter import simpledialog
 import tkinter.font as tkfont
@@ -16,6 +15,7 @@ sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../..')))
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../../..')))
+from GroupWithGamesScheduled import GroupWithGamesScheduled, PlayWithSchedule
 
 
 # Exported dialog procedure:

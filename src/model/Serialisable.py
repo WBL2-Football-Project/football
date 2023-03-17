@@ -1,4 +1,4 @@
-from typing import Dict,List,Type,Optional,Any
+from typing import Dict,List,Type,Optional,Any,Union,Callable
 from abc import abstractmethod
 from datetime import datetime
 from enum import Enum
@@ -105,4 +105,3 @@ class Serialisable(SerialisableInterface):
             else:
                 _justify=JustifyEnum.LEFT
             _headersForTreeview.append(ColumnStyle(self.getSystemController(),name=f.name,primaryKey=(f.name in _pmArray),justify=_justify))
-        return _headersForTreeview

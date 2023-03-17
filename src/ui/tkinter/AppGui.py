@@ -116,9 +116,9 @@ class AppGui(AppControlInterface, tk.Tk):
     def convertJustifyToUI(self, justify: JustifyEnum) -> Any:
         """Convert JustifyEnum value to UI specific representation"""
         if justify == JustifyEnum.LEFT:
-            return tk.E
-        elif justify == JustifyEnum.RIGHT:
             return tk.W
+        elif justify == JustifyEnum.RIGHT:
+            return tk.E
         elif justify == JustifyEnum.CENTER:
             return tk.CENTER
         else:
