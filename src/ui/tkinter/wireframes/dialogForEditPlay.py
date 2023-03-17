@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath(
 
 
 # Exported dialog procedure:
-def dialogForEditPlay(fieldsObj, actions, parentFrame, tkVars:Dict):
+def dialogForEditPlay(fieldsObj, actions, parentFrame, tkVars: Dict):
     """Create dialog window for input fields:
         - team1GoalsScored (int)
         - team2GoalsScored (int)
@@ -101,10 +101,14 @@ def dialogForEditPlay(fieldsObj, actions, parentFrame, tkVars:Dict):
     tk.Label(radioButtonsFrame, text="Is Completed",
              font=(FONT, 10)).grid(row=0, pady=10)
 
-    tk.Radiobutton(radioButtonsFrame, text="Yes",
-                   variable=tkVars["isPlayCompleted"], value='Yes', font=(FONT, 10)).grid(row=1, column=0)
-    tk.Radiobutton(radioButtonsFrame, text="No",
-                   variable=tkVars["isPlayCompleted"], value='No', font=(FONT, 10)).grid(row=1, column=1)
+    playCompleted = tk.Radiobutton(radioButtonsFrame, text="Yes",
+                                   variable=tkVars["isPlayCompleted"], value='Yes', font=(FONT, 10))
+    playCompleted.grid(row=1, column=0)
+
+    playNotCompleted = tk.Radiobutton(radioButtonsFrame, text="No",
+                                      variable=tkVars["isPlayCompleted"], value='No', font=(FONT, 10))
+    playNotCompleted.grid(row=1, column=1)
+    playNotCompleted.invoke()
 
     buttonsFrame = tk.Frame(parentFrame)
     buttonsFrame.grid(row=3, pady=25, column=0)

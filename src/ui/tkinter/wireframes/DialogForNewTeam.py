@@ -28,6 +28,8 @@ def dialogForNewTeam(data, actions: Dict[str, Callable], parentFrame):
     tkVars["teamID"] = tk.StringVar(parentFrame, data.teamID)
     tkVars["name"] = tk.StringVar(parentFrame, data.name)
 
+    parentFrame.grid_columnconfigure(0, weight=1, uniform="equal")
+
     tk.Label(parentFrame, text="Team ID", font=(FONT, 10)).grid(row=1)
     tk.Spinbox(parentFrame, from_=0, to_=10000,
                textvariable=tkVars["teamID"], width=10, font=(FONT, 10)).grid(row=2, ipady=5)

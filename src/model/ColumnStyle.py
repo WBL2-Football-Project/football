@@ -1,18 +1,20 @@
 from enum import Enum
 # from SystemControllerAbstract import SystemControllerAbstract
 
+
 class JustifyEnum(Enum):
-    LEFT="left"
-    RIGHT="right"
-    CENTER="center"
+    LEFT = "left"
+    RIGHT = "right"
+    CENTER = "center"
+
 
 class ColumnStyle:
-    def __init__(self,systemController,name="",visualName="",justify:JustifyEnum=JustifyEnum.LEFT,primaryKey:bool=False):
+    def __init__(self, systemController, name="", visualName="", justify: JustifyEnum = JustifyEnum.LEFT, primaryKey: bool = False):
         self.systemController = systemController
-        self.name=name
-        self.visualName=self.name if len(visualName)==0 else visualName
-        self.justify=justify
-        self.primaryKey=primaryKey
+        self.name = name
+        self.visualName = self.name if len(visualName) == 0 else visualName
+        self.justify = justify
+        self.primaryKey = primaryKey
 
     def getName(self):
         return self.name
