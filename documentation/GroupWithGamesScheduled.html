@@ -18,10 +18,23 @@
     
 <tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
-<dt><font face="helvetica, arial"><a href="Group.html#Group">Group.Group</a>(<a href="builtins.html#object">builtins.object</a>)
+<dt><font face="helvetica, arial"><a href="Group.html#Group">Group.Group</a>(<a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>)
 </font></dt><dd>
 <dl>
-<dt><font face="helvetica, arial"><a href="GroupWithGamesScheduled.html#GroupWithGamesScheduled">GroupWithGamesScheduled</a>
+<dt><font face="helvetica, arial"><a href="GroupWithGamesScheduled.html#GroupWithGamesScheduled">GroupWithGamesScheduled</a>(<a href="Group.html#Group">Group.Group</a>, <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>)
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="Play.html#Play">Play.Play</a>(<a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="GroupWithGamesScheduled.html#PlayWithSchedule">PlayWithSchedule</a>(<a href="Play.html#Play">Play.Play</a>, <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>)
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>(<a href="SerialisableInterface.html#SerialisableInterface">SerialisableInterface.SerialisableInterface</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="GroupWithGamesScheduled.html#GroupWithGamesScheduled">GroupWithGamesScheduled</a>(<a href="Group.html#Group">Group.Group</a>, <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>)
+</font></dt><dt><font face="helvetica, arial"><a href="GroupWithGamesScheduled.html#PlayWithSchedule">PlayWithSchedule</a>(<a href="Play.html#Play">Play.Play</a>, <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>)
 </font></dt></dl>
 </dd>
 </dl>
@@ -29,43 +42,51 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="GroupWithGamesScheduled">class <strong>GroupWithGamesScheduled</strong></a>(<a href="Group.html#Group">Group.Group</a>)</font></td></tr>
+<font color="#000000" face="helvetica, arial"><a name="GroupWithGamesScheduled">class <strong>GroupWithGamesScheduled</strong></a>(<a href="Group.html#Group">Group.Group</a>, <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt><a href="#GroupWithGamesScheduled">GroupWithGamesScheduled</a>(group,&nbsp;schedulesList:&nbsp;List[Schedule.Schedule])<br>
+<td colspan=2><tt><a href="#GroupWithGamesScheduled">GroupWithGamesScheduled</a>(groupID:&nbsp;int&nbsp;=&nbsp;0,&nbsp;groupName:&nbsp;str&nbsp;=&nbsp;'',&nbsp;team1ID:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team2ID:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team3ID:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team1Score:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team2Score:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team3Score:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team1GoalsScored:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team2GoalsScored:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team3GoalsScored:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team1GoalsMissed:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team2GoalsMissed:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team3GoalsMissed:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team1YellowCards:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team2YellowCards:&nbsp;int&nbsp;=&nbsp;0,&nbsp;team3YellowCards:&nbsp;int&nbsp;=&nbsp;0,&nbsp;play1:&nbsp;<a href="#GroupWithGamesScheduled">GroupWithGamesScheduled</a>.<a href="#PlayWithSchedule">PlayWithSchedule</a>&nbsp;=&nbsp;<a href="#PlayWithSchedule">PlayWithSchedule</a>(playID=0,&nbsp;team1ID=0,&nbsp;team2ID=0,&nbsp;team1GoalsScored=0,&nbsp;team2GoalsScored=0,&nbsp;team1GoalsMissed=0,&nbsp;team2GoalsMissed=0,&nbsp;team1YellowCards=0,&nbsp;team2YellowCards=0,&nbsp;isPlayCompleted=False,&nbsp;relevantScheduleIDForTeam1=None,&nbsp;relevantScheduleIDForTeam2=None,&nbsp;isGroupPhase=False,&nbsp;isQuarterFinal=False,&nbsp;isSemiFinal=False,&nbsp;is3rdPlaceFinal=False,&nbsp;isFinal=False,&nbsp;schedule=Schedule(scheduleID=None,&nbsp;playID=None,&nbsp;date=None,&nbsp;timeOfDay=&amp;lt;TimeOfDay.Morning:&nbsp;'Morning'&amp;gt;,&nbsp;isPlayCompleted=False,&nbsp;isGroupPhase=False)),&nbsp;play2:&nbsp;<a href="#GroupWithGamesScheduled">GroupWithGamesScheduled</a>.<a href="#PlayWithSchedule">PlayWithSchedule</a>&nbsp;=&nbsp;<a href="#PlayWithSchedule">PlayWithSchedule</a>(playID=0,&nbsp;team1ID=0,&nbsp;team2ID=0,&nbsp;team1GoalsScored=0,&nbsp;team2GoalsScored=0,&nbsp;team1GoalsMissed=0,&nbsp;team2GoalsMissed=0,&nbsp;team1YellowCards=0,&nbsp;team2YellowCards=0,&nbsp;isPlayCompleted=False,&nbsp;relevantScheduleIDForTeam1=None,&nbsp;relevantScheduleIDForTeam2=None,&nbsp;isGroupPhase=False,&nbsp;isQuarterFinal=False,&nbsp;isSemiFinal=False,&nbsp;is3rdPlaceFinal=False,&nbsp;isFinal=False,&nbsp;schedule=Schedule(scheduleID=None,&nbsp;playID=None,&nbsp;date=None,&nbsp;timeOfDay=&amp;lt;TimeOfDay.Morning:&nbsp;'Morning'&amp;gt;,&nbsp;isPlayCompleted=False,&nbsp;isGroupPhase=False)))&nbsp;-&amp;gt;&nbsp;None<br>
 &nbsp;<br>
 A&nbsp;group&nbsp;structure&nbsp;extended&nbsp;by&nbsp;list&nbsp;of&nbsp;related&nbsp;games&nbsp;scheduled&nbsp;objects&nbsp;including&nbsp;the&nbsp;play&nbsp;records&nbsp;for&nbsp;each&nbsp;schedule.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="GroupWithGamesScheduled.html#GroupWithGamesScheduled">GroupWithGamesScheduled</a></dd>
 <dd><a href="Group.html#Group">Group.Group</a></dd>
+<dd><a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a></dd>
+<dd><a href="SerialisableInterface.html#SerialisableInterface">SerialisableInterface.SerialisableInterface</a></dd>
 <dd><a href="builtins.html#object">builtins.object</a></dd>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="GroupWithGamesScheduled-__init__"><strong>__init__</strong></a>(self, group, schedulesList: List[Schedule.Schedule])</dt><dd><tt>Fields:<br>
-groupID&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;group&nbsp;ID<br>
-groupName&nbsp;(str)=""&nbsp;:&nbsp;the&nbsp;group&nbsp;name<br>
-team1PlayCounter&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;amount&nbsp;of&nbsp;plays&nbsp;completed&nbsp;for&nbsp;team&nbsp;1<br>
-team2PlayCounter&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;amount&nbsp;of&nbsp;plays&nbsp;completed&nbsp;for&nbsp;team&nbsp;2<br>
-team3PlayCounter&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;amount&nbsp;of&nbsp;plays&nbsp;completed&nbsp;for&nbsp;team&nbsp;3<br>
-team1Score&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;1&nbsp;score<br>
-team2Score&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;2&nbsp;score<br>
-team3Score&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;3&nbsp;score<br>
-team1ID&nbsp;(int)&nbsp;:&nbsp;the&nbsp;team&nbsp;1&nbsp;ID<br>
-team2ID&nbsp;(str)&nbsp;:&nbsp;the&nbsp;team&nbsp;2&nbsp;ID<br>
-team3ID&nbsp;(int)&nbsp;:&nbsp;the&nbsp;team&nbsp;3&nbsp;ID<br>
-team1GoalsScored&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;1&nbsp;goals&nbsp;scored<br>
-team2GoalsScored&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;2&nbsp;goals&nbsp;scored<br>
-team3GoalsScored&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;3&nbsp;goals&nbsp;scored<br>
-team1GoalsMissed&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;1&nbsp;goals&nbsp;missed<br>
-team2GoalsMissed&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;2&nbsp;goals&nbsp;missed<br>
-team3GoalsMissed&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;3&nbsp;goals&nbsp;missed<br>
-team1YellowCards&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;1&nbsp;yellow&nbsp;cards<br>
-team2YellowCards&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;2&nbsp;yellow&nbsp;cards<br>
-team3YellowCards&nbsp;(int)=0&nbsp;:&nbsp;the&nbsp;team&nbsp;3&nbsp;yellow&nbsp;cards<br>
-isGroupCompleted&nbsp;(bool)=false&nbsp;:&nbsp;true&nbsp;if&nbsp;all&nbsp;the&nbsp;games&nbsp;in&nbsp;this&nbsp;group&nbsp;was&nbsp;already&nbsp;completed<br>
-scheduleList&nbsp;(List[Schedule])&nbsp;:&nbsp;the&nbsp;schedule&nbsp;list&nbsp;containing&nbsp;the&nbsp;coresponding&nbsp;Play&nbsp;record&nbsp;data</tt></dd></dl>
+<dl><dt><a name="GroupWithGamesScheduled-__eq__"><strong>__eq__</strong></a>(self, other)</dt><dd><tt>Return&nbsp;self==value.</tt></dd></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-__ge__"><strong>__ge__</strong></a>(self, other)</dt><dd><tt>Return&nbsp;self&gt;=value.</tt></dd></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-__gt__"><strong>__gt__</strong></a>(self, other)</dt><dd><tt>Return&nbsp;self&gt;value.</tt></dd></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-__init__"><strong>__init__</strong></a>(self, groupID: int = 0, groupName: str = '', team1ID: int = 0, team2ID: int = 0, team3ID: int = 0, team1Score: int = 0, team2Score: int = 0, team3Score: int = 0, team1GoalsScored: int = 0, team2GoalsScored: int = 0, team3GoalsScored: int = 0, team1GoalsMissed: int = 0, team2GoalsMissed: int = 0, team3GoalsMissed: int = 0, team1YellowCards: int = 0, team2YellowCards: int = 0, team3YellowCards: int = 0, play1: GroupWithGamesScheduled.PlayWithSchedule = PlayWithSchedule(playID=0, team1ID=0, team2ID=0, team1GoalsScored=0, team2GoalsScored=0, team1GoalsMissed=0, team2GoalsMissed=0, team1YellowCards=0, team2YellowCards=0, isPlayCompleted=False, relevantScheduleIDForTeam1=None, relevantScheduleIDForTeam2=None, isGroupPhase=False, isQuarterFinal=False, isSemiFinal=False, is3rdPlaceFinal=False, isFinal=False, schedule=Schedule(scheduleID=None, playID=None, date=None, timeOfDay=&lt;TimeOfDay.Morning: 'Morning'&gt;, isPlayCompleted=False, isGroupPhase=False)), play2: GroupWithGamesScheduled.PlayWithSchedule = PlayWithSchedule(playID=0, team1ID=0, team2ID=0, team1GoalsScored=0, team2GoalsScored=0, team1GoalsMissed=0, team2GoalsMissed=0, team1YellowCards=0, team2YellowCards=0, isPlayCompleted=False, relevantScheduleIDForTeam1=None, relevantScheduleIDForTeam2=None, isGroupPhase=False, isQuarterFinal=False, isSemiFinal=False, is3rdPlaceFinal=False, isFinal=False, schedule=Schedule(scheduleID=None, playID=None, date=None, timeOfDay=&lt;TimeOfDay.Morning: 'Morning'&gt;, isPlayCompleted=False, isGroupPhase=False))) -&gt; None</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-__le__"><strong>__le__</strong></a>(self, other)</dt><dd><tt>Return&nbsp;self&lt;=value.</tt></dd></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-__lt__"><strong>__lt__</strong></a>(self, other)</dt><dd><tt>Return&nbsp;self&lt;value.</tt></dd></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__annotations__</strong> = {'play1': &lt;class 'GroupWithGamesScheduled.PlayWithSchedule'&gt;, 'play2': &lt;class 'GroupWithGamesScheduled.PlayWithSchedule'&gt;}</dl>
+
+<dl><dt><strong>__dataclass_fields__</strong> = {'groupID': Field(name='groupID',type=&lt;class 'int'&gt;,default=...appingproxy({}),kw_only=False,_field_type=_FIELD), 'groupName': Field(name='groupName',type=&lt;class 'str'&gt;,defaul...appingproxy({}),kw_only=False,_field_type=_FIELD), 'play1': Field(name='play1',type=&lt;class 'GroupWithGamesSc...appingproxy({}),kw_only=False,_field_type=_FIELD), 'play2': Field(name='play2',type=&lt;class 'GroupWithGamesSc...appingproxy({}),kw_only=False,_field_type=_FIELD), 'team1GoalsMissed': Field(name='team1GoalsMissed',type=&lt;class 'int'&gt;...appingproxy({}),kw_only=False,_field_type=_FIELD), 'team1GoalsScored': Field(name='team1GoalsScored',type=&lt;class 'int'&gt;...appingproxy({}),kw_only=False,_field_type=_FIELD), 'team1ID': Field(name='team1ID',type=&lt;class 'int'&gt;,default=...appingproxy({}),kw_only=False,_field_type=_FIELD), 'team1Score': Field(name='team1Score',type=&lt;class 'int'&gt;,defau...appingproxy({}),kw_only=False,_field_type=_FIELD), 'team1YellowCards': Field(name='team1YellowCards',type=&lt;class 'int'&gt;...appingproxy({}),kw_only=False,_field_type=_FIELD), 'team2GoalsMissed': Field(name='team2GoalsMissed',type=&lt;class 'int'&gt;...appingproxy({}),kw_only=False,_field_type=_FIELD), ...}</dl>
+
+<dl><dt><strong>__dataclass_params__</strong> = _DataclassParams(init=True,repr=True,eq=True,order=True,unsafe_hash=False,frozen=False)</dl>
+
+<dl><dt><strong>__hash__</strong> = None</dl>
+
+<dl><dt><strong>__match_args__</strong> = ('groupID', 'groupName', 'team1ID', 'team2ID', 'team3ID', 'team1Score', 'team2Score', 'team3Score', 'team1GoalsScored', 'team2GoalsScored', 'team3GoalsScored', 'team1GoalsMissed', 'team2GoalsMissed', 'team3GoalsMissed', 'team1YellowCards', 'team2YellowCards', 'team3YellowCards', 'play1', 'play2')</dl>
+
+<dl><dt><strong>play1</strong> = PlayWithSchedule(playID=0, team1ID=0, team2ID=0,...ng'&gt;, isPlayCompleted=False, isGroupPhase=False))</dl>
+
+<dl><dt><strong>play2</strong> = PlayWithSchedule(playID=0, team1ID=0, team2ID=0,...ng'&gt;, isPlayCompleted=False, isGroupPhase=False))</dl>
 
 <hr>
 Methods inherited from <a href="Group.html#Group">Group.Group</a>:<br>
@@ -77,18 +98,28 @@ for&nbsp;goals&nbsp;and&nbsp;cards&nbsp;scores&nbsp;for&nbsp;evert&nbsp;of&nbsp;
 -&nbsp;check&nbsp;if&nbsp;every&nbsp;team&nbsp;play&nbsp;counter&nbsp;is&nbsp;equal&nbsp;to&nbsp;3&nbsp;(every&nbsp;team&nbsp;is&nbsp;expected&nbsp;to&nbsp;play&nbsp;3&nbsp;games&nbsp;during&nbsp;the&nbsp;group&nbsp;phase)<br>
 -&nbsp;if&nbsp;every&nbsp;team&nbsp;in&nbsp;group&nbsp;object&nbsp;had&nbsp;already&nbsp;3&nbsp;plays,&nbsp;set&nbsp;the&nbsp;isGroupCompleted&nbsp;flat&nbsp;to&nbsp;true<br>
 -&nbsp;if&nbsp;isGroupCompleted&nbsp;is&nbsp;true,&nbsp;check&nbsp;every&nbsp;other&nbsp;group&nbsp;record&nbsp;in&nbsp;the&nbsp;database&nbsp;and&nbsp;if&nbsp;every&nbsp;groups&nbsp;are&nbsp;already&nbsp;completed,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;the&nbsp;StateMachine.setGroupPhaseCompleted()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;the&nbsp;ApplicationState.setGroupPhaseCompleted()<br>
 &nbsp;<br>
 Args:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;team1AddGoalsScored&nbsp;(int,optional):&nbsp;team&nbsp;1&nbsp;amount&nbsp;of&nbsp;scored&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;team1AddGoalsMissed&nbsp;(int,optional):&nbsp;team&nbsp;1&nbsp;amount&nbsp;of&nbsp;missed&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;team1AddYellowCards&nbsp;(int,optional):&nbsp;team&nbsp;1&nbsp;amount&nbsp;of&nbsp;yellow&nbsp;cards&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;team2AddGoalsScored&nbsp;(int,optional):&nbsp;team&nbsp;2&nbsp;amount&nbsp;of&nbsp;scored&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;team2AddGoalsMissed&nbsp;(int,optional):&nbsp;team&nbsp;2&nbsp;amount&nbsp;of&nbsp;missed&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;team2AddYellowCards&nbsp;(int,optional):&nbsp;team&nbsp;2&nbsp;amount&nbsp;of&nbsp;yellow&nbsp;cards&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;team3AddGoalsScored&nbsp;(int,optional):&nbsp;team&nbsp;3&nbsp;amount&nbsp;of&nbsp;scored&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;team3AddGoalsMissed&nbsp;(int,optional):&nbsp;team&nbsp;3&nbsp;amount&nbsp;of&nbsp;missed&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;team3AddYellowCards&nbsp;(int,optional):&nbsp;team&nbsp;3&nbsp;amount&nbsp;of&nbsp;yellow&nbsp;cards&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;team1AddGoalsScored&nbsp;(int,optional):&nbsp;team&nbsp;1&nbsp;amount&nbsp;of&nbsp;scored&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team1AddGoalsMissed&nbsp;(int,optional):&nbsp;team&nbsp;1&nbsp;amount&nbsp;of&nbsp;missed&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team1AddYellowCards&nbsp;(int,optional):&nbsp;team&nbsp;1&nbsp;amount&nbsp;of&nbsp;yellow&nbsp;cards&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team2AddGoalsScored&nbsp;(int,optional):&nbsp;team&nbsp;2&nbsp;amount&nbsp;of&nbsp;scored&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team2AddGoalsMissed&nbsp;(int,optional):&nbsp;team&nbsp;2&nbsp;amount&nbsp;of&nbsp;missed&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team2AddYellowCards&nbsp;(int,optional):&nbsp;team&nbsp;2&nbsp;amount&nbsp;of&nbsp;yellow&nbsp;cards&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team3AddGoalsScored&nbsp;(int,optional):&nbsp;team&nbsp;3&nbsp;amount&nbsp;of&nbsp;scored&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team3AddGoalsMissed&nbsp;(int,optional):&nbsp;team&nbsp;3&nbsp;amount&nbsp;of&nbsp;missed&nbsp;goals&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team3AddYellowCards&nbsp;(int,optional):&nbsp;team&nbsp;3&nbsp;amount&nbsp;of&nbsp;yellow&nbsp;cards&nbsp;to&nbsp;add&nbsp;after&nbsp;next&nbsp;play&nbsp;is&nbsp;completed</tt></dd></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-getGroupSecondPlace"><strong>getGroupSecondPlace</strong></a>(self)</dt><dd><tt>Return&nbsp;teamID&nbsp;of&nbsp;the&nbsp;second&nbsp;place&nbsp;winner&nbsp;team&nbsp;for&nbsp;the&nbsp;group.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int:&nbsp;teamID</tt></dd></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-getGroupWinner"><strong>getGroupWinner</strong></a>(self) -&gt; int</dt><dd><tt>Return&nbsp;teamID&nbsp;of&nbsp;the&nbsp;winner&nbsp;team&nbsp;for&nbsp;the&nbsp;group.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int:&nbsp;teamID</tt></dd></dl>
 
 <hr>
 Static methods inherited from <a href="Group.html#Group">Group.Group</a>:<br>
@@ -99,13 +130,266 @@ Follow&nbsp;the&nbsp;'show&nbsp;match&nbsp;order&nbsp;group&nbsp;status'&nbsp;se
 -&nbsp;call&nbsp;the&nbsp;UIAbstractInterface.displayStatisticsForGroupAndItsGamesSchedule()&nbsp;to&nbsp;show&nbsp;the&nbsp;statistics&nbsp;on&nbsp;the&nbsp;screen</tt></dd></dl>
 
 <hr>
-Data descriptors inherited from <a href="Group.html#Group">Group.Group</a>:<br>
+Data and other attributes inherited from <a href="Group.html#Group">Group.Group</a>:<br>
+<dl><dt><strong>groupID</strong> = 0</dl>
+
+<dl><dt><strong>groupName</strong> = ''</dl>
+
+<dl><dt><strong>team1GoalsMissed</strong> = 0</dl>
+
+<dl><dt><strong>team1GoalsScored</strong> = 0</dl>
+
+<dl><dt><strong>team1ID</strong> = 0</dl>
+
+<dl><dt><strong>team1Score</strong> = 0</dl>
+
+<dl><dt><strong>team1YellowCards</strong> = 0</dl>
+
+<dl><dt><strong>team2GoalsMissed</strong> = 0</dl>
+
+<dl><dt><strong>team2GoalsScored</strong> = 0</dl>
+
+<dl><dt><strong>team2ID</strong> = 0</dl>
+
+<dl><dt><strong>team2Score</strong> = 0</dl>
+
+<dl><dt><strong>team2YellowCards</strong> = 0</dl>
+
+<dl><dt><strong>team3GoalsMissed</strong> = 0</dl>
+
+<dl><dt><strong>team3GoalsScored</strong> = 0</dl>
+
+<dl><dt><strong>team3ID</strong> = 0</dl>
+
+<dl><dt><strong>team3Score</strong> = 0</dl>
+
+<dl><dt><strong>team3YellowCards</strong> = 0</dl>
+
+<hr>
+Methods inherited from <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>:<br>
+<dl><dt><a name="GroupWithGamesScheduled-fromDict"><strong>fromDict</strong></a>(self, data: Dict[str, Any])</dt></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-getHeadersForTreeview"><strong>getHeadersForTreeview</strong></a>(self) -&gt; List[ColumnStyle.ColumnStyle]</dt></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-getValuesAsDict"><strong>getValuesAsDict</strong></a>(self)</dt></dl>
+
+<hr>
+Class methods inherited from <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>:<br>
+<dl><dt><a name="GroupWithGamesScheduled-setEnvironment"><strong>setEnvironment</strong></a>(systemController)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt></dl>
+
+<hr>
+Data and other attributes inherited from <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>:<br>
+<dl><dt><strong>tableNameList</strong> = {}</dl>
+
+<hr>
+Methods inherited from <a href="SerialisableInterface.html#SerialisableInterface">SerialisableInterface.SerialisableInterface</a>:<br>
+<dl><dt><a name="GroupWithGamesScheduled-getApp"><strong>getApp</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-getDb"><strong>getDb</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="GroupWithGamesScheduled-getSystemController"><strong>getSystemController</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="SerialisableInterface.html#SerialisableInterface">SerialisableInterface.SerialisableInterface</a>:<br>
 <dl><dt><strong>__dict__</strong></dt>
 <dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
 <dl><dt><strong>__weakref__</strong></dt>
 <dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
 </dl>
+<hr>
+Data and other attributes inherited from <a href="SerialisableInterface.html#SerialisableInterface">SerialisableInterface.SerialisableInterface</a>:<br>
+<dl><dt><strong>systemController</strong> = typing.Any<dd><tt>Special&nbsp;type&nbsp;indicating&nbsp;an&nbsp;unconstrained&nbsp;type.<br>
+&nbsp;<br>
+-&nbsp;Any&nbsp;is&nbsp;compatible&nbsp;with&nbsp;every&nbsp;type.<br>
+-&nbsp;Any&nbsp;assumed&nbsp;to&nbsp;have&nbsp;all&nbsp;methods.<br>
+-&nbsp;All&nbsp;values&nbsp;assumed&nbsp;to&nbsp;be&nbsp;instances&nbsp;of&nbsp;Any.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;all&nbsp;the&nbsp;above&nbsp;statements&nbsp;are&nbsp;true&nbsp;from&nbsp;the&nbsp;point&nbsp;of&nbsp;view&nbsp;of<br>
+static&nbsp;type&nbsp;checkers.&nbsp;At&nbsp;runtime,&nbsp;Any&nbsp;should&nbsp;not&nbsp;be&nbsp;used&nbsp;with&nbsp;instance<br>
+or&nbsp;class&nbsp;checks.</tt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PlayWithSchedule">class <strong>PlayWithSchedule</strong></a>(<a href="Play.html#Play">Play.Play</a>, <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#PlayWithSchedule">PlayWithSchedule</a>(playID:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team1ID:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team2ID:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team1GoalsScored:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team2GoalsScored:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team1GoalsMissed:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team2GoalsMissed:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team1YellowCards:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team2YellowCards:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;isPlayCompleted:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;relevantScheduleIDForTeam1:&nbsp;'Optional[int]'&nbsp;=&nbsp;None,&nbsp;relevantScheduleIDForTeam2:&nbsp;'Optional[int]'&nbsp;=&nbsp;None,&nbsp;isGroupPhase:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;isQuarterFinal:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;isSemiFinal:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;is3rdPlaceFinal:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;isFinal:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;schedule:&nbsp;Schedule.Schedule&nbsp;=&nbsp;Schedule(scheduleID=None,&nbsp;playID=None,&nbsp;date=None,&nbsp;timeOfDay=&amp;lt;TimeOfDay.Morning:&nbsp;'Morning'&amp;gt;,&nbsp;isPlayCompleted=False,&nbsp;isGroupPhase=False))&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+<a href="#PlayWithSchedule">PlayWithSchedule</a>(playID:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team1ID:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team2ID:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team1GoalsScored:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team2GoalsScored:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team1GoalsMissed:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team2GoalsMissed:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team1YellowCards:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;team2YellowCards:&nbsp;'int'&nbsp;=&nbsp;0,&nbsp;isPlayCompleted:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;relevantScheduleIDForTeam1:&nbsp;'Optional[int]'&nbsp;=&nbsp;None,&nbsp;relevantScheduleIDForTeam2:&nbsp;'Optional[int]'&nbsp;=&nbsp;None,&nbsp;isGroupPhase:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;isQuarterFinal:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;isSemiFinal:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;is3rdPlaceFinal:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;isFinal:&nbsp;'bool'&nbsp;=&nbsp;False,&nbsp;schedule:&nbsp;Schedule.Schedule&nbsp;=&nbsp;Schedule(scheduleID=None,&nbsp;playID=None,&nbsp;date=None,&nbsp;timeOfDay=&lt;TimeOfDay.Morning:&nbsp;'Morning'&gt;,&nbsp;isPlayCompleted=False,&nbsp;isGroupPhase=False))<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="GroupWithGamesScheduled.html#PlayWithSchedule">PlayWithSchedule</a></dd>
+<dd><a href="Play.html#Play">Play.Play</a></dd>
+<dd><a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a></dd>
+<dd><a href="SerialisableInterface.html#SerialisableInterface">SerialisableInterface.SerialisableInterface</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="PlayWithSchedule-__eq__"><strong>__eq__</strong></a>(self, other)</dt><dd><tt>Return&nbsp;self==value.</tt></dd></dl>
+
+<dl><dt><a name="PlayWithSchedule-__ge__"><strong>__ge__</strong></a>(self, other)</dt><dd><tt>Return&nbsp;self&gt;=value.</tt></dd></dl>
+
+<dl><dt><a name="PlayWithSchedule-__gt__"><strong>__gt__</strong></a>(self, other)</dt><dd><tt>Return&nbsp;self&gt;value.</tt></dd></dl>
+
+<dl><dt><a name="PlayWithSchedule-__init__"><strong>__init__</strong></a>(self, playID: 'int' = 0, team1ID: 'int' = 0, team2ID: 'int' = 0, team1GoalsScored: 'int' = 0, team2GoalsScored: 'int' = 0, team1GoalsMissed: 'int' = 0, team2GoalsMissed: 'int' = 0, team1YellowCards: 'int' = 0, team2YellowCards: 'int' = 0, isPlayCompleted: 'bool' = False, relevantScheduleIDForTeam1: 'Optional[int]' = None, relevantScheduleIDForTeam2: 'Optional[int]' = None, isGroupPhase: 'bool' = False, isQuarterFinal: 'bool' = False, isSemiFinal: 'bool' = False, is3rdPlaceFinal: 'bool' = False, isFinal: 'bool' = False, schedule: Schedule.Schedule = Schedule(scheduleID=None, playID=None, date=None, timeOfDay=&lt;TimeOfDay.Morning: 'Morning'&gt;, isPlayCompleted=False, isGroupPhase=False)) -&gt; None</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="PlayWithSchedule-__le__"><strong>__le__</strong></a>(self, other)</dt><dd><tt>Return&nbsp;self&lt;=value.</tt></dd></dl>
+
+<dl><dt><a name="PlayWithSchedule-__lt__"><strong>__lt__</strong></a>(self, other)</dt><dd><tt>Return&nbsp;self&lt;value.</tt></dd></dl>
+
+<dl><dt><a name="PlayWithSchedule-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__annotations__</strong> = {'schedule': &lt;class 'Schedule.Schedule'&gt;}</dl>
+
+<dl><dt><strong>__dataclass_fields__</strong> = {'is3rdPlaceFinal': Field(name='is3rdPlaceFinal',type='bool',default...appingproxy({}),kw_only=False,_field_type=_FIELD), 'isFinal': Field(name='isFinal',type='bool',default=False,d...appingproxy({}),kw_only=False,_field_type=_FIELD), 'isGroupPhase': Field(name='isGroupPhase',type='bool',default=Fa...appingproxy({}),kw_only=False,_field_type=_FIELD), 'isPlayCompleted': Field(name='isPlayCompleted',type='bool',default...appingproxy({}),kw_only=False,_field_type=_FIELD), 'isQuarterFinal': Field(name='isQuarterFinal',type='bool',default=...appingproxy({}),kw_only=False,_field_type=_FIELD), 'isSemiFinal': Field(name='isSemiFinal',type='bool',default=Fal...appingproxy({}),kw_only=False,_field_type=_FIELD), 'playID': Field(name='playID',type='int',default=0,default...appingproxy({}),kw_only=False,_field_type=_FIELD), 'relevantScheduleIDForTeam1': Field(name='relevantScheduleIDForTeam1',type='Op...appingproxy({}),kw_only=False,_field_type=_FIELD), 'relevantScheduleIDForTeam2': Field(name='relevantScheduleIDForTeam2',type='Op...appingproxy({}),kw_only=False,_field_type=_FIELD), 'schedule': Field(name='schedule',type=&lt;class 'Schedule.Sche...appingproxy({}),kw_only=False,_field_type=_FIELD), ...}</dl>
+
+<dl><dt><strong>__dataclass_params__</strong> = _DataclassParams(init=True,repr=True,eq=True,order=True,unsafe_hash=False,frozen=False)</dl>
+
+<dl><dt><strong>__hash__</strong> = None</dl>
+
+<dl><dt><strong>__match_args__</strong> = ('playID', 'team1ID', 'team2ID', 'team1GoalsScored', 'team2GoalsScored', 'team1GoalsMissed', 'team2GoalsMissed', 'team1YellowCards', 'team2YellowCards', 'isPlayCompleted', 'relevantScheduleIDForTeam1', 'relevantScheduleIDForTeam2', 'isGroupPhase', 'isQuarterFinal', 'isSemiFinal', 'is3rdPlaceFinal', 'isFinal', 'schedule')</dl>
+
+<dl><dt><strong>schedule</strong> = Schedule(scheduleID=None, playID=None, date=None...ing'&gt;, isPlayCompleted=False, isGroupPhase=False)</dl>
+
+<hr>
+Methods inherited from <a href="Play.html#Play">Play.Play</a>:<br>
+<dl><dt><a name="PlayWithSchedule-actualiseOneGameData"><strong>actualiseOneGameData</strong></a>(self, playID, team1GoalsScored, team2GoalsScored, team1GoalsMissed, team2GoalsMissed, team1YellowCards, team2YellowCards, isPlayCompleted=False)</dt><dd><tt>Actualise&nbsp;the&nbsp;current&nbsp;results&nbsp;of&nbsp;the&nbsp;game&nbsp;(during&nbsp;and&nbsp;after&nbsp;the&nbsp;play&nbsp;is&nbsp;completed)<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;playID&nbsp;(int):&nbsp;play&nbsp;record&nbsp;ID<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team1GoalsScored&nbsp;(int):&nbsp;team1&nbsp;goals&nbsp;scored<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team2GoalsScored&nbsp;(int):&nbsp;team2&nbsp;goals&nbsp;scored<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team1GoalsMissed&nbsp;(int):&nbsp;team1&nbsp;goals&nbsp;missed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team2GoalsMissed&nbsp;(int):&nbsp;team2&nbsp;goals&nbsp;missed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team1YellowCards&nbsp;(int):&nbsp;team1&nbsp;yellow&nbsp;cards<br>
+&nbsp;&nbsp;&nbsp;&nbsp;team2YellowCards&nbsp;(int):&nbsp;team2&nbsp;yellow&nbsp;cards<br>
+&nbsp;&nbsp;&nbsp;&nbsp;isPlayCompleted&nbsp;(bool,&nbsp;optional):&nbsp;is&nbsp;game&nbsp;finished</tt></dd></dl>
+
+<dl><dt><a name="PlayWithSchedule-checkData"><strong>checkData</strong></a>(self, playObj: 'Play', forEdit: 'bool' = False) -&gt; 'bool'</dt><dd><tt>Check&nbsp;the&nbsp;data&nbsp;in&nbsp;given&nbsp;play&nbsp;object&nbsp;in&nbsp;case&nbsp;to&nbsp;serialise&nbsp;new&nbsp;or&nbsp;edit&nbsp;existent&nbsp;in&nbsp;the&nbsp;database.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;playObj&nbsp;(<a href="Play.html#Play">Play</a>):&nbsp;_description_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;forEdit&nbsp;(bool,&nbsp;optional):&nbsp;_description_.&nbsp;Defaults&nbsp;to&nbsp;False.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;_description_</tt></dd></dl>
+
+<dl><dt><a name="PlayWithSchedule-saveRelativeScheduleRecords"><strong>saveRelativeScheduleRecords</strong></a>(self, randomTeamsList: 'List[Teams]', groupsTeamsDistribution: 'List')</dt><dd><tt>Creates&nbsp;full&nbsp;schedule&nbsp;calendar&nbsp;records&nbsp;for&nbsp;each&nbsp;required&nbsp;play&nbsp;of&nbsp;tournament&nbsp;for&nbsp;both&nbsp;group&nbsp;and&nbsp;playoff&nbsp;games.<br>
+The&nbsp;coresponding&nbsp;to&nbsp;every&nbsp;scheduled&nbsp;game&nbsp;<a href="Play.html#Play">Play</a>&nbsp;objects&nbsp;records&nbsp;are&nbsp;saved&nbsp;into&nbsp;the&nbsp;database&nbsp;as&nbsp;well.</tt></dd></dl>
+
+<hr>
+Static methods inherited from <a href="Play.html#Play">Play.Play</a>:<br>
+<dl><dt><a name="PlayWithSchedule-generateplayoffphaseplayschedule"><strong>generateplayoffphaseplayschedule</strong></a>()</dt><dd><tt>Generates&nbsp;new&nbsp;list&nbsp;of&nbsp;the&nbsp;schedule&nbsp;objects&nbsp;for&nbsp;every&nbsp;games&nbsp;in&nbsp;the&nbsp;playoff&nbsp;phase&nbsp;after&nbsp;the&nbsp;group&nbsp;phase&nbsp;is&nbsp;completed.<br>
+&nbsp;<br>
+-&nbsp;get&nbsp;2&nbsp;best&nbsp;teams&nbsp;from&nbsp;every&nbsp;of&nbsp;group<br>
+-&nbsp;get&nbsp;the&nbsp;max&nbsp;ID&nbsp;used&nbsp;currently&nbsp;in&nbsp;the&nbsp;database&nbsp;of&nbsp;Schedule&nbsp;table&nbsp;using&nbsp;DBAbstractInterface.getMaxIdFromTable()<br>
+-&nbsp;prepare&nbsp;4&nbsp;schedule&nbsp;object&nbsp;(with&nbsp;unique&nbsp;schedule&nbsp;ID's)&nbsp;for&nbsp;quarter-final&nbsp;tree&nbsp;of&nbsp;games,&nbsp;match&nbsp;the&nbsp;winner&nbsp;from&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;one&nbsp;group&nbsp;always&nbsp;with&nbsp;the&nbsp;2nd&nbsp;place&nbsp;team&nbsp;from&nbsp;the&nbsp;other&nbsp;random&nbsp;group<br>
+-&nbsp;prepare&nbsp;2&nbsp;schedule&nbsp;object&nbsp;(with&nbsp;unique&nbsp;schedule&nbsp;ID's)&nbsp;for&nbsp;the&nbsp;semi-final&nbsp;tree&nbsp;of&nbsp;games,&nbsp;match&nbsp;the&nbsp;winner&nbsp;teams&nbsp;from&nbsp;quarter-final<br>
+-&nbsp;prepare&nbsp;2&nbsp;schedule&nbsp;object&nbsp;(with&nbsp;unique&nbsp;schedule&nbsp;ID's)&nbsp;for&nbsp;the&nbsp;final&nbsp;tree&nbsp;of&nbsp;games,&nbsp;match&nbsp;the&nbsp;looser&nbsp;teams&nbsp;for&nbsp;the&nbsp;3rd&nbsp;place&nbsp;final&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;the&nbsp;winner&nbsp;teams&nbsp;for&nbsp;the&nbsp;1st&nbsp;place&nbsp;final<br>
+&nbsp;<br>
+Importat&nbsp;notice:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Quarter-final&nbsp;and&nbsp;semi-final&nbsp;tree&nbsp;of&nbsp;games&nbsp;expect&nbsp;us&nbsp;to&nbsp;set&nbsp;the&nbsp;fields:&nbsp;revelantScheduleIDForTeam1&nbsp;and&nbsp;revelantScheduleIDForTeam2,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;which&nbsp;indicate&nbsp;the&nbsp;scheduleID&nbsp;primary&nbsp;key&nbsp;fields&nbsp;in&nbsp;the&nbsp;next&nbsp;level&nbsp;of&nbsp;tree&nbsp;of&nbsp;games.&nbsp;We&nbsp;don't&nbsp;know&nbsp;at&nbsp;this&nbsp;moment&nbsp;who&nbsp;will&nbsp;be&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;winner&nbsp;in&nbsp;every&nbsp;play&nbsp;scheduled.&nbsp;That's&nbsp;why&nbsp;when&nbsp;the&nbsp;specific&nbsp;playoff&nbsp;game&nbsp;will&nbsp;be&nbsp;completed,&nbsp;the&nbsp;ID&nbsp;of&nbsp;the&nbsp;winner&nbsp;team&nbsp;should&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;into&nbsp;the&nbsp;corresponding&nbsp;schedule&nbsp;object&nbsp;referenced&nbsp;by&nbsp;revelantScheduleIDForTeam1&nbsp;and&nbsp;revelantScheduleIDForTeam2.&nbsp;After&nbsp;this<br>
+&nbsp;&nbsp;&nbsp;&nbsp;setup,&nbsp;the&nbsp;next&nbsp;future&nbsp;schedule&nbsp;with&nbsp;be&nbsp;fullfiled&nbsp;by&nbsp;the&nbsp;actually&nbsp;team&nbsp;ID's&nbsp;wheres&nbsp;before&nbsp;those&nbsp;fields&nbsp;have&nbsp;to&nbsp;be&nbsp;setted&nbsp;up&nbsp;to&nbsp;None.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List[Schedule]&nbsp;:&nbsp;list&nbsp;of&nbsp;Schedule&nbsp;objects</tt></dd></dl>
+
+<dl><dt><a name="PlayWithSchedule-getPlayListForListOfSchedules"><strong>getPlayListForListOfSchedules</strong></a>(listOfRecords: 'List[Schedule]')</dt><dd><tt>Creates&nbsp;windows&nbsp;with&nbsp;view&nbsp;of&nbsp;games&nbsp;statistics&nbsp;for&nbsp;a&nbsp;given&nbsp;list&nbsp;of&nbsp;Schedule&nbsp;records&nbsp;(including&nbsp;<a href="Play.html#Play">Play</a>&nbsp;records)<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;listOfRecords&nbsp;(List[Schedule]):&nbsp;list&nbsp;of&nbsp;Schedule&nbsp;records&nbsp;containing&nbsp;corresponding&nbsp;<a href="Play.html#Play">Play</a>&nbsp;records</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="Play.html#Play">Play.Play</a>:<br>
+<dl><dt><strong>is3rdPlaceFinal</strong> = False</dl>
+
+<dl><dt><strong>isFinal</strong> = False</dl>
+
+<dl><dt><strong>isGroupPhase</strong> = False</dl>
+
+<dl><dt><strong>isPlayCompleted</strong> = False</dl>
+
+<dl><dt><strong>isQuarterFinal</strong> = False</dl>
+
+<dl><dt><strong>isSemiFinal</strong> = False</dl>
+
+<dl><dt><strong>playID</strong> = 0</dl>
+
+<dl><dt><strong>relevantScheduleIDForTeam1</strong> = None</dl>
+
+<dl><dt><strong>relevantScheduleIDForTeam2</strong> = None</dl>
+
+<dl><dt><strong>team1GoalsMissed</strong> = 0</dl>
+
+<dl><dt><strong>team1GoalsScored</strong> = 0</dl>
+
+<dl><dt><strong>team1ID</strong> = 0</dl>
+
+<dl><dt><strong>team1YellowCards</strong> = 0</dl>
+
+<dl><dt><strong>team2GoalsMissed</strong> = 0</dl>
+
+<dl><dt><strong>team2GoalsScored</strong> = 0</dl>
+
+<dl><dt><strong>team2ID</strong> = 0</dl>
+
+<dl><dt><strong>team2YellowCards</strong> = 0</dl>
+
+<hr>
+Methods inherited from <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>:<br>
+<dl><dt><a name="PlayWithSchedule-fromDict"><strong>fromDict</strong></a>(self, data: Dict[str, Any])</dt></dl>
+
+<dl><dt><a name="PlayWithSchedule-getHeadersForTreeview"><strong>getHeadersForTreeview</strong></a>(self) -&gt; List[ColumnStyle.ColumnStyle]</dt></dl>
+
+<dl><dt><a name="PlayWithSchedule-getValuesAsDict"><strong>getValuesAsDict</strong></a>(self)</dt></dl>
+
+<hr>
+Class methods inherited from <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>:<br>
+<dl><dt><a name="PlayWithSchedule-setEnvironment"><strong>setEnvironment</strong></a>(systemController)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt></dl>
+
+<hr>
+Data and other attributes inherited from <a href="Serialisable.html#Serialisable">Serialisable.Serialisable</a>:<br>
+<dl><dt><strong>tableNameList</strong> = {}</dl>
+
+<hr>
+Methods inherited from <a href="SerialisableInterface.html#SerialisableInterface">SerialisableInterface.SerialisableInterface</a>:<br>
+<dl><dt><a name="PlayWithSchedule-getApp"><strong>getApp</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PlayWithSchedule-getDb"><strong>getDb</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PlayWithSchedule-getSystemController"><strong>getSystemController</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="SerialisableInterface.html#SerialisableInterface">SerialisableInterface.SerialisableInterface</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="SerialisableInterface.html#SerialisableInterface">SerialisableInterface.SerialisableInterface</a>:<br>
+<dl><dt><strong>systemController</strong> = typing.Any<dd><tt>Special&nbsp;type&nbsp;indicating&nbsp;an&nbsp;unconstrained&nbsp;type.<br>
+&nbsp;<br>
+-&nbsp;Any&nbsp;is&nbsp;compatible&nbsp;with&nbsp;every&nbsp;type.<br>
+-&nbsp;Any&nbsp;assumed&nbsp;to&nbsp;have&nbsp;all&nbsp;methods.<br>
+-&nbsp;All&nbsp;values&nbsp;assumed&nbsp;to&nbsp;be&nbsp;instances&nbsp;of&nbsp;Any.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;all&nbsp;the&nbsp;above&nbsp;statements&nbsp;are&nbsp;true&nbsp;from&nbsp;the&nbsp;point&nbsp;of&nbsp;view&nbsp;of<br>
+static&nbsp;type&nbsp;checkers.&nbsp;At&nbsp;runtime,&nbsp;Any&nbsp;should&nbsp;not&nbsp;be&nbsp;used&nbsp;with&nbsp;instance<br>
+or&nbsp;class&nbsp;checks.</tt></dl>
+
 </td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
@@ -113,6 +397,5 @@ Data descriptors inherited from <a href="Group.html#Group">Group.Group</a>:<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>List</strong> = typing.List<br>
-<strong>Optional</strong> = typing.Optional</td></tr></table>
+<td width="100%"><strong>List</strong> = typing.List</td></tr></table>
 </body></html>

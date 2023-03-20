@@ -86,7 +86,7 @@ class FootballStateMachine(StateMachine,Serialisable):
         userMenu.setTransition("calculate_playoff_phase_schedule",calculatePlayoffPhaseSchedule,transitionTo=userMenu).condFlags(lambda fl:fl['groups_completed'] and not fl['playoff_scheduled'])
 
         # tmp:
-        userMenu.setTransition("clear_for_schedule",clearForSchedule,transitionTo=userMenu).condFlags(lambda fl:fl['groups_scheduled'] and not fl['playoff_scheduled'])
+        # userMenu.setTransition("clear_for_schedule",clearForSchedule,transitionTo=userMenu).condFlags(lambda fl:fl['groups_scheduled'] and not fl['playoff_scheduled'])
 
         defineTeam.setTransition("ok",saveTeam,transitionTo=defineTeam)
         defineTeam.setTransition("cancel",userMenu)

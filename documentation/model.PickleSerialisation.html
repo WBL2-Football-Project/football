@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module model.PickleSerialisation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="model.html"><font color="#ffffff">model</font></a>.PickleSerialisation</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/luki/clients/uws/year_2/term2/wbl2/football/src/model/PickleSerialisation.py">/Users/luki/clients/uws/year_2/term2/wbl2/football/src/model/PickleSerialisation.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="pickle.html">pickle</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="model.PickleSerialisation.html#PickleSerialisation">PickleSerialisation</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PickleSerialisation">class <strong>PickleSerialisation</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#PickleSerialisation">PickleSerialisation</a>(fileName:&nbsp;str,&nbsp;defaultData:&nbsp;Optional[Dict[Type[Serialisable.Serialisable],&nbsp;List[Serialisable.Serialisable]]]&nbsp;=&nbsp;None)<br>
+&nbsp;<br>
+<a href="#PickleSerialisation">PickleSerialisation</a>&nbsp;class&nbsp;for&nbsp;serialise&nbsp;to&nbsp;the&nbsp;file&nbsp;instead&nbsp;of&nbsp;database<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="PickleSerialisation-__init__"><strong>__init__</strong></a>(self, fileName: str, defaultData: Optional[Dict[Type[Serialisable.Serialisable], List[Serialisable.Serialisable]]] = None)</dt><dd><tt>Initialise&nbsp;the&nbsp;class<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fileName&nbsp;(str):&nbsp;database&nbsp;file&nbsp;name&nbsp;to&nbsp;save&nbsp;every&nbsp;data&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;defaultData&nbsp;(Optional[Dict[Type[Serialisable],List[Serialisable]]],optional):&nbsp;Mandatory&nbsp;data&nbsp;which&nbsp;have&nbsp;to&nbsp;be&nbsp;saved&nbsp;into&nbsp;empty&nbsp;database&nbsp;at&nbsp;the&nbsp;beginning.&nbsp;Default&nbsp;to&nbsp;None.</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-addDataToDb"><strong>addDataToDb</strong></a>(self, table: Type[Serialisable.Serialisable], data: Serialisable.Serialisable) -&gt; bool</dt><dd><tt>Add&nbsp;new&nbsp;<a href="builtins.html#object">object</a>&nbsp;to&nbsp;the&nbsp;database.&nbsp;ID&nbsp;field&nbsp;will&nbsp;be&nbsp;recounted&nbsp;before&nbsp;write.<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table&nbsp;(Type[Serialisable]):&nbsp;class&nbsp;type&nbsp;of&nbsp;the&nbsp;objects&nbsp;in&nbsp;the&nbsp;database<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(Serialisable):&nbsp;class&nbsp;instance&nbsp;to&nbsp;be&nbsp;added/updated&nbsp;to&nbsp;the&nbsp;database<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;successful&nbsp;or&nbsp;False&nbsp;if&nbsp;not<br>
+&nbsp;<br>
+Reference:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DBAbstractInterface.<a href="#PickleSerialisation-addDataToDb">addDataToDb</a>()</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-deleteDataFromDb"><strong>deleteDataFromDb</strong></a>(self, table: Optional[Type[Serialisable.Serialisable]] = None, filterFunc: Optional[Callable[[Serialisable.Serialisable], bool]] = None)</dt><dd><tt>Delete&nbsp;the&nbsp;data&nbsp;from&nbsp;the&nbsp;DB&nbsp;-&nbsp;all&nbsp;or&nbsp;for&nbsp;the&nbsp;specific&nbsp;table&nbsp;optionally&nbsp;with&nbsp;condition.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table&nbsp;(Type[Serialisable]):&nbsp;_description_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filter_&nbsp;(Optional[Callable[[Serialisable],bool]],&nbsp;optional):&nbsp;_description_.&nbsp;Defaults&nbsp;to&nbsp;None.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionDBAbstractInterface:&nbsp;exception&nbsp;when&nbsp;method&nbsp;has&nbsp;no&nbsp;implementation&nbsp;in&nbsp;final&nbsp;DB&nbsp;implementation&nbsp;class</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-getCountOfRecordsInTable"><strong>getCountOfRecordsInTable</strong></a>(self, table: Type[Serialisable.Serialisable]) -&gt; int</dt><dd><tt>Return&nbsp;amount&nbsp;of&nbsp;records&nbsp;for&nbsp;chosen&nbsp;table&nbsp;in&nbsp;the&nbsp;database.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table&nbsp;(Type[Serialisable]):&nbsp;serialisable&nbsp;class&nbsp;type<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int:&nbsp;amount&nbsp;of&nbsp;objects&nbsp;in&nbsp;the&nbsp;database&nbsp;for&nbsp;specified&nbsp;type&nbsp;of&nbsp;serialisable&nbsp;class<br>
+&nbsp;<br>
+Reference:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DBAbstractInterface.<a href="#PickleSerialisation-getCountOfRecordsInTable">getCountOfRecordsInTable</a>()</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-getListOfRecords"><strong>getListOfRecords</strong></a>(self, table: Type[Serialisable.Serialisable], filterFunc: Optional[Callable[[Serialisable.Serialisable], bool]] = None) -&gt; List[Serialisable.Serialisable]</dt><dd><tt>Returns&nbsp;list&nbsp;of&nbsp;objects&nbsp;from&nbsp;the&nbsp;table&nbsp;filtered&nbsp;by&nbsp;filter&nbsp;function&nbsp;if&nbsp;provided.<br>
+&nbsp;<br>
+Reference:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DBAbstractInterface.<a href="#PickleSerialisation-getListOfRecords">getListOfRecords</a>()<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table&nbsp;(Type[Serialisable]):&nbsp;serialisable&nbsp;class&nbsp;type<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filterFunc&nbsp;(Callable[[Serialisable],bool],optional):&nbsp;function&nbsp;to&nbsp;filter&nbsp;list&nbsp;of&nbsp;objects.&nbsp;Default&nbsp;to&nbsp;all&nbsp;objects.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List[Serialisable]:&nbsp;_description_</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-getMaxIdFromTable"><strong>getMaxIdFromTable</strong></a>(self, table: Type[Serialisable.Serialisable]) -&gt; int</dt><dd><tt>Returns&nbsp;the&nbsp;maximum&nbsp;ID&nbsp;value&nbsp;found&nbsp;in&nbsp;the&nbsp;given&nbsp;table&nbsp;in&nbsp;the&nbsp;database.<br>
+&nbsp;<br>
+Reference:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DBAbstractInterface.<a href="#PickleSerialisation-getMaxIdFromTable">getMaxIdFromTable</a>()<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table&nbsp;(Type[Serialisable]):&nbsp;type&nbsp;of&nbsp;serialised&nbsp;class<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int:&nbsp;max&nbsp;value&nbsp;existed&nbsp;in&nbsp;the&nbsp;database&nbsp;for&nbsp;the&nbsp;table&nbsp;or&nbsp;0&nbsp;if&nbsp;there's&nbsp;no&nbsp;records&nbsp;yet</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-getOneRecord"><strong>getOneRecord</strong></a>(self, table: Type[Serialisable.Serialisable], id: int) -&gt; Any</dt><dd><tt>Find&nbsp;by&nbsp;given&nbsp;id&nbsp;and&nbsp;return&nbsp;one&nbsp;record&nbsp;from&nbsp;database<br>
+&nbsp;<br>
+Reference:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DBAbstractInterface.<a href="#PickleSerialisation-getOneRecord">getOneRecord</a>()<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table&nbsp;(Type[Serialisable]):&nbsp;serialisable&nbsp;class&nbsp;type<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id:int&nbsp;:&nbsp;record&nbsp;id&nbsp;to&nbsp;find<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Serialisable:&nbsp;one&nbsp;record&nbsp;data&nbsp;in&nbsp;form&nbsp;of&nbsp;Serialisable&nbsp;<a href="builtins.html#object">object</a></tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-getPrimaryKeyFieldNamesList"><strong>getPrimaryKeyFieldNamesList</strong></a>(self, table: Type[Serialisable.Serialisable]) -&gt; List[str]</dt></dl>
+
+<dl><dt><a name="PickleSerialisation-listAllTables"><strong>listAllTables</strong></a>(self) -&gt; Dict[Type[Serialisable.Serialisable], List[str]]</dt><dd><tt>List&nbsp;all&nbsp;tables&nbsp;defined&nbsp;in&nbsp;the&nbsp;application&nbsp;(classes&nbsp;inherited&nbsp;from&nbsp;Serialisable&nbsp;class)<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Dict[Type[Serialisable],List[str]]:&nbsp;currently&nbsp;recognized&nbsp;serialised&nbsp;classes&nbsp;with&nbsp;full&nbsp;properties&nbsp;names</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-loadData"><strong>loadData</strong></a>(self, table: Optional[Type[Serialisable.Serialisable]] = None, filter: Optional[Callable[[Serialisable.Serialisable], bool]] = None) -&gt; Dict[Type[Serialisable.Serialisable], List[Serialisable.Serialisable]]</dt><dd><tt>Loading&nbsp;data&nbsp;from&nbsp;the&nbsp;database,&nbsp;optionally&nbsp;from&nbsp;chosen&nbsp;table&nbsp;with&nbsp;possible&nbsp;filtering&nbsp;records<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table&nbsp;(Type[Serialisable],optional):&nbsp;Get&nbsp;only&nbsp;data&nbsp;for&nbsp;table&nbsp;/&nbsp;Serialisation&nbsp;class&nbsp;type.&nbsp;Default&nbsp;table&nbsp;to&nbsp;None.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filter&nbsp;(Callable[[Serialisable],bool],optional):&nbsp;Filter&nbsp;all&nbsp;the&nbsp;objects&nbsp;if&nbsp;table&nbsp;was&nbsp;given.&nbsp;Defaults&nbsp;to&nbsp;None.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Dict[Type[Serialisable],List[Serialisable]]:&nbsp;indexed&nbsp;by&nbsp;Type[Serialised]&nbsp;Dictionary,&nbsp;with&nbsp;list&nbsp;of&nbsp;Serialisable&nbsp;objects&nbsp;instances&nbsp;in&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-resetAllDataInDb"><strong>resetAllDataInDb</strong></a>(self, exclude: Optional[Type[Serialisable.Serialisable]] = None)</dt><dd><tt>Reset&nbsp;every&nbsp;data&nbsp;in&nbsp;database.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionDBAbstractInterface:&nbsp;exception&nbsp;when&nbsp;method&nbsp;has&nbsp;no&nbsp;implementation&nbsp;in&nbsp;final&nbsp;DB&nbsp;implementation&nbsp;class</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-saveData"><strong>saveData</strong></a>(self, data: Dict[Type[Serialisable.Serialisable], List[Serialisable.Serialisable]])</dt></dl>
+
+<dl><dt><a name="PickleSerialisation-scanSourcesForSerialised"><strong>scanSourcesForSerialised</strong></a>(self)</dt><dd><tt>Scanning&nbsp;all&nbsp;loaded&nbsp;source&nbsp;code&nbsp;for&nbsp;serialised&nbsp;class&nbsp;types&nbsp;and&nbsp;register&nbsp;them&nbsp;all</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-setPrimaryKey"><strong>setPrimaryKey</strong></a>(self, objInstance, value) -&gt; Any</dt><dd><tt>Check&nbsp;defined&nbsp;primary&nbsp;key&nbsp;for&nbsp;given&nbsp;<a href="builtins.html#object">object</a>&nbsp;implementation&nbsp;(inherited&nbsp;from&nbsp;Serialisable)&nbsp;and&nbsp;sets&nbsp;the&nbsp;primary&nbsp;key&nbsp;for&nbsp;given&nbsp;value.<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;objInstance&nbsp;(Serialisable):&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance<br>
+&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;(Any):&nbsp;valu&nbsp;to&nbsp;set&nbsp;for&nbsp;primary&nbsp;key&nbsp;of&nbsp;given&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-truncateTable"><strong>truncateTable</strong></a>(self, table: Type[Serialisable.Serialisable])</dt><dd><tt>Zeroes&nbsp;out&nbsp;the&nbsp;specified&nbsp;table&nbsp;in&nbsp;the&nbsp;database.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table&nbsp;(Type[Serialisable]):&nbsp;serialisable&nbsp;class&nbsp;type<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionDBAbstractInterface:&nbsp;exception&nbsp;when&nbsp;method&nbsp;has&nbsp;no&nbsp;implementation&nbsp;in&nbsp;final&nbsp;DB&nbsp;implementation&nbsp;class</tt></dd></dl>
+
+<dl><dt><a name="PickleSerialisation-updateDataInDb"><strong>updateDataInDb</strong></a>(self, table: Type[Serialisable.Serialisable], data: Serialisable.Serialisable, ID) -&gt; bool</dt><dd><tt>Update&nbsp;the&nbsp;data&nbsp;in&nbsp;the&nbsp;database<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table&nbsp;(Type[Serialisable]):&nbsp;class&nbsp;type&nbsp;of&nbsp;the&nbsp;objects&nbsp;in&nbsp;the&nbsp;database<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(Serialisable):&nbsp;class&nbsp;instance&nbsp;to&nbsp;be&nbsp;added/updated&nbsp;to&nbsp;the&nbsp;database<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ID:&nbsp;<a href="builtins.html#object">object</a>&nbsp;record&nbsp;ID&nbsp;value&nbsp;to&nbsp;find&nbsp;in&nbsp;the&nbsp;database<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;successful&nbsp;or&nbsp;False&nbsp;if&nbsp;not<br>
+&nbsp;<br>
+Reference:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DBAbstractInterface.<a href="#PickleSerialisation-updateDataInDb">updateDataInDb</a>()</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>Any</strong> = typing.Any<br>
+<strong>Callable</strong> = typing.Callable<br>
+<strong>Dict</strong> = typing.Dict<br>
+<strong>List</strong> = typing.List<br>
+<strong>Optional</strong> = typing.Optional<br>
+<strong>Type</strong> = typing.Type</td></tr></table>
+</body></html>

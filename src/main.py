@@ -1,8 +1,19 @@
+import os
 import sys
+import platform
 from typing import Optional, List, Any, Callable
 from model import *
 
 if __name__ == '__main__':
+    if platform.system() == 'Darwin':
+        import syslog
+        # macos logs:
+        os.chdir("/var/tmp/")
+        APP_NAME = 'Football'    
+        syslog.openlog(APP_NAME) # Define identifier for Mac Console Logging    
+        working_dir = 'Working dir: %s' % (os.getcwd()) # Record a message
+        syslog.syslog(syslog.LOG_ALERT, working_dir)
+
     # checking if TkInter is enable in environment
     try:
         import tkinter as tk
