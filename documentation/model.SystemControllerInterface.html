@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module model.SystemControllerInterface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="model.html"><font color="#ffffff">model</font></a>.SystemControllerInterface</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/luki/clients/uws/year_2/term2/wbl2/football/src/model/SystemControllerInterface.py">/Users/luki/clients/uws/year_2/term2/wbl2/football/src/model/SystemControllerInterface.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="model.SystemControllerInterface.html#SystemControllerInterface">SystemControllerInterface</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SystemControllerInterface">class <strong>SystemControllerInterface</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="SystemControllerInterface-calculateGroupPhaseSchedule"><strong>calculateGroupPhaseSchedule</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = True, *args, **kwargs) -&gt; bool</dt><dd><tt>Calculate&nbsp;group&nbsp;phase&nbsp;schedule.&nbsp;This&nbsp;method&nbsp;can&nbsp;be&nbsp;called&nbsp;only&nbsp;with&nbsp;referee&nbsp;rights&nbsp;account.<br>
+To&nbsp;calculate&nbsp;group&nbsp;phase&nbsp;schedule&nbsp;use&nbsp;the&nbsp;'Calculate&nbsp;Group&nbsp;Phase&nbsp;Schedule'&nbsp;sequence&nbsp;diagram.<br>
+When&nbsp;done&nbsp;correctly,&nbsp;in&nbsp;the&nbsp;database&nbsp;should&nbsp;be&nbsp;group&nbsp;records&nbsp;and&nbsp;every&nbsp;group&nbsp;phase&nbsp;games&nbsp;schedule&nbsp;saved.<br>
+Controller&nbsp;is&nbsp;transfering&nbsp;this&nbsp;call&nbsp;to&nbsp;@Schedule.<a href="#SystemControllerInterface-calculateGroupPhaseSchedule">calculateGroupPhaseSchedule</a>()<br>
+&nbsp;<br>
+References:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Group<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Schedule<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Schedule.<a href="#SystemControllerInterface-calculateGroupPhaseSchedule">calculateGroupPhaseSchedule</a>()</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-calculatePlayoffPhaseSchedule"><strong>calculatePlayoffPhaseSchedule</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = True, *args, **kwargs) -&gt; bool</dt><dd><tt>Calculate&nbsp;playoff&nbsp;phase&nbsp;schedule&nbsp;only&nbsp;if&nbsp;the&nbsp;group&nbsp;phase&nbsp;is&nbsp;already&nbsp;calculated.&nbsp;<br>
+This&nbsp;method&nbsp;can&nbsp;be&nbsp;called&nbsp;only&nbsp;with&nbsp;referee&nbsp;rights&nbsp;account.<br>
+To&nbsp;calculate&nbsp;playoff&nbsp;phase&nbsp;schedule&nbsp;use&nbsp;the&nbsp;'Calculate&nbsp;Playoff&nbsp;Phase&nbsp;Schedule'&nbsp;sequence&nbsp;diagram.<br>
+When&nbsp;done&nbsp;correctly,&nbsp;in&nbsp;the&nbsp;database&nbsp;should&nbsp;be&nbsp;every&nbsp;playoff&nbsp;game&nbsp;scheduled&nbsp;with&nbsp;NULL&nbsp;team1/2&nbsp;ID's&nbsp;<br>
+but&nbsp;with&nbsp;virtual&nbsp;team1/2&nbsp;completed&nbsp;for&nbsp;future&nbsp;games&nbsp;with&nbsp;unknown&nbsp;yes&nbsp;compatitors.<br>
+Controller&nbsp;is&nbsp;transfering&nbsp;this&nbsp;call&nbsp;to&nbsp;@Schedule.<a href="#SystemControllerInterface-calculatePlayoffPhaseSchedule">calculatePlayoffPhaseSchedule</a>()<br>
+&nbsp;<br>
+References:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Schedule<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Schedule.<a href="#SystemControllerInterface-calculateGroupPhaseSchedule">calculateGroupPhaseSchedule</a>()</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-changeUserRights"><strong>changeUserRights</strong></a>(self, embedded: bool = True)</dt><dd><tt>Change&nbsp;the&nbsp;rights&nbsp;for&nbsp;specific&nbsp;users.&nbsp;This&nbsp;call&nbsp;should&nbsp;be&nbsp;transferred&nbsp;to&nbsp;the&nbsp;User.changeUserRights&nbsp;method</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-changeUserRightsList"><strong>changeUserRightsList</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = False) -&gt; bool</dt><dd><tt>Creates&nbsp;list&nbsp;of&nbsp;user&nbsp;on&nbsp;screen&nbsp;with&nbsp;option&nbsp;to&nbsp;edit&nbsp;it.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data:&nbsp;not&nbsp;used<br>
+&nbsp;&nbsp;&nbsp;&nbsp;actions&nbsp;(Dict[str,Callable]):&nbsp;action&nbsp;list&nbsp;to&nbsp;send&nbsp;to&nbsp;dialog&nbsp;for&nbsp;manage&nbsp;behaviors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;embedded&nbsp;(bool,&nbsp;optional):&nbsp;not&nbsp;used.&nbsp;Defaults&nbsp;to&nbsp;False.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;_description_<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;_description_</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-clearForSchedule"><strong>clearForSchedule</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = True, *args, **kwargs) -&gt; bool</dt></dl>
+
+<dl><dt><a name="SystemControllerInterface-defineTeam"><strong>defineTeam</strong></a>(self, embeded: bool = True)</dt><dd><tt>Define&nbsp;team.&nbsp;This&nbsp;method&nbsp;can&nbsp;be&nbsp;called&nbsp;only&nbsp;with&nbsp;referee&nbsp;rights&nbsp;account.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-getRightsFromDb"><strong>getRightsFromDb</strong></a>(self, data, *args, **kwargs) -&gt; bool</dt><dd><tt>Transfer&nbsp;State,&nbsp;checks&nbsp;permissions&nbsp;with&nbsp;the&nbsp;database&nbsp;and&nbsp;returns&nbsp;result.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(Users):&nbsp;users&nbsp;data<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;successful,&nbsp;False&nbsp;otherwise</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-loginToApp"><strong>loginToApp</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = True)</dt><dd><tt>Classic&nbsp;login/password&nbsp;authentication.&nbsp;After&nbsp;the&nbsp;data&nbsp;are&nbsp;taken,&nbsp;the&nbsp;application&nbsp;have&nbsp;to&nbsp;check&nbsp;with&nbsp;database&nbsp;if&nbsp;access&nbsp;should&nbsp;be&nbsp;granted.<br>
+Additionally,&nbsp;the&nbsp;application&nbsp;keep&nbsp;the&nbsp;rights&nbsp;level&nbsp;for&nbsp;the&nbsp;account&nbsp;(user&nbsp;or&nbsp;referee&nbsp;rights&nbsp;account)<br>
+&nbsp;<br>
+-&nbsp;create&nbsp;new&nbsp;dialog&nbsp;window&nbsp;for&nbsp;getting:&nbsp;login,&nbsp;password&nbsp;(refer&nbsp;to&nbsp;UIAbstractInterface&nbsp;create&nbsp;new&nbsp;dialog)<br>
+-&nbsp;get&nbsp;rights&nbsp;from&nbsp;database&nbsp;(refer&nbsp;to&nbsp;DBAbstractInterface&nbsp;get&nbsp;rights&nbsp;from&nbsp;db)&nbsp;and&nbsp;show&nbsp;error&nbsp;message&nbsp;if&nbsp;access&nbsp;isn't&nbsp;granted&nbsp;then&nbsp;go&nbsp;back&nbsp;to&nbsp;login&nbsp;dialog<br>
+-&nbsp;update&nbsp;the&nbsp;login&nbsp;status&nbsp;(refer&nbsp;to&nbsp;SystemController&nbsp;loginStatus)<br>
+-&nbsp;start&nbsp;the&nbsp;application&nbsp;main&nbsp;screen&nbsp;with&nbsp;features&nbsp;access&nbsp;depending&nbsp;on&nbsp;the&nbsp;account&nbsp;rights</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-logoutFromAccount"><strong>logoutFromAccount</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = True)</dt><dd><tt>Logout&nbsp;from&nbsp;the&nbsp;current&nbsp;account.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-recordGamesData"><strong>recordGamesData</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = True, *args, **kwargs) -&gt; bool</dt><dd><tt>Record&nbsp;games&nbsp;data.&nbsp;This&nbsp;method&nbsp;can&nbsp;be&nbsp;called&nbsp;only&nbsp;with&nbsp;referee&nbsp;rights&nbsp;account.<br>
+Referee&nbsp;is&nbsp;updating&nbsp;the&nbsp;data&nbsp;of&nbsp;the&nbsp;game&nbsp;while&nbsp;there'are&nbsp;any&nbsp;changes&nbsp;like&nbsp;goals&nbsp;or&nbsp;yellow&nbsp;cards.<br>
+Follow&nbsp;the&nbsp;'Record&nbsp;games&nbsp;data'&nbsp;sequence&nbsp;diagram.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-recordGamesDataList"><strong>recordGamesDataList</strong></a>(self, data, actions: Dict[str, Callable], parentFrame: Any = None, *args, **kwargs) -&gt; bool</dt><dd><tt>Record&nbsp;games&nbsp;data.&nbsp;This&nbsp;method&nbsp;can&nbsp;be&nbsp;called&nbsp;only&nbsp;with&nbsp;referee&nbsp;rights&nbsp;account.<br>
+Referee&nbsp;is&nbsp;updating&nbsp;the&nbsp;data&nbsp;of&nbsp;the&nbsp;game&nbsp;while&nbsp;there'are&nbsp;any&nbsp;changes&nbsp;like&nbsp;goals&nbsp;or&nbsp;yellow&nbsp;cards.<br>
+Follow&nbsp;the&nbsp;'Record&nbsp;games&nbsp;data'&nbsp;sequence&nbsp;diagram.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-refereeEditTeamData"><strong>refereeEditTeamData</strong></a>(self, embedded: bool = True)</dt><dd><tt>Edit&nbsp;team&nbsp;data.&nbsp;This&nbsp;method&nbsp;can&nbsp;be&nbsp;called&nbsp;only&nbsp;with&nbsp;referee&nbsp;rights&nbsp;account.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-refereeEditTeamDataList"><strong>refereeEditTeamDataList</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = False) -&gt; bool</dt><dd><tt>Creates&nbsp;list&nbsp;of&nbsp;Team&nbsp;records&nbsp;on&nbsp;screen&nbsp;with&nbsp;option&nbsp;to&nbsp;edit&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-refereeMenu"><strong>refereeMenu</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = False, *args, **kwargs)</dt><dd><tt>Generates&nbsp;the&nbsp;application&nbsp;menu&nbsp;for&nbsp;referee&nbsp;rights<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;embedded&nbsp;(bool,&nbsp;optional):&nbsp;True&nbsp;shows&nbsp;dialog&nbsp;in&nbsp;modal&nbsp;window.&nbsp;Defaults&nbsp;to&nbsp;False.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-refereeResetApplicationData"><strong>refereeResetApplicationData</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = True, *args, **kwargs) -&gt; bool</dt><dd><tt>Reset&nbsp;application&nbsp;data.&nbsp;This&nbsp;method&nbsp;can&nbsp;be&nbsp;called&nbsp;only&nbsp;with&nbsp;referee&nbsp;rights&nbsp;account.<br>
+After&nbsp;this&nbsp;operation&nbsp;is&nbsp;completed,&nbsp;the&nbsp;database&nbsp;is&nbsp;completely&nbsp;cleared&nbsp;and&nbsp;the&nbsp;application&nbsp;works&nbsp;again&nbsp;like&nbsp;during&nbsp;the&nbsp;first&nbsp;run.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-registerAccount"><strong>registerAccount</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = False)</dt><dd><tt>User&nbsp;of&nbsp;referee&nbsp;register&nbsp;account.&nbsp;For&nbsp;empty&nbsp;database&nbsp;tables&nbsp;firstly&nbsp;created&nbsp;account&nbsp;is&nbsp;always&nbsp;with&nbsp;highest&nbsp;referee&nbsp;rights.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-saveAccount"><strong>saveAccount</strong></a>(self, data, *args, **kwargs) -&gt; bool</dt><dd><tt>Transfer&nbsp;State&nbsp;to&nbsp;save&nbsp;user&nbsp;data&nbsp;into&nbsp;the&nbsp;database.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(Users):&nbsp;users&nbsp;data&nbsp;to&nbsp;save&nbsp;into&nbsp;the&nbsp;database<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;not&nbsp;implemented<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;successful,&nbsp;False&nbsp;otherwise</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-saveEditedTeam"><strong>saveEditedTeam</strong></a>(self, data, *args, **kwargs)</dt><dd><tt>Saves&nbsp;team&nbsp;edited&nbsp;data&nbsp;with&nbsp;checking&nbsp;it&nbsp;before.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(Dict):&nbsp;dict&nbsp;of&nbsp;all&nbsp;the&nbsp;data&nbsp;after&nbsp;editing</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-saveGamesData"><strong>saveGamesData</strong></a>(self, data, *args, returnFlags, **kwargs) -&gt; bool</dt><dd><tt>Transfer&nbsp;State,&nbsp;check&nbsp;new&nbsp;Play&nbsp;data&nbsp;record&nbsp;and&nbsp;save&nbsp;it&nbsp;to&nbsp;the&nbsp;database<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(Dict[str,Any]):&nbsp;data&nbsp;dict&nbsp;for&nbsp;new&nbsp;Team&nbsp;<a href="builtins.html#object">object</a><br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;successful,&nbsp;False&nbsp;otherwise</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-saveTeam"><strong>saveTeam</strong></a>(self, data, *args, **kwargs) -&gt; bool</dt><dd><tt>Transfer&nbsp;State,&nbsp;check&nbsp;new&nbsp;Team&nbsp;record&nbsp;and&nbsp;save&nbsp;it&nbsp;to&nbsp;the&nbsp;database<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(Dict[str,Any]):&nbsp;data&nbsp;dict&nbsp;for&nbsp;new&nbsp;Team&nbsp;<a href="builtins.html#object">object</a><br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;successful,&nbsp;False&nbsp;otherwise</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-saveUserRightChanges"><strong>saveUserRightChanges</strong></a>(self, data, *args, **kwargs)</dt><dd><tt>Saves&nbsp;user&nbsp;edited&nbsp;data&nbsp;with&nbsp;checking&nbsp;it&nbsp;before.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(Dict):&nbsp;dict&nbsp;of&nbsp;all&nbsp;the&nbsp;data&nbsp;after&nbsp;editing</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-showMatchOrderGroupsStatus"><strong>showMatchOrderGroupsStatus</strong></a>(self)</dt><dd><tt>User&nbsp;or&nbsp;referee&nbsp;both&nbsp;can&nbsp;watch&nbsp;the&nbsp;current&nbsp;groups&nbsp;status&nbsp;of&nbsp;teams.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-showMatchOrderPlayOffTree"><strong>showMatchOrderPlayOffTree</strong></a>(self)</dt><dd><tt>User&nbsp;or&nbsp;referee&nbsp;both&nbsp;can&nbsp;watch&nbsp;the&nbsp;current&nbsp;play-off-tree&nbsp;status&nbsp;of&nbsp;teams.</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-teamsAmountLessThen16"><strong>teamsAmountLessThen16</strong></a>(self)</dt><dd><tt>Return&nbsp;True&nbsp;if&nbsp;the&nbsp;saved&nbsp;number&nbsp;of&nbsp;teams&nbsp;in&nbsp;the&nbsp;database&nbsp;is&nbsp;less&nbsp;then&nbsp;16</tt></dd></dl>
+
+<dl><dt><a name="SystemControllerInterface-userMenu"><strong>userMenu</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = False, *args, **kwargs)</dt><dd><tt>Generates&nbsp;the&nbsp;application&nbsp;menu&nbsp;for&nbsp;user&nbsp;rights<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;embedded&nbsp;(bool,&nbsp;optional):&nbsp;True&nbsp;shows&nbsp;dialog&nbsp;in&nbsp;modal&nbsp;window.&nbsp;Defaults&nbsp;to&nbsp;False.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>Any</strong> = typing.Any<br>
+<strong>Callable</strong> = typing.Callable<br>
+<strong>Dict</strong> = typing.Dict<br>
+<strong>Optional</strong> = typing.Optional</td></tr></table>
+</body></html>

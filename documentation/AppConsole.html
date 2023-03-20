@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module AppConsole</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>AppConsole</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/luki/clients/uws/year_2/term2/wbl2/football/src/ui/console/AppConsole.py">/Users/luki/clients/uws/year_2/term2/wbl2/football/src/ui/console/AppConsole.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="inspect.html">inspect</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="AppControlInterface.html#AppControlInterface">AppControlInterface.AppControlInterface</a>(<a href="AppAbstractInterface.html#AppAbstractInterface">AppAbstractInterface.AppAbstractInterface</a>, <a href="UIAbstractInterface.html#UIAbstractInterface">UIAbstractInterface.UIAbstractInterface</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="AppConsole.html#AppConsole">AppConsole</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="AppConsole">class <strong>AppConsole</strong></a>(<a href="AppControlInterface.html#AppControlInterface">AppControlInterface.AppControlInterface</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>#&nbsp;starting&nbsp;console&nbsp;UI&nbsp;helper&nbsp;class<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="AppConsole.html#AppConsole">AppConsole</a></dd>
+<dd><a href="AppControlInterface.html#AppControlInterface">AppControlInterface.AppControlInterface</a></dd>
+<dd><a href="AppAbstractInterface.html#AppAbstractInterface">AppAbstractInterface.AppAbstractInterface</a></dd>
+<dd><a href="UIAbstractInterface.html#UIAbstractInterface">UIAbstractInterface.UIAbstractInterface</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="AppConsole-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-chooseRecordFromList"><strong>chooseRecordFromList</strong></a>(self, table: Serialisable.Serialisable, filterFunc: Optional[Callable[[Any], List[Any]]] = None)</dt><dd><tt>Create&nbsp;a&nbsp;window&nbsp;with&nbsp;the&nbsp;list&nbsp;of&nbsp;records&nbsp;from&nbsp;chosen&nbsp;table&nbsp;and&nbsp;let&nbsp;the&nbsp;user&nbsp;select&nbsp;one&nbsp;of&nbsp;them.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;table&nbsp;(Serialisable):&nbsp;the&nbsp;class&nbsp;object&nbsp;inherited&nbsp;from&nbsp;the&nbsp;Serialisable&nbsp;class,&nbsp;representing&nbsp;the&nbsp;data&nbsp;in&nbsp;the&nbsp;table&nbsp;in&nbsp;the&nbsp;application&nbsp;database<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filterFunc&nbsp;(Callable[[Any],List[Any]],Optional):&nbsp;_description_<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;_description_</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-createDialogYesNo"><strong>createDialogYesNo</strong></a>(self, title, question)</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;asking&nbsp;the&nbsp;user&nbsp;for&nbsp;one&nbsp;of&nbsp;the&nbsp;answers:&nbsp;Yes&nbsp;or&nbsp;No.<br>
+User&nbsp;have&nbsp;to&nbsp;choose&nbsp;one&nbsp;option&nbsp;to&nbsp;close&nbsp;the&nbsp;window.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;(str):&nbsp;title&nbsp;of&nbsp;the&nbsp;window<br>
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;(str):&nbsp;message&nbsp;text</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-dialogForAppLoginOrRegister"><strong>dialogForAppLoginOrRegister</strong></a>(dataObj: Play.Play) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
+and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
+&nbsp;<br>
+dual&nbsp;tabs&nbsp;layout:<br>
+-&nbsp;"login&nbsp;to&nbsp;app"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;dialogForNewUser<br>
+-&nbsp;"register&nbsp;to&nbsp;app"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;dialogForNewUser<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataObj&nbsp;(Users):&nbsp;Users&nbsp;class&nbsp;instance<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;dialogForAppLoginOrRegister&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-dialogForEditPlay"><strong>dialogForEditPlay</strong></a>(dataObj: Play.Play) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
+and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
+&nbsp;<br>
+-&nbsp;team1GoalsScored&nbsp;(int)<br>
+-&nbsp;team2GoalsScored&nbsp;(int)<br>
+-&nbsp;team1GoalsMissed&nbsp;(int)<br>
+-&nbsp;team2GoalsMissed&nbsp;(int)<br>
+-&nbsp;team1YellowCards&nbsp;(int)<br>
+-&nbsp;team2YellowCards&nbsp;(int)<br>
+-&nbsp;isPlayCompleted&nbsp;(bool)<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataObj&nbsp;(Users):&nbsp;Users&nbsp;class&nbsp;instance<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;dialogForEditPlay&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-dialogForEditTeam"><strong>dialogForEditTeam</strong></a>(dataObj: Teams.Teams) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;edit&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
+and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
+&nbsp;<br>
+-&nbsp;name<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataObj&nbsp;(Teams):&nbsp;Teams&nbsp;class&nbsp;instance<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;dialogForEditTeam&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-dialogForNewTeam"><strong>dialogForNewTeam</strong></a>(dataObj: Teams.Teams) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
+and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
+&nbsp;<br>
+-&nbsp;teamID<br>
+-&nbsp;name<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataObj&nbsp;(Teams):&nbsp;Teams&nbsp;class&nbsp;instance<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;dialogForNewTeam&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-dialogForNewUser"><strong>dialogForNewUser</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
+and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
+&nbsp;<br>
+-&nbsp;login<br>
+-&nbsp;password<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataObj&nbsp;(Users):&nbsp;Users&nbsp;class&nbsp;instance<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;dialogForNewUser&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-displayStatisticsForGroupAndItsGamesScheduled"><strong>displayStatisticsForGroupAndItsGamesScheduled</strong></a>(self, dataStruct: List[GroupWithGamesScheduled.GroupWithGamesScheduled])</dt><dd><tt>_summary_<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataStruct&nbsp;(List[GroupWithGamesScheduled]):&nbsp;_description_<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;_description_</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-displayStatisticsForPlayoffScheduledGames"><strong>displayStatisticsForPlayoffScheduledGames</strong></a>(self, dataStruct: List[SchedulesWithPlay.SchedulesWithPlay])</dt><dd><tt>_summary_<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataStruct&nbsp;(List[SchedulesWithPlay]):&nbsp;_description_<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;_description_</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-inputDataFromUser"><strong>inputDataFromUser</strong></a>(self)</dt><dd><tt>Hand&nbsp;out&nbsp;the&nbsp;control&nbsp;of&nbsp;window&nbsp;UI&nbsp;and&nbsp;all&nbsp;created&nbsp;widgets&nbsp;to&nbsp;user&nbsp;for&nbsp;waiting&nbsp;for&nbsp;they&nbsp;answer.</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-refereeDialogForNewUser"><strong>refereeDialogForNewUser</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
+and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
+&nbsp;<br>
+-&nbsp;login<br>
+-&nbsp;password<br>
+-&nbsp;rights&nbsp;(AccountRights)<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataObj&nbsp;(Users):&nbsp;Users&nbsp;class&nbsp;instance<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;refereeDialogForNewUser&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-refereeDialogForUserRights"><strong>refereeDialogForUserRights</strong></a>(dataObj: Users.Users) -&gt; bool</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;controls&nbsp;for&nbsp;input&nbsp;new&nbsp;data&nbsp;fields&nbsp;matching&nbsp;the&nbsp;dataObj&nbsp;class&nbsp;instance&nbsp;fields.<br>
+Eventually&nbsp;the&nbsp;dialog&nbsp;set&nbsp;all&nbsp;required&nbsp;dataObj&nbsp;fields&nbsp;(sent&nbsp;by&nbsp;references)&nbsp;with&nbsp;the&nbsp;user&nbsp;specified&nbsp;values&nbsp;<br>
+and&nbsp;return&nbsp;True&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;confirmed&nbsp;or&nbsp;False&nbsp;otherwise.<br>
+&nbsp;<br>
+-&nbsp;rights&nbsp;(AccountRights)<br>
+-&nbsp;password<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataObj&nbsp;(Users):&nbsp;Users&nbsp;class&nbsp;instance<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;refereeDialogForUserRights&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-setSystemController"><strong>setSystemController</strong></a>(self, systemController)</dt></dl>
+
+<dl><dt><a name="AppConsole-showErrorMessage"><strong>showErrorMessage</strong></a>(self, title, message)</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;error&nbsp;message.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;(str):&nbsp;title&nbsp;of&nbsp;the&nbsp;window<br>
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;(str):&nbsp;message&nbsp;text</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-showInfoMessage"><strong>showInfoMessage</strong></a>(self, title, message)</dt><dd><tt>Showing&nbsp;new&nbsp;modal&nbsp;window&nbsp;on&nbsp;screen&nbsp;designed&nbsp;for&nbsp;information&nbsp;message.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;(str):&nbsp;title&nbsp;of&nbsp;the&nbsp;window<br>
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;(str):&nbsp;message&nbsp;text</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-startApplicationLoop"><strong>startApplicationLoop</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="AppAbstractInterface.html#AppAbstractInterface">AppAbstractInterface.AppAbstractInterface</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="UIAbstractInterface.html#UIAbstractInterface">UIAbstractInterface.UIAbstractInterface</a>:<br>
+<dl><dt><a name="AppConsole-clearMainCanvas"><strong>clearMainCanvas</strong></a>(self)</dt><dd><tt>Do&nbsp;clear&nbsp;the&nbsp;main&nbsp;canvas&nbsp;before&nbsp;replacing&nbsp;the&nbsp;view&nbsp;with&nbsp;widgets.</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-convertJustifyToUI"><strong>convertJustifyToUI</strong></a>(self, justify: ColumnStyle.JustifyEnum) -&gt; Any</dt><dd><tt>Convert&nbsp;JustifyEnum&nbsp;value&nbsp;to&nbsp;UI&nbsp;specific&nbsp;representation</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-destroyMainFrame"><strong>destroyMainFrame</strong></a>(self)</dt><dd><tt>Destroy&nbsp;the&nbsp;main&nbsp;window&nbsp;and&nbsp;the&nbsp;application.</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-getMainCanvasFrame"><strong>getMainCanvasFrame</strong></a>(self) -&gt; Any</dt><dd><tt>return&nbsp;the&nbsp;main&nbsp;canvas&nbsp;frame&nbsp;for&nbsp;use&nbsp;to&nbsp;application&nbsp;dialogs.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;UI&nbsp;frame&nbsp;type:&nbsp;return&nbsp;current&nbsp;UI&nbsp;handle&nbsp;to&nbsp;main&nbsp;canvas&nbsp;frame&nbsp;for&nbsp;use&nbsp;to&nbsp;application&nbsp;dialogs</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-getMainFrame"><strong>getMainFrame</strong></a>(self) -&gt; Any</dt><dd><tt>Return&nbsp;the&nbsp;tkinter&nbsp;main&nbsp;window&nbsp;frame&nbsp;reference.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;getMainFrame&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-modalDialog"><strong>modalDialog</strong></a>(self, title: str, fun: Callable, data: Dict[str, Any], actions: Dict[str, Callable], parentFrame: Any = None, checkFun: Optional[Callable[[Dict], bool]] = None, *args, **kwargs)</dt><dd><tt>Create&nbsp;a&nbsp;modal&nbsp;dialog&nbsp;with&nbsp;visual&nbsp;controls&nbsp;generated&nbsp;by&nbsp;given&nbsp;wireframes&nbsp;method,&nbsp;actions&nbsp;procedures&nbsp;and&nbsp;check&nbsp;data&nbsp;function<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;(str):&nbsp;window&nbsp;title<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fun&nbsp;(Callable):&nbsp;wireframe&nbsp;function&nbsp;to&nbsp;generate&nbsp;visual&nbsp;controls<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(Dict[str,Any]):&nbsp;incoming&nbsp;data&nbsp;for&nbsp;generated&nbsp;visual&nbsp;controls&nbsp;as&nbsp;dictionary<br>
+&nbsp;&nbsp;&nbsp;&nbsp;actions&nbsp;(Dict[str,Callable]):&nbsp;named&nbsp;actions&nbsp;Dict&nbsp;with&nbsp;handlers&nbsp;to&nbsp;call&nbsp;to&nbsp;cover&nbsp;specific&nbsp;behavior<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parentFrame&nbsp;(Any,&nbsp;optional):&nbsp;UI&nbsp;specific&nbsp;window&nbsp;frame&nbsp;handler&nbsp;to&nbsp;connect&nbsp;to&nbsp;for&nbsp;dialog.&nbsp;Defaults&nbsp;to&nbsp;None.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;checkFun&nbsp;(Optional[Callable[[Dict],bool]],&nbsp;optional):&nbsp;function&nbsp;to&nbsp;check&nbsp;results&nbsp;data&nbsp;from&nbsp;dialog&nbsp;before&nbsp;it&nbsp;will&nbsp;be&nbsp;closed.&nbsp;Defaults&nbsp;to&nbsp;None.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;_description_</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-refereeMenu"><strong>refereeMenu</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = False, *args, **kwargs)</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;application&nbsp;menu&nbsp;with&nbsp;user&nbsp;rights:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;change&nbsp;user&nbsp;rights<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;edit&nbsp;team&nbsp;data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;define&nbsp;teams<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;record&nbsp;games&nbsp;data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;reset&nbsp;application&nbsp;data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;show&nbsp;match&nbsp;order&nbsp;groups&nbsp;status<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;show&nbsp;match&nbsp;order&nbsp;playoff&nbsp;tree<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;register&nbsp;account<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;method&nbsp;defined</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-refreshMainWindowView"><strong>refreshMainWindowView</strong></a>(self, login: str, rights: AccountRights.AccountRights)</dt><dd><tt>The&nbsp;rights&nbsp;changed&nbsp;event&nbsp;handler&nbsp;which&nbsp;is&nbsp;called&nbsp;every&nbsp;time&nbsp;when&nbsp;current&nbsp;account&nbsp;rights&nbsp;of&nbsp;the&nbsp;user&nbsp;are&nbsp;changed&nbsp;to&nbsp;rebuild&nbsp;the&nbsp;UI&nbsp;interface.</tt></dd></dl>
+
+<dl><dt><a name="AppConsole-userMenu"><strong>userMenu</strong></a>(self, data, actions: Dict[str, Callable], embedded: bool = False, *args, **kwargs)</dt><dd><tt>Create&nbsp;dialog&nbsp;window&nbsp;with&nbsp;application&nbsp;menu&nbsp;with&nbsp;user&nbsp;rights:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;show&nbsp;match&nbsp;order&nbsp;groups&nbsp;status<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;show&nbsp;match&nbsp;order&nbsp;playoff&nbsp;tree<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;register&nbsp;account<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ExceptionUIAbstractInterface:&nbsp;no&nbsp;method&nbsp;defined</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>Any</strong> = typing.Any<br>
+<strong>Callable</strong> = typing.Callable<br>
+<strong>List</strong> = typing.List<br>
+<strong>Optional</strong> = typing.Optional</td></tr></table>
+</body></html>
